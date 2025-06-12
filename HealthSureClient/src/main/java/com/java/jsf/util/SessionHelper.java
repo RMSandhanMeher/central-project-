@@ -1,6 +1,7 @@
 package com.java.jsf.util;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 
 public class SessionHelper {
@@ -8,7 +9,7 @@ public class SessionHelper {
  
     static {
         try {
-            sessionFactory = new Configuration()
+            sessionFactory = new AnnotationConfiguration()
                 .configure() // loads hibernate.cfg.xml
                 .buildSessionFactory();
         } catch (Throwable ex) {

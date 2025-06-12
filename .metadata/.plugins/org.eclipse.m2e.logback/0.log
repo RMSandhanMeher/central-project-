@@ -870,3 +870,5 @@
 2025-06-12 19:01:55,942 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
 2025-06-12 19:06:16,344 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\main\resources
 2025-06-12 19:06:16,345 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
+2025-06-12 19:14:01,383 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\main\resources
+2025-06-12 19:14:01,385 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
