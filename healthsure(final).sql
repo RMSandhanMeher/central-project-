@@ -132,6 +132,57 @@ CREATE TABLE Appointment (
     FOREIGN KEY (availability_id) REFERENCES doctor_availability(availability_id),
     FOREIGN KEY (provider_id) REFERENCES providers(provider_id)
 );
+-- ........................................................................................................
+
+-- procedure and prescription ( nirmalya satapathy )
+
+CREATE TABLE medical_procedure (									
+    procedure_id      VARCHAR(20) PRIMARY KEY,
+    appointment_id    VARCHAR(20) NOT NULL,
+    h_id         VARCHAR(20) NOT NULL,
+    provider_id       VARCHAR(20) NOT NULL,
+    doctor_id 		 VARCHAR(20) NOT NULL,
+    procedure_date   DATE NOT NULL,
+    diagnosis        TEXT NOT NULL,
+    recommendations  TEXT,
+    from_date       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    to_date       TIMESTAMP ,
+    created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (appointment_id) REFERENCES appointment(appointment_id),
+    FOREIGN KEY (h_id) REFERENCES recipient(h_id),
+	FOREIGN KEY (provider_id) REFERENCES Providers(provider_id),
+	FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+);
+
+CREATE TABLE procedure_test (
+    test_id         VARCHAR(20) PRIMARY KEY,
+    procedure_id    VARCHAR(20) NOT NULL,
+    test_name       VARCHAR(100) NOT NULL,
+    test_date       DATE NOT NULL,
+    result_summary  TEXT,
+    status          VARCHAR(50) DEFAULT 'Completed',
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (procedure_id) REFERENCES medical_procedure(procedure_id)
+);
+ 
+CREATE TABLE prescription (
+    prescription_id  VARCHAR(20) PRIMARY KEY,
+    procedure_id      VARCHAR(20) NOT NULL,
+    h_id         VARCHAR(20) NOT NULL,
+    provider_id       VARCHAR(20) NOT NULL,
+	doctor_id 		 VARCHAR(20) NOT NULL,
+    medicine_name     VARCHAR(255) NOT NULL,
+    dosage            VARCHAR(100),
+    duration          VARCHAR(100),
+    notes             TEXT,
+	written_on		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (procedure_id) REFERENCES medical_procedure(procedure_id),
+	FOREIGN KEY (h_id) REFERENCES recipient(h_id),
+	FOREIGN KEY (provider_id) REFERENCES Providers(provider_id),
+	FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+);
+
 
 -- .............................................................................................................
 -- pharmacy management (Anantha kumar Swain)
@@ -230,58 +281,6 @@ CREATE TABLE Pharmacy_Otp (
     expires_at DATETIME NOT NULL,
     FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
 );
-
--- ........................................................................................................
-
--- procedure and prescription ( nirmalya satapathy )
-
-CREATE TABLE medical_procedure (									
-    procedure_id      VARCHAR(20) PRIMARY KEY,
-    appointment_id    VARCHAR(20) NOT NULL,
-    h_id         VARCHAR(20) NOT NULL,
-    provider_id       VARCHAR(20) NOT NULL,
-    doctor_id 		 VARCHAR(20) NOT NULL,
-    procedure_date   DATE NOT NULL,
-    diagnosis        TEXT NOT NULL,
-    recommendations  TEXT,
-    from_date       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    to_date       TIMESTAMP ,
-    created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (appointment_id) REFERENCES appointment(appointment_id),
-    FOREIGN KEY (h_id) REFERENCES recipient(h_id),
-	FOREIGN KEY (provider_id) REFERENCES Providers(provider_id),
-	FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
-);
-
-CREATE TABLE procedure_test (
-    test_id         VARCHAR(20) PRIMARY KEY,
-    procedure_id    VARCHAR(20) NOT NULL,
-    test_name       VARCHAR(100) NOT NULL,
-    test_date       DATE NOT NULL,
-    result_summary  TEXT,
-    status          VARCHAR(50) DEFAULT 'Completed',
-    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (procedure_id) REFERENCES medical_procedure(procedure_id)
-);
- 
-CREATE TABLE prescription (
-    prescription_id  VARCHAR(20) PRIMARY KEY,
-    procedure_id      VARCHAR(20) NOT NULL,
-    h_id         VARCHAR(20) NOT NULL,
-    provider_id       VARCHAR(20) NOT NULL,
-	doctor_id 		 VARCHAR(20) NOT NULL,
-    medicine_name     VARCHAR(255) NOT NULL,
-    dosage            VARCHAR(100),
-    duration          VARCHAR(100),
-    notes             TEXT,
-	written_on		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (procedure_id) REFERENCES medical_procedure(procedure_id),
-	FOREIGN KEY (h_id) REFERENCES recipient(h_id),
-	FOREIGN KEY (provider_id) REFERENCES Providers(provider_id),
-	FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
-);
-
  
 -- ........................................................................................................
 -- insurance (Ravikant Turi)
