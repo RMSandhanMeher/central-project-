@@ -132,93 +132,6 @@ CREATE TABLE Appointment (
     FOREIGN KEY (availability_id) REFERENCES doctor_availability(availability_id),
     FOREIGN KEY (provider_id) REFERENCES providers(provider_id)
 );
-
--- .............................................................................................................
--- pharmacy management (Anantha kumar Swain)
-CREATE TABLE Pharmacy (
-    pharmacy_id VARCHAR(10) PRIMARY KEY,
-    pharmacy_name VARCHAR(100) NOT NULL,
-    contact_no VARCHAR(15) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    password VARCHAR(45) NOT NULL,
-    created_at DATE NOT NULL,
-    state VARCHAR(50) NOT NULL,
-    city VARCHAR(100) NOT NULL,
-    license_no VARCHAR(20) NOT NULL,
-    status VARCHAR(20) NOT NULL
-);
- 
-CREATE TABLE Medicines (
-    medicine_id VARCHAR(10) PRIMARY KEY,
-    medicine_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    quantity_in_stock INT NOT NULL,
-    expiry_date DATE NOT NULL,
-    unit_price DOUBLE NOT NULL,
-    pharmacy_id VARCHAR(10) NOT NULL,
-    purpose VARCHAR(100) NOT NULL,
-    batch_no VARCHAR(20) NOT NULL,
-    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
-);
- 
-CREATE TABLE Pharmacists (
-    pharmacist_id VARCHAR(10) PRIMARY KEY,
-    pharmacist_name VARCHAR(100) NOT NULL,
-    phone_no VARCHAR(15) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    pharmacy_id VARCHAR(10) NOT NULL,
-    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
-);
- 
-CREATE TABLE Dispensed_Medicines (
-    dispense_id VARCHAR(10) PRIMARY KEY,
-    medicine_id VARCHAR(10) NOT NULL,
-    quantity_dispensed INT NOT NULL,
-    dispense_date DATE NOT NULL,
-    pharmacist_id VARCHAR(10) NOT NULL,
-    pharmacy_id VARCHAR(10) NOT NULL,
-    FOREIGN KEY (medicine_id) REFERENCES Medicines(medicine_id),
-    FOREIGN KEY (pharmacist_id) REFERENCES Pharmacists(pharmacist_id),
-    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
-);
- 
-CREATE TABLE Equipment (
-    equipment_id VARCHAR(10) PRIMARY KEY,
-    equipment_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    quantity INT NOT NULL,
-    unit_price DOUBLE NOT NULL,
-    purpose VARCHAR(100) NOT NULL,
-    purchase_date DATE NOT NULL,
-    pharmacy_id VARCHAR(10) NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
-);
- 
-CREATE TABLE Dispensed_Equipments (
-    dispensed_equip_id VARCHAR(10) PRIMARY KEY,
-    equipment_id VARCHAR(10) NOT NULL,
-    quantity_dispensed INT NOT NULL,
-    dispense_date DATE NOT NULL,
-    pharmacist_id VARCHAR(10) NOT NULL,
-    pharmacy_id VARCHAR(10) NOT NULL,
-    FOREIGN KEY (equipment_id) REFERENCES Equipment(equipment_id),
-    FOREIGN KEY (pharmacist_id) REFERENCES Pharmacists(pharmacist_id),
-    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
-);
- 
-CREATE TABLE Pharmacy_Otp (
-    otp_id INT AUTO_INCREMENT PRIMARY KEY,
-    pharmacy_id VARCHAR(20) NOT NULL,
-    otp_code VARCHAR(6) NOT NULL,
-    purpose ENUM('REGISTER', 'FORGOT_PASSWORD') NOT NULL,
-    new_password VARCHAR(255),
-    status ENUM('PENDING', 'VERIFIED', 'EXPIRED') NOT NULL DEFAULT 'PENDING',
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    expires_at DATETIME NOT NULL,
-    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
-);
-
 -- ........................................................................................................
 
 -- procedure and prescription ( nirmalya satapathy )
@@ -270,6 +183,104 @@ CREATE TABLE prescription (
 	FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
 );
 
+
+-- .............................................................................................................
+-- pharmacy management (Anantha kumar Swain)
+CREATE TABLE Pharmacy (
+    pharmacy_id VARCHAR(10) PRIMARY KEY,
+    pharmacy_name VARCHAR(100) NOT NULL,
+    contact_no VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(45) NOT NULL,
+    created_at DATE NOT NULL,
+    state VARCHAR(50) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    license_no VARCHAR(20) NOT NULL,
+    status VARCHAR(20) NOT NULL
+);
+ 
+CREATE TABLE Medicines (
+    medicine_id VARCHAR(10) PRIMARY KEY,
+    medicine_name VARCHAR(100) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    quantity_in_stock INT NOT NULL,
+    expiry_date DATE NOT NULL,
+    unit_price DOUBLE NOT NULL,
+    pharmacy_id VARCHAR(10) NOT NULL,
+    purpose VARCHAR(100) NOT NULL,
+    batch_no VARCHAR(20) NOT NULL,
+    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
+);
+ 
+CREATE TABLE Pharmacists (
+    pharmacist_id VARCHAR(10) PRIMARY KEY,
+    pharmacist_name VARCHAR(100) NOT NULL,
+    phone_no VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    pharmacy_id VARCHAR(10) NOT NULL,
+    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
+);
+ 
+CREATE TABLE Dispensed_Medicines (
+    dispense_id VARCHAR(10) PRIMARY KEY,
+    medicine_id VARCHAR(10) NOT NULL,
+    quantity_dispensed INT NOT NULL,
+    dispense_date DATE NOT NULL,
+    prescription_id varchar(10) Not Null,
+    doctor_id VARCHAR(10) NOT NULL,
+    h_id VARCHAR(10) NOT NULL,
+    pharmacist_id VARCHAR(10) NOT NULL,
+    pharmacy_id VARCHAR(10) NOT NULL,
+    FOREIGN KEY (prescription_id) REFERENCES prescription(prescription_id),
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id),
+    FOREIGN KEY (h_id) REFERENCES Recipient(h_id),
+    FOREIGN KEY (medicine_id) REFERENCES Medicines(medicine_id),
+    FOREIGN KEY (pharmacist_id) REFERENCES Pharmacists(pharmacist_id),
+    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
+);
+ 
+CREATE TABLE Equipment (
+    equipment_id VARCHAR(10) PRIMARY KEY,
+    equipment_name VARCHAR(100) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DOUBLE NOT NULL,
+    purpose VARCHAR(100) NOT NULL,
+    purchase_date DATE NOT NULL,
+    pharmacy_id VARCHAR(10) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
+);
+ 
+CREATE TABLE Dispensed_Equipments (
+    dispensed_equip_id VARCHAR(10) PRIMARY KEY,
+    equipment_id VARCHAR(10) NOT NULL,
+    quantity_dispensed INT NOT NULL,
+    dispense_date DATE NOT NULL,
+    prescription_id varchar(10) Not Null,
+    doctor_id VARCHAR(10) NOT NULL,
+    h_id VARCHAR(10) NOT NULL,
+    pharmacist_id VARCHAR(10) NOT NULL,
+    pharmacy_id VARCHAR(10) NOT NULL,
+    FOREIGN KEY (prescription_id) REFERENCES prescription(prescription_id),
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id),
+    FOREIGN KEY (h_id) REFERENCES Recipient(h_id),
+    FOREIGN KEY (equipment_id) REFERENCES Equipment(equipment_id),
+    FOREIGN KEY (pharmacist_id) REFERENCES Pharmacists(pharmacist_id),
+    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
+);
+ 
+CREATE TABLE Pharmacy_Otp (
+    otp_id INT AUTO_INCREMENT PRIMARY KEY,
+    pharmacy_id VARCHAR(20) NOT NULL,
+    otp_code VARCHAR(6) NOT NULL,
+    purpose ENUM('REGISTER', 'FORGOT_PASSWORD') NOT NULL,
+    new_password VARCHAR(255),
+    status ENUM('PENDING', 'VERIFIED', 'EXPIRED') NOT NULL DEFAULT 'PENDING',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    FOREIGN KEY (pharmacy_id) REFERENCES Pharmacy(pharmacy_id)
+);
  
 -- ........................................................................................................
 -- insurance (Ravikant Turi)
