@@ -1,10 +1,10 @@
-#Wed Jun 11 14:42:38 IST 2025
+#Thu Jun 12 14:54:37 IST 2025
 a=installed
-c=1
+c=0
 cl=AS-CDI-HIBERNATE-MAVEN-RUNTIME-VPE
 cmp=usage
 ct=jbt
-d=1749633158320
+d=1749720277497
 l=Installed plugins\: AS-CDI-HIBERNATE-MAVEN-RUNTIME-VPE
 s=0
 v=2.3.100
