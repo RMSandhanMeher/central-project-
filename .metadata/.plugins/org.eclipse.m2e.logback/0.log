@@ -872,3 +872,11 @@
 2025-06-12 19:06:16,345 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
 2025-06-12 19:14:01,383 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\main\resources
 2025-06-12 19:14:01,385 [Worker-103: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
+2025-06-12 19:26:36,382 [Worker-100: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\main\resources
+2025-06-12 19:26:36,384 [Worker-100: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
+2025-06-12 19:26:40,315 [Worker-92: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\main\resources
+2025-06-12 19:26:40,317 [Worker-92: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
+2025-06-12 19:26:45,948 [Worker-100: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\main\resources
+2025-06-12 19:26:45,949 [Worker-100: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\JavaTraining\HealthSure\HealthSureClient\src\test\resources
+2025-06-13 11:06:27,748 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-06-13 11:07:06,848 [Worker-13: Building] WARN  o.a.m.r.i.DefaultArtifactDescriptorReader - 1 problem was encountered while building the effective model for org.javassist:javassist:jar:3.18.1-GA during dependency collection step for project (use -X to see details)

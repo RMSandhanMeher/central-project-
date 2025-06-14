@@ -291,9 +291,10 @@
         <!-- Contact Info -->
         <div class="footer-contact">
             <h4>Contact Us</h4>
-            <p>Email: support@healthsure.com</p>
-            <p>Phone: +91 99999 99999</p>
-            <p>Location: Bengaluru, India</p>
+            <p><i class="fas fa-map-marker-alt"></i> 123 HealthSure Street, Bengaluru, India</p>
+	        <p><i class="fas fa-envelope"></i> support@healthsure.com</p>
+	        <p><i class="fas fa-phone-alt"></i> +91 99999 99999</p>
+	        <p><i class="fas fa-clock"></i> Mon–Sat: 9AM – 8PM</p>
         </div>
 
         <!-- Social Icons -->
