@@ -4,13 +4,13 @@
 <nav id="navbar" class="navbar navbar-transparent">
     <div class="navbar-container">
 
-        <!-- LEFT: LOGO + NAME -->
+        <!-- LOGO + NAME -->
         <div class="navbar-logo">
             <img src="resources/media/images/Logo.jpg" alt="Apollo Logo" class="logo-img"/>
             <span class="brand-name">HealthSure</span>
         </div>
 
-        <!-- CENTER: NAV LINKS -->
+        <!-- NAV LINKS -->
         <ul class="nav-links">
             <li><a href="#home" class="nav-link">Home</a></li>
             <li><a href="#departments" class="nav-link">Departments</a></li>
@@ -19,7 +19,7 @@
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
 
-        <!-- RIGHT: LOGIN + SIGNUP -->
+        <!-- LOGIN + SIGNUP -->
         <div class="auth-buttons">
 
             <!-- LOGIN -->

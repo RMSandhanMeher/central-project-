@@ -14,10 +14,10 @@
 <body class="light-mode">
 <f:view>
 
-    <!-- ✅ INCLUDE NAVBAR SAFELY -->
+    <!-- INCLUDE NAVBAR -->
     <jsp:include page="Navbar.jsp" />
 
-    <!-- ✅ FULLSCREEN VIDEO SECTION -->
+    <!-- FULLSCREEN VIDEO SECTION -->
     <section id="home" class="fullscreen-video-container">
         <video autoplay muted loop class="fullscreen-video">
             <source src="resources/media/videos/videoplayback.mp4" type="video/mp4"/>
@@ -36,6 +36,7 @@
 		</div>
     </section>
     
+    <!-- DEPARTMENTS SECTION -->
     <section id="departments" class="section">
 	<h2 class="section-title">Our Departments</h2>
     
@@ -63,9 +64,6 @@
             <h3>Pediatrics</h3>
             <p>Dedicated to the health and wellness of infants, children, and adolescents.</p>
         </div>
-        
-        <!-- ................................................................................ -->
-        
         
         <div class="department-card">
             <img src="resources/media/images/departments/gynecology.png" alt="Gynecology" class="department-icon"/>
@@ -117,7 +115,7 @@
     </div>
 	</section>
 		
-	<!-- ✅ DOCTORS SECTION -->
+	<!-- DOCTORS SECTION -->
 	<section id="doctors" class="section slide-up">
 	    <h2 class="section-title">Our Doctors</h2>
 	
@@ -173,7 +171,7 @@
 	    </div>
 	</section>
 	
-	<!-- ✅ ABOUT US SECTION -->
+	<!-- ABOUT US SECTION -->
 	<section id="aboutus" class="section slide-up">
 	    <h2 class="section-title">About Us</h2>
 	    
@@ -205,7 +203,7 @@
 	        </div>
 	    </div>
 	
-	    <!-- 🌟 Features with Icons -->
+	    <!-- ACHIEVEMENTS -->
 	    <div class="about-features">
 	        <div class="feature-item">
 	            <img src="resources/media/images/certificate.png" alt="Certified" class="feature-icon" />
@@ -225,7 +223,7 @@
 	    </div>
 	</section>
 
-	<!-- ✅ CONTACT SECTION -->
+	<!-- CONTACT SECTION -->
 	<section id="contact" class="section contact-section slide-up">
 	    <h2 class="section-title">Contact Us</h2>
 	    <p class="section-content">We’re here to answer your questions, assist with appointments, or hear your feedback!</p>
@@ -267,7 +265,7 @@
 </f:view>
 </body>
 
-<!-- ✅ FOOTER -->
+<!-- FOOTER -->
 <footer class="footer">
     <div class="footer-container">
         <!-- Brand Info -->
