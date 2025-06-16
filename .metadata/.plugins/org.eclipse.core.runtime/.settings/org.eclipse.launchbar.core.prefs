@@ -2,7 +2,7 @@ LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.wst.server,Tomcat\ v8.5\ Server\ at\ localhost/name=Tomcat v8.5 Server at localhost
-configDescList=org.jboss.tools.wtp.server.launchbar.ModuleDescriptorType\:HealthSureEjb,org.eclipse.launchbar.core.descriptorType.default\:HealthSureClient,org.eclipse.launchbar.core.descriptorType.default\:ConnectionTest,org.jboss.tools.wtp.server.launchbar.ModuleDescriptorType\:HealthSureClient,org.jboss.tools.wtp.server.launchbar.ModuleDescriptorType\:/Home.jsp,org.eclipse.launchbar.core.descriptorType.default\:Tomcat v8.5 Server at localhost
+configDescList=org.jboss.tools.wtp.server.launchbar.ModuleDescriptorType\:HealthSureEjb,org.eclipse.launchbar.core.descriptorType.default\:HealthSureClient,org.eclipse.launchbar.core.descriptorType.default\:ConnectionTest,org.jboss.tools.wtp.server.launchbar.ModuleDescriptorType\:/Home.jsp,org.eclipse.launchbar.core.descriptorType.default\:Tomcat v8.5 Server at localhost,org.jboss.tools.wtp.server.launchbar.ModuleDescriptorType\:HealthSureClient
 eclipse.preferences.version=1
 org.eclipse.launchbar.core.descriptorType.default\:ConnectionTest/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:ConnectionTest/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
