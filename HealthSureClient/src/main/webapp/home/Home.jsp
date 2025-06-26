@@ -7,20 +7,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to HMS</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/HealthSureClient/resources/css/style.css" />
 </head>
 
 <body class="light-mode">
 <f:view>
 
     <!-- INCLUDE NAVBAR -->
-    <jsp:include page="Navbar.jsp" />
+    <jsp:include page="/navbar/Navbar.jsp" />
 
     <!-- FULLSCREEN VIDEO SECTION -->
     <section id="home" class="fullscreen-video-container">
         <video autoplay muted loop class="fullscreen-video">
-            <source src="resources/media/videos/videoplayback.mp4" type="video/mp4"/>
+            <source src="/HealthSureClient/resources/media/videos/videoplayback.mp4" type="video/mp4"/>
             <h:outputText value="Your browser does not support the video tag."/>
         </video>
 
@@ -42,73 +41,73 @@
     
     <div class="departments-container">
         <div class="department-card">
-            <img src="resources/media/images/departments/cardiology.png" alt="Cardiology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/cardiology.png" alt="Cardiology" class="department-icon"/>
             <h3>Cardiology</h3>
             <p>Advanced care for heart-related conditions including diagnostics, surgery, and rehabilitation.</p>
         </div>
         
         <div class="department-card">
-            <img src="resources/media/images/departments/neorology.png" alt="Neurology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/neorology.png" alt="Neurology" class="department-icon"/>
             <h3>Neurology</h3>
             <p>Specialized treatment for disorders of the brain, spinal cord, and nervous system.</p>
         </div>
         
         <div class="department-card">
-            <img src="resources/media/images/departments/arthopedics.png" alt="Orthopedics" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/arthopedics.png" alt="Orthopedics" class="department-icon"/>
             <h3>Orthopedics</h3>
             <p>Comprehensive care for bones, joints, and muscles including surgeries and physical therapy.</p>
         </div>
         
         <div class="department-card">
-            <img src="resources/media/images/departments/pediatrics.png" alt="Pediatrics" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/pediatrics.png" alt="Pediatrics" class="department-icon"/>
             <h3>Pediatrics</h3>
             <p>Dedicated to the health and wellness of infants, children, and adolescents.</p>
         </div>
         
         <div class="department-card">
-            <img src="resources/media/images/departments/gynecology.png" alt="Gynecology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/gynecology.png" alt="Gynecology" class="department-icon"/>
             <h3>Gynecology</h3>
             <p>Specialized care for women’s reproductive health, pregnancy, and childbirth services.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/dermatology.png" alt="Dermatology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/dermatology.png" alt="Dermatology" class="department-icon"/>
             <h3>Dermatology</h3>
             <p>Diagnosis and treatment of skin, hair, and nail disorders, including cosmetic dermatology.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/ent.png" alt="ENT" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/ent.png" alt="ENT" class="department-icon"/>
             <h3>ENT</h3>
             <p>Comprehensive care for ear, nose, and throat conditions, including sinus and voice disorders.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/oncology.png" alt="Oncology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/oncology.png" alt="Oncology" class="department-icon"/>
             <h3>Oncology</h3>
             <p>Cutting-edge cancer care through chemotherapy, radiation, surgery, and targeted therapy.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/nephrology.png" alt="Nephrology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/nephrology.png" alt="Nephrology" class="department-icon"/>
             <h3>Nephrology</h3>
             <p>Expert care for kidney diseases, dialysis services, and transplant follow-up.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/urology.png" alt="Urology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/urology.png" alt="Urology" class="department-icon"/>
             <h3>Urology</h3>
             <p>Specialized treatment for urinary tract issues and male reproductive health.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/gastroenterology.png" alt="Gastroenterology" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/gastroenterology.png" alt="Gastroenterology" class="department-icon"/>
             <h3>Gastroenterology</h3>
             <p>Advanced diagnostics and treatment for digestive system disorders and liver conditions.</p>
         </div>
 
         <div class="department-card">
-            <img src="resources/media/images/departments/psychiatry.png" alt="Psychiatry" class="department-icon"/>
+            <img src="/HealthSureClient/resources/media/images/departments/psychiatry.png" alt="Psychiatry" class="department-icon"/>
             <h3>Psychiatry</h3>
             <p>Mental health services including counseling, psychotherapy, and medication management.</p>
         </div>
@@ -121,49 +120,49 @@
 	
 	    <div class="doctors-container">
 	        <div class="doctor-card zoom-in">
-	            <img src="resources/media/images/doctors/doctor1.jpg" alt="Dr. Aryan Mehta" class="doctor-photo"/>
+	            <img src="/HealthSureClient/resources/media/images/doctors/doctor1.jpg" alt="Dr. Aryan Mehta" class="doctor-photo"/>
 	            <h3>Dr. Aryan Mehta</h3>
 	            <p>Cardiologist with 10+ years of experience in interventional procedures and heart surgery.</p>
 	        </div>
 	
 	        <div class="doctor-card zoom-in">
-	            <img src="resources/media/images/doctors/doctor2.jpg" alt="Dr. Rhea Sharma" class="doctor-photo"/>
+	            <img src="/HealthSureClient/resources/media/images/doctors/doctor2.jpg" alt="Dr. Rhea Sharma" class="doctor-photo"/>
 	            <h3>Dr. Rhea Sharma</h3>
 	            <p>Neurologist specializing in epilepsy, stroke, and movement disorders with a decade of clinical excellence.</p>
 	        </div>
 	
 	        <div class="doctor-card zoom-in">
-	            <img src="resources/media/images/doctors/doctor3.jpg" alt="Dr. Kunal Verma" class="doctor-photo"/>
+	            <img src="/HealthSureClient/resources/media/images/doctors/doctor3.jpg" alt="Dr. Kunal Verma" class="doctor-photo"/>
 	            <h3>Dr. Kunal Verma</h3>
 	            <p>Orthopedic Surgeon expert in joint replacement and sports injuries with global surgical exposure.</p>
 	        </div>
 	
 	        <div class="doctor-card zoom-in">
-	            <img src="resources/media/images/doctors/doctor4.jpg" alt="Dr. Sneha Iyer" class="doctor-photo"/>
+	            <img src="/HealthSureClient/resources/media/images/doctors/doctor4.jpg" alt="Dr. Sneha Iyer" class="doctor-photo"/>
 	            <h3>Dr. Sneha Iyer</h3>
 	            <p>Pediatrician passionate about child wellness, immunization, and early development screening.</p>
 	        </div>
 	        
 	        <div class="doctor-card zoom-in">
-            <img src="resources/media/images/doctors/doctor5.jpg" alt="Dr. Nikhil Rao" class="doctor-photo"/>
+            <img src="/HealthSureClient/resources/media/images/doctors/doctor5.jpg" alt="Dr. Nikhil Rao" class="doctor-photo"/>
             <h3>Dr. Nikhil Rao</h3>
             <p>Dermatologist experienced in treating chronic skin conditions and aesthetic skin procedures.</p>
         </div>
 
         <div class="doctor-card zoom-in">
-            <img src="resources/media/images/doctors/doctor6.jpg" alt="Dr. Ayesha Khan" class="doctor-photo"/>
+            <img src="/HealthSureClient/resources/media/images/doctors/doctor6.jpg" alt="Dr. Ayesha Khan" class="doctor-photo"/>
             <h3>Dr. Ayesha Khan</h3>
             <p>Gynecologist specializing in high-risk pregnancies, fertility treatments, and laparoscopic surgeries.</p>
         </div>
 
         <div class="doctor-card zoom-in">
-            <img src="resources/media/images/doctors/doctor7.jpg" alt="Dr. Rohan Desai" class="doctor-photo"/>
+            <img src="/HealthSureClient/resources/media/images/doctors/doctor7.jpg" alt="Dr. Rohan Desai" class="doctor-photo"/>
             <h3>Dr. Rohan Desai</h3>
             <p>ENT specialist skilled in sinus surgeries, hearing loss treatments, and voice disorders.</p>
         </div>
 
         <div class="doctor-card zoom-in">
-            <img src="resources/media/images/doctors/doctor8.jpg" alt="Dr. Meera Bhatt" class="doctor-photo"/>
+            <img src="/HealthSureClient/resources/media/images/doctors/doctor8.jpg" alt="Dr. Meera Bhatt" class="doctor-photo"/>
             <h3>Dr. Meera Bhatt</h3>
             <p>Oncologist with deep expertise in chemotherapy, targeted therapy, and patient counseling.</p>
         </div>
@@ -206,17 +205,17 @@
 	    <!-- ACHIEVEMENTS -->
 	    <div class="about-features">
 	        <div class="feature-item">
-	            <img src="resources/media/images/certificate.png" alt="Certified" class="feature-icon" />
+	            <img src="/HealthSureClient/resources/media/images/certificate.png" alt="Certified" class="feature-icon" />
 	            <h4>Internationally Certified</h4>
 	            <p>We follow global standards and protocols with NABH and JCI certifications.</p>
 	        </div>
 	        <div class="feature-item">
-	            <img src="resources/media/images/certificate.png" alt="AI Diagnosis" class="feature-icon" />
+	            <img src="/HealthSureClient/resources/media/images/certificate.png" alt="AI Diagnosis" class="feature-icon" />
 	            <h4>AI-Driven Diagnostics</h4>
 	            <p>Advanced AI systems to enhance diagnosis speed and precision.</p>
 	        </div>
 	        <div class="feature-item">
-	            <img src="resources/media/images/certificate.png" alt="24x7 Support" class="feature-icon" />
+	            <img src="/HealthSureClient/resources/media/images/certificate.png" alt="24x7 Support" class="feature-icon" />
 	            <h4>24x7 Patient Support</h4>
 	            <p>Round-the-clock assistance with instant emergency response teams.</p>
 	        </div>
@@ -265,55 +264,7 @@
 </f:view>
 </body>
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-container">
-        <!-- Brand Info -->
-        <div class="footer-brand">
-		    <img src="resources/media/images/Logo.jpg" alt="HealthSure Logo" class="footer-logo-img" />
-		    <h2 class="footer-logo">HealthSure</h2>
-		    <p>Your Health, Our Priority.</p>
-		</div>
-
-        <!-- Quick Links -->
-        <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#aboutus">About</a></li>
-                <li><a href="#departments">Departments</a></li>
-                <li><a href="#doctors">Doctors</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="footer-contact">
-            <h4>Contact Us</h4>
-            <p><i class="fas fa-map-marker-alt"></i> 123 HealthSure Street, Bengaluru, India</p>
-	        <p><i class="fas fa-envelope"></i> support@healthsure.com</p>
-	        <p><i class="fas fa-phone-alt"></i> +91 99999 99999</p>
-	        <p><i class="fas fa-clock"></i> Mon–Sat: 9AM – 8PM</p>
-        </div>
-
-        <!-- Social Icons -->
-        <div class="footer-social">
-            <h4>Follow Us</h4>
-            <div class="social-icons">
-                <a href="#"><img src="resources/media/images/icons/facebook.png" alt="Facebook" /></a>
-                <a href="#"><img src="resources/media/images/icons/twitter.png" alt="Twitter" /></a>
-                <a href="#"><img src="resources/media/images/icons/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="resources/media/images/icons/linkedin.png" alt="LinkedIn" /></a>
-                <a href="#"><img src="resources/media/images/icons/youtube.png" alt="Youtube" /></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-        <p>&copy; 2025 HealthSure. All Rights Reserved.</p>
-    </div>
-</footer>
-
+<jsp:include page="/footer/Footer.jsp" />
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

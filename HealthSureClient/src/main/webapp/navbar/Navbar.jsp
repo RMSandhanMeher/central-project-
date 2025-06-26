@@ -1,13 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<link rel="stylesheet" href="resources/css/navStyle.css" />
+<link rel="stylesheet" href="/HealthSureClient/resources/css/navStyle.css" />
 
 <nav id="navbar" class="navbar navbar-transparent">
     <div class="navbar-container">
 
         <!-- LOGO + NAME -->
         <div class="navbar-logo">
-            <img src="resources/media/images/Logo.jpg" alt="Apollo Logo" class="logo-img"/>
+        	<a href="/HealthSureClient/home/Home.jsf" class="logo-link">
+            <img src="/HealthSureClient/resources/media/images/Logo.jpg" alt="Apollo Logo" class="logo-img"/>
+            </a>
             <span class="brand-name">HealthSure</span>
+            
         </div>
 
         <!-- NAV LINKS -->
