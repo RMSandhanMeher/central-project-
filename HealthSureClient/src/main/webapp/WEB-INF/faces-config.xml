@@ -1,7 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" 
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee /WEB-INF/schema/web-facesconfig_2_0.xsd" 
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0" metadata-complete="false">
-    <!-- This file must be present with our jar, even if it is empty.  Otherwise, our Java annotations won't get scanned! -->
+
+    <!-- ✅ MODEL BEANS (Provider) -->
+    <managed-bean>
+        <managed-bean-name>appointment</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.provider.model.Appointment</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+    <managed-bean-name>doctorSearchController</managed-bean-name>
+    <managed-bean-class>com.infinite.jsf.recipient.controller.DoctorSearchController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+        </managed-bean>
+    
+    
+    <managed-bean>
+        <managed-bean-name>doctor</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.provider.model.Doctors</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>provider</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.provider.model.Provider</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- ✅ MODEL BEANS (Recipient) -->
+    <managed-bean>
+        <managed-bean-name>recipient</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.recipient.model.Recipient</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- ✅ Additional Models -->
+    <managed-bean>
+        <managed-bean-name>medicalProcedure</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.provider.model.MedicalProcedure</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>prescription</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.provider.model.Prescription</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>procedureTest</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.provider.model.ProcedureTest</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- ✅ DAO BEAN -->
+    <managed-bean>
+        <managed-bean-name>insuranceDaoImpl</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.recipient.daoImpl.InsuranceDaoImpl</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- ✅ CONTROLLER -->
+    
+    <managed-bean>
+        <managed-bean-name>recipientController</managed-bean-name>
+        <managed-bean-class>com.infinite.jsf.recipient.controller.RecipientController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+
+		
+		
+        <managed-property>
+            <property-name>medicalProcedure</property-name>
+            <property-class>com.infinite.jsf.provider.model.MedicalProcedure</property-class>
+            <value>#{medicalProcedure}</value>
+        </managed-property>
+
+        <managed-property>
+            <property-name>insuranceDaoImpl</property-name>
+            <property-class>com.infinite.jsf.recipient.daoImpl.InsuranceDaoImpl</property-class>
+            <value>#{insuranceDaoImpl}</value>
+        </managed-property>
+        
+        <managed-property>
+            <property-name>recipient</property-name>
+            <property-class>com.infinite.jsf.recipient.model.Recipient</property-class>
+            <value>#{recipient}</value>
+        </managed-property>
+        
+
+      <!--   <managed-property>
+            <property-name>hId</property-name>
+            <property-class>java.lang.String</property-class>
+            <value></value>
+        </managed-property>-->
+        
+        
+    </managed-bean>
+
 </faces-config>

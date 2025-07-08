@@ -17,8 +17,7 @@ public class ConnectionTest {
 		
 		Transaction trans=session.beginTransaction();
 		
-		System.out.println("connection is : "+ session);
-		
+		System.out.println("Connection has been established: "+ session);
 		
 		trans.commit();
 		
