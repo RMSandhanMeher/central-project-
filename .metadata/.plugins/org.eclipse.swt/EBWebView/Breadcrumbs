@@ -1,111 +1,79 @@
-3:20:34 Tab15 StartNav245 #auto_toplevel
-3:20:34 Tab15 StartNav246 #typed
-3:20:34 Tab15 FinishNav245
-3:20:34 Tab15 PageLoad
-3:20:34 Tab15 FinishNav246
-3:20:34 Tab15 PageLoad
-3:20:35 Tab15 StartNav247 #typed
-3:20:35 Tab15 FinishNav247
-3:20:35 Tab15 PageLoad
-3:21:23 Tab15 StartNav248 #typed
-3:21:23 Tab15 FinishNav248
-3:21:23 Tab15 PageLoad
-3:21:24 Tab15 StartNav249 #typed
-3:21:24 Tab15 FinishNav249
-3:21:24 Tab15 PageLoad
-3:21:26 Tab15 StartNav250 #typed
-3:21:26 Tab15 FinishNav250
-3:21:26 Tab15 PageLoad
-3:21:28 Tab15 StartNav251 #typed
-3:21:28 Tab15 FinishNav251
-3:21:28 Tab15 PageLoad
-3:21:33 Tab15 StartNav252 #typed
-3:21:33 Tab15 FinishNav252
-3:21:33 Tab15 PageLoad
-3:21:38 Tab15 StartNav253 #typed
-3:21:38 Tab15 FinishNav253
-3:21:38 Tab15 PageLoad
-3:21:41 Tab15 StartNav254 #typed
-3:21:41 Tab15 FinishNav254
-3:21:41 Tab15 PageLoad
-3:21:47 Tab15 StartNav255 #typed
-3:21:47 Tab15 FinishNav255
-3:21:47 Tab15 PageLoad
-3:21:51 Tab15 StartNav256 #typed
-3:21:51 Tab15 FinishNav256
-3:21:51 Tab15 PageLoad
-3:21:53 Tab15 StartNav257 #typed
-3:21:53 Tab15 FinishNav257
-3:21:53 Tab15 PageLoad
-3:22:19 Tab15 StartNav258 #typed
-3:22:19 Tab15 FinishNav258
-3:22:19 Tab15 PageLoad
-3:22:25 Tab15 StartNav259 #typed
-3:22:25 Tab15 FinishNav259
-3:22:25 Tab15 PageLoad
-3:22:28 Tab15 StartNav260 #typed
-3:22:28 Tab15 FinishNav260
-3:22:28 Tab15 PageLoad
-3:22:46 Tab15 StartNav261 #typed
-3:22:46 Tab15 FinishNav261
-3:22:46 Tab15 PageLoad
-3:22:53 Tab15 StartNav262 #typed
-3:22:53 Tab15 FinishNav262
-3:22:53 Tab15 PageLoad
-3:22:53 Tab15 StartNav263 #typed
-3:22:53 Tab15 FinishNav263
-3:22:53 Tab15 PageLoad
-3:22:54 Tab15 StartNav264 #typed
-3:22:54 Tab15 FinishNav264
-3:22:54 Tab15 PageLoad
-3:22:59 Tab15 StartNav265 #typed
-3:22:59 Tab15 FinishNav265
-3:22:59 Tab15 PageLoad
-3:23:03 Tab15 StartNav266 #typed
-3:23:03 Tab15 FinishNav266
-3:23:03 Tab15 PageLoad
-3:23:11 Tab15 StartNav267 #typed
-3:23:11 Tab15 FinishNav267
-3:23:11 Tab15 PageLoad
-3:23:13 Tab15 StartNav268 #typed
-3:23:13 Tab15 FinishNav268
-3:23:13 Tab15 PageLoad
-3:23:17 Tab15 StartNav269 #typed
-3:23:17 Tab15 FinishNav269
-3:23:17 Tab15 PageLoad
-3:23:22 Tab15 StartNav270 #typed
-3:23:22 Tab15 FinishNav270
-3:23:22 Tab15 PageLoad
-3:23:24 Tab15 StartNav271 #typed
-3:23:24 Tab15 FinishNav271
-3:23:24 Tab15 PageLoad
-3:23:27 Tab15 StartNav272 #typed
-3:23:27 Tab15 FinishNav272
-3:23:27 Tab15 PageLoad
-3:23:29 Tab15 StartNav273 #typed
-3:23:29 Tab15 FinishNav273
-3:23:29 Tab15 PageLoad
-3:23:32 Tab15 StartNav274 #typed
-3:23:32 Tab15 FinishNav274
-3:23:32 Tab15 PageLoad
-3:23:35 Tab15 StartNav275 #typed
-3:23:35 Tab15 FinishNav275
-3:23:35 Tab15 PageLoad
-3:23:37 Tab15 StartNav276 #typed
-3:23:37 Tab15 FinishNav276
-3:23:37 Tab15 PageLoad
-3:23:39 Tab15 StartNav277 #typed
-3:23:39 Tab15 FinishNav277
-3:23:39 Tab15 PageLoad
-3:23:40 Tab15 StartNav278 #typed
-3:23:40 Tab15 FinishNav278
-3:23:40 Tab15 PageLoad
-4:03:19 Tab6 StartNav279 #typed
-4:03:19 Tab6 FinishNav279
-4:03:19 Tab6 PageLoad
-4:03:26 Tab15 StartNav280 #typed
-4:03:26 Tab15 FinishNav280
-4:03:26 Tab15 PageLoad
-4:03:37 Tab15 StartNav281 #typed
-4:03:37 Tab15 FinishNav281
-4:03:37 Tab15 PageLoad
+5:19:06 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
+5:19:06 Tab15 RenderProcessGone
+5:19:06 Microsoft.UnloadController.ClearUnloadState
+5:19:06 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
+5:19:06 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
+5:19:06 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+5:19:06 Microsoft.UnloadController.ClearUnloadState
+5:19:06 Browser15 Close Tab15 at 0
+5:19:06 Tab15 WebContentsDestroyed
+5:19:06 Microsoft.UnloadController.TabStripEmpty
+5:19:06 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
+5:19:06 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
+5:19:06 Microsoft.Shutdown.OnWindowClosing
+5:19:06 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
+5:19:06 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
+5:19:06 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+5:19:06 Widget Closed: BrowserFrame
+5:19:06 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
+5:19:06 Microsoft.Shutdown.OnWindowClosing
+5:19:06 Microsoft.Shutdown.OnWindowClosing_DeleteScheduled
+5:19:06 Microsoft.Browser_Removed
+5:19:06 Microsoft.NewBrowser_Popup
+5:19:06 Microsoft.BrowserList.AddBrowser
+5:19:06 Browser21 Insert active Tab21 at 0
+5:19:06 Tab21 StartNav425 #auto_toplevel
+5:19:06 Tab21 StartNav426 #typed
+5:19:06 Tab21 FinishNav425
+5:19:06 Tab21 PageLoad
+5:19:06 Tab21 FinishNav426
+5:19:06 Tab21 PageLoad
+5:19:06 Tab21 StartNav427 #typed
+5:19:06 Tab21 FinishNav427
+5:19:06 Tab21 PageLoad
+5:19:08 Tab21 StartNav428 #typed
+5:19:08 Tab21 FinishNav428
+5:19:08 Tab21 PageLoad
+5:19:10 Tab21 StartNav429 #typed
+5:19:10 Tab21 FinishNav429
+5:19:10 Tab21 PageLoad
+5:19:15 Tab21 StartNav430 #typed
+5:19:15 Tab21 FinishNav430
+5:19:15 Tab21 PageLoad
+5:19:16 Tab21 StartNav431 #typed
+5:19:16 Tab21 FinishNav431
+5:19:16 Tab21 PageLoad
+5:19:25 Tab21 StartNav432 #typed
+5:19:25 Tab21 FinishNav432
+5:19:25 Tab21 PageLoad
+5:19:26 Tab21 StartNav433 #typed
+5:19:26 Tab21 FinishNav433
+5:19:26 Tab21 PageLoad
+5:21:25 Tab21 StartNav434 #typed
+5:21:25 Tab21 FinishNav434
+5:21:25 Tab21 PageLoad
+5:21:34 Tab21 StartNav435 #typed
+5:21:34 Tab21 FinishNav435
+5:21:34 Tab21 PageLoad
+5:21:36 Tab21 StartNav436 #typed
+5:21:36 Tab21 FinishNav436
+5:21:36 Tab21 PageLoad
+5:21:39 Tab20 StartNav437 #typed
+5:21:39 Tab20 FinishNav437
+5:21:39 Tab20 PageLoad
+5:21:41 Tab20 StartNav438 #typed
+5:21:41 Tab20 FinishNav438
+5:21:41 Tab20 PageLoad
+5:52:41 Tab20 StartNav439 #typed
+5:52:41 Tab20 FinishNav439
+5:52:41 Tab20 PageLoad
+5:52:54 Tab20 StartNav440 #typed
+5:52:54 Tab20 FinishNav440
+5:52:54 Tab20 PageLoad
+5:53:08 Tab20 StartNav441 #typed
+5:53:08 Tab20 FinishNav441
+5:53:08 Tab20 PageLoad
+5:53:18 Tab2 StartNav442 #typed
+5:53:18 Tab2 FinishNav442
+5:53:18 Tab2 PageLoad
+5:57:42 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp

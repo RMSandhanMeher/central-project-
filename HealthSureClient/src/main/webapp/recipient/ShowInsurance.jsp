@@ -398,8 +398,6 @@ input.date-input::-webkit-calendar-picker-indicator {
 
 
 
-
-
 		<h:dataTable value="#{recipientController.paginatedInsuranceList}"
 			var="insurance" styleClass="data-table"
 			rendered="#{not empty recipientController.paginatedInsuranceList}">

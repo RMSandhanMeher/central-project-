@@ -65,13 +65,21 @@ public class RecipientController {
 		}
 	}
 
+	//Actual Status Filter
 	private List<PatientInsuranceDetails> filterByCoverageStatusHelper(String status) {
-		if (original == null || status == null) return Collections.emptyList();
-		return original.stream()
+		if (original == null || status == null) 
+			return Collections.emptyList();
+		
+		    return original.stream()
 				.filter(p -> p.getCoverageStatus() != null &&
 						p.getCoverageStatus().name().equalsIgnoreCase(status))
 				.collect(Collectors.toList());
 	}
+	
+	
+	
+	
+    //=====Date filter Logics=====	
 
 	// Filter by Date Range
 	public void filterByDateRange() {
@@ -80,7 +88,7 @@ public class RecipientController {
 			resetInsurancePage();
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid date range", null));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid date range. Please select properly", null));
 		}
 	}
 
@@ -89,7 +97,7 @@ public class RecipientController {
 		if (original == null) 
 			return Collections.emptyList();
 
-		return original.stream()
+		    return original.stream()
 				.filter(p -> {
 					Date coverageStart = p.getCoverageStartDate();
 					return coverageStart != null &&
@@ -98,6 +106,8 @@ public class RecipientController {
 				})
 				.collect(Collectors.toList());
 	}
+	
+	
 
 	// View Members Logic
 	public String viewMembers(PatientInsuranceDetails insurance) {
@@ -109,6 +119,8 @@ public class RecipientController {
 		}
 		return null;
 	}
+	
+	
 
 	// Insurance Pagination
 	public List<PatientInsuranceDetails> getPaginatedInsuranceList() {
@@ -126,6 +138,8 @@ public class RecipientController {
 		return subscribedMembers.subList(from, to);
 	}
 
+	
+	//Getter and Setters of Pagination
 	public void nextPage() {
 		if (getHasNextPage()) insurancePage++;
 	}
@@ -184,7 +198,9 @@ public class RecipientController {
 		this.memberPage = 0;
 	}
 
-	// Sorting
+	
+     //======Full Sorting icon Methods===== 	
+	//Sorting Asc Insurance
 	public String sortByAsc(String fieldName) {
 		this.sortField = fieldName;
 		this.ascending = true;
@@ -193,6 +209,8 @@ public class RecipientController {
 		return null;
 	}
 
+	
+	//Sorting Desc Insurance
 	public String sortByDesc(String fieldName) {
 		this.sortField = fieldName;
 		this.ascending = false;
@@ -201,6 +219,8 @@ public class RecipientController {
 		return null;
 	}
 
+	
+	//Sorting Asc members
 	public String sortByAscMem(String fieldName) {
 		this.sortField = fieldName;
 		this.ascending = true;
@@ -209,6 +229,8 @@ public class RecipientController {
 		return null;
 	}
 
+	
+	//Sorting Desc members
 	public String sortByDescMem(String fieldName) {
 		this.sortField = fieldName;
 		this.ascending = false;
@@ -217,6 +239,8 @@ public class RecipientController {
 		return null;
 	}
 
+	
+	//Show Reset button
 	public void resetShow() {
 		this.hId = null;
 		this.selectedItem = null;
@@ -227,6 +251,8 @@ public class RecipientController {
 		this.patientInsuranceList = null;
 	}
 
+	
+	//Filter Reset Button
 	public String resetFilter() {
 		this.insurancePage = 0;
 		this.fromDate = null;
@@ -235,6 +261,10 @@ public class RecipientController {
 		return null;
 	}
 
+	
+	
+	
+	//Sorting for PatientInsurance page
 	private void sortPatientInsuranceList() {
 		if (patientInsuranceList == null || sortField == null) return;
 
@@ -257,6 +287,8 @@ public class RecipientController {
 		});
 	}
 
+	
+	//Sorting for ViewMembers Page
 	private void sortViewMemberList() {
 		if (subscribedMembers == null || sortField == null) return;
 
@@ -279,6 +311,10 @@ public class RecipientController {
 		});
 	}
 
+	
+	
+	
+	
 	
 	
 	// Validation Logics for HID
@@ -321,8 +357,6 @@ public class RecipientController {
 	
 	
 	
-	
-
 	// Getters & Setters
 	public String gethId() { return hId; }
 	public void sethId(String hId) { this.hId = hId; }

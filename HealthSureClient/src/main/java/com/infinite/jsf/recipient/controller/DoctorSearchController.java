@@ -46,7 +46,7 @@ public class DoctorSearchController {
 
 		// Initialize specialization options
 		specializationOptions = new ArrayList<>();
-		specializationOptions.add(new SelectItem("", "-- Select Specialization --")); // Placeholder
+		specializationOptions.add(new SelectItem("", "• Select Specialization •")); // Placeholder
 		specializationOptions.add(new SelectItem("Gynecology", "Gynecology"));
 		specializationOptions.add(new SelectItem("Orthopedics", "Orthopedics"));
 		specializationOptions.add(new SelectItem("Pediatrics", "Pediatrics"));
@@ -109,9 +109,8 @@ public class DoctorSearchController {
 			// No specific regex needed if using selectOneMenu, but trim and normalize for
 			// DAO
 			currentSearchValue = currentSearchValue.trim();
-			if ("-- Select Specialization --".equals(currentSearchValue) || "".equals(currentSearchValue)) { // Check
-																												// for
-																												// placeholder
+			if ("-- Select Specialization --".equals(currentSearchValue) || "".equals(currentSearchValue)) { // Check for placeholder
+																												
 				LOGGER.warning("Validation failed for specialization: Placeholder selected.");
 				context.addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select a valid specialization.", null));
@@ -171,17 +170,17 @@ public class DoctorSearchController {
 		}
 	}
 
-	public void sortBy(String field) {
-		if (sortField.equals(field)) {
-			ascending = !ascending;
-		} else {
-			sortField = field;
-			ascending = true;
-		}
-		sortResults();
-		currentPage = 0;
-		LOGGER.info("Sorted by field: " + field + ", ascending: " + ascending);
-	}
+//	public void sortBy(String field) {
+//		if (sortField.equals(field)) {
+//			ascending = !ascending;
+//		} else {
+//			sortField = field;
+//			ascending = true;
+//		}
+//		sortResults();
+//		currentPage = 0;
+//		LOGGER.info("Sorted by field: " + field + ", ascending: " + ascending);
+//	}
 
 	// Arrow Up button
 	public void sortByAsc(String field) {
@@ -205,8 +204,9 @@ public class DoctorSearchController {
 		if (searchResults == null || searchResults.isEmpty()) {
 			return; // No need to sort if no results
 		}
+		
+		//Case Sorting logic
 		Comparator<Doctors> comparator;
-
 		switch (sortField) {
 		case "specialization":
 			comparator = Comparator.comparing(Doctors::getSpecialization,
@@ -242,7 +242,7 @@ public class DoctorSearchController {
 	public String bookDummy() {
 		LOGGER.info("Book Appointment clicked.");
 		// This method might navigate to a booking page or open a dialog
-		return null; // Stay on the same page for now
+		return null; // Stay on the same page for now will be implemented in future
 	}
 
 	public String resetSearch() {
@@ -253,8 +253,6 @@ public class DoctorSearchController {
 	    this.currentPage = 0;
 	    this.sortField = ""; 
 	    this.ascending = true; 
-//	    this.searchPerformed = false;
-
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    if (context.getMessages().hasNext()) { // Check if there are global messages
 	        while (context.getMessages().hasNext()) {
@@ -265,6 +263,13 @@ public class DoctorSearchController {
 	    LOGGER.info("Search form reset.");
 	    return null; // Stay on the same page. A redirect is another option for full state reset: "pretty:searchDoctors"
 	}
+	
+	
+	
+	
+
+	
+	
 
 	// === Getters & Setters ===
 	public String getSearchBy() {
