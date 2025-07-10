@@ -1,7 +1,6 @@
 package com.infinite.jsf.recipient.controller;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +31,8 @@ public class RecipientController {
 	private List<PatientInsuranceDetails> patientInsuranceList;
 	private List<PatientInsuranceDetails> original;
 	private List<SubscribedMember> subscribedMembers;
+	
+	
 
 	// Shared sorting
 	private String sortField;

@@ -42,6 +42,11 @@
                 <param name="type">12</param>
             </type>
         </property>
+        
 
     </class>
+    
+     <query name="fetchAllSpecializations">
+    select distinct specialization from Doctors
+</query>
 </hibernate-mapping>

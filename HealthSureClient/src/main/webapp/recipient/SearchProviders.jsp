@@ -5,542 +5,709 @@
 <f:view>
 	<html>
 <head>
-<title>Search Doctors</title>
+<title>Find Your Doctor</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
 <style>
-/* Your existing CSS (as provided in your last message) goes here */
-/* I've added a few specific styles needed for this no-ajax approach */
+/* Basic Reset & Body Styling */
 body {
-	font-family: 'Segoe UI', sans-serif;
-	background-color: #f8fcff;
+	font-family: 'Poppins', sans-serif; /* Modern font */
+	background-color: #eef2f7; /* Light, calming background */
 	margin: 0;
 	padding: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	min-height: 100vh;
+	color: #333;
 }
 
-.navbar-placeholder { /* This might be redundant if NavRecipient.jsp has its own height */
-	width: 100%;
-}
-
+/* Page Title */
 h2 {
 	text-align: center;
-	color: #0077b6;
-	margin-top: 95px; /* Adjust based on your NavRecipient.jsp height */
-	margin-bottom: 8px;
-	font-size: 28px;
-	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-	width: 100%;
+	color: #0056b3; /* Deeper blue for headings */
+	margin-top: 100px; /* Adjust for navbar */
+	margin-bottom: 25px; /* More space below title */
+	font-size: 32px; /* Larger title */
+	font-weight: 600; /* Slightly bolder */
+	letter-spacing: -0.5px;
 }
 
+/* Main Content Panel */
 .main-content-panel {
-	width: 75%;
-	max-width: 1200px;
-	margin-bottom: 20px;
+	width: 85%; /* Cover more page width */
+	max-width: 1400px; /* Increased max-width */
+	margin-bottom: 30px;
 	background-color: #ffffff;
-	border-radius: 12px;
-	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-	padding: 30px;
+	border-radius: 16px; /* More rounded corners */
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	/* Softer, larger shadow */
+	padding: 40px; /* Increased padding */
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-/* --- NEW & IMPROVED BUTTON STYLES --- */
-.btn {
-	padding: 8px 20px;
-	border: none;
-	border-radius: 12px;
-	cursor: pointer;
+/* Form Elements (Labels, Inputs, Selects) */
+.search-inputs-grid {
+	width: 70%; /* Wider input section for better readability */
+	margin: 15px auto 25px auto; /* Centered with more vertical margin */
+	border-collapse: separate;
+	/* Allows border-radius on cells if needed */
+	border-spacing: 0 15px; /* Space between rows */
+}
+
+.search-inputs-grid tr td:first-child {
+	width: 30%; /* Adjust label width */
+	padding-right: 20px;
+	vertical-align: middle;
+	text-align: right;
+	font-weight: 500; /* Medium weight for labels */
+	color: #555;
 	font-size: 15px;
-	font-weight: 600;
+}
+
+.search-inputs-grid tr td:last-child {
+	width: 70%; /* Adjust input width */
+	vertical-align: middle;
+}
+
+/* Targeting JSF rendered select and input for better styling */
+.search-inputs-grid select, .search-inputs-grid input[type="text"] {
+	width: 100%;
+	padding: 12px 18px; /* Generous padding */
+	font-size: 16px; /* Readable font size */
+	border: 1px solid #dcdfe6; /* Light, subtle border */
+	border-radius: 8px; /* Nicely rounded */
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	outline: none;
+	background-color: #f9fbff; /* Slightly off-white background */
+	-webkit-appearance: none;
+	/* Remove default browser styling for select */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.search-inputs-grid select:focus, .search-inputs-grid input[type="text"]:focus
+	{
+	border-color: #4a90e2; /* Clear blue on focus */
+	box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2); /* Soft glow */
+	background-color: #ffffff;
+}
+
+/* Custom arrow for select elements */
+.search-inputs-grid .select-wrapper {
+	position: relative;
+}
+
+.search-inputs-grid .select-wrapper::after {
+	content: '▾'; /* Modern down arrow */
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 16px; /* Larger arrow */
+	color: #888;
+	pointer-events: none;
+}
+
+/* Button Styles */
+.btn {
+	padding: 12px 25px; /* Larger buttons */
+	border: none; /* No border for modern look */
+	border-radius: 8px; /* Match input styling */
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 500;
 	text-decoration: none;
 	display: inline-block;
-	transition: background-color 0.3s ease, transform 0.1s ease, box-shadow
-		0.3s ease;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	/* Add transform for subtle press effect */
 	letter-spacing: 0.5px;
+	outline: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
 }
 
 .btn:hover {
-	transform: translateY(-0.8px);
+	transform: translateY(-2px); /* Slight lift on hover */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
-	transform: translateY(0);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transform: translateY(0); /* Press effect */
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
-	background-color: #007bff;
+	background-color: #007bff; /* Vibrant blue */
 	color: white;
-	box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 .btn-primary:hover {
-	background-color: #0069d9;
-	box-shadow: 0 6px 12px rgba(0, 123, 255, 0.35);
+	background-color: #0069d9; /* Darker blue on hover */
 }
 
 .btn-secondary {
-	background-color: #6c757d;
+	background-color: #6c757d; /* Muted gray for reset */
 	color: white;
-	box-shadow: 0 4px 8px rgba(108, 117, 125, 0.25);
 }
 
 .btn-secondary:hover {
 	background-color: #5a6268;
-	box-shadow: 0 6px 12px rgba(108, 117, 125, 0.35);
 }
 
 .btn-success {
-	background-color: #28a745;
+	background-color: #28a745; /* Standard green for success */
 	color: white;
-	padding: 8px 16px;
-	font-size: 14px;
-	box-shadow: 0 4px 8px rgba(40, 167, 69, 0.25);
 }
 
 .btn-success:hover {
 	background-color: #218838;
-	box-shadow: 0 6px 12px rgba(40, 167, 69, 0.35);
 }
 
 .search-buttons {
 	text-align: center;
-	margin-top: 2px;
-	margin-bottom: 30px;
+	margin-top: 15px; /* Adjust spacing */
+	margin-bottom: 40px; /* More space before table */
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	gap: 20px;
+	gap: 25px; /* Increased gap between buttons */
 }
 
-.pagination {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 15px;
-	margin: 30px 0 10px 0;
-	width: 100%;
-}
-
-.pagination-info {
-	font-weight: bold;
-	color: #333;
-	font-size: 16px;
-}
-
+/* Data Table Styling */
 .data-table {
 	width: 100%;
-	margin: 15px 0 0 0;
-	margin-top: 0px;
+	margin-top: 20px; /* Space from search buttons */
 	border-collapse: collapse;
 	background-color: #ffffff;
-	border-radius: 10px;
-	overflow: hidden;
-	box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+	border-radius: 12px; /* Soft corners for table */
+	overflow: hidden; /* Ensures rounded corners are visible */
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07); /* Light table shadow */
 }
 
 .data-table th, .data-table td {
-	border: 1px solid #bcd9ea;
-	padding: 10px;
+	border: 1px solid #e9ecef; /* Lighter borders */
+	padding: 15px 20px; /* More padding in cells */
 	text-align: left;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .data-table th {
-	background-color: #d0f0f3;
+	background-color: #f8f9fa; /* Very light header background */
 	text-align: center;
-	font-weight: bold;
-	font-size: 15px;
+	font-weight: 600; /* Semi-bold headers */
+	color: #495057; /* Darker text for headers */
+	font-size: 16px;
+	position: sticky; /* Sticky headers for scrollable tables */
+	top: 0;
+	z-index: 10;
 }
 
 .data-table th .h-panelgroup {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 5px;
+	gap: 8px; /* More space for sort icons */
 }
 
 .data-table tr:nth-child(even) {
-	background-color: #f1faff;
+	background-color: #fcfdff; /* Even rows slightly different */
 }
 
 .data-table tr:hover {
-	background-color: #e0f7ff;
+	background-color: #eef7ff; /* Gentle hover effect */
 }
 
-/* Messages style */
-.global-messages {
-    list-style: none; /* Remove bullet points */
-    padding: 0;
-    margin: 0 auto 20px auto; /* Center and provide bottom margin */
-    width: 80%; /* Adjust width as needed */
-    text-align: center;
-}
-.global-messages li {
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-.global-messages .ui-messages-info {
-    background-color: #d4edda;
-    color: bluw;
-    border: 1px solid #c3e6cb;
-}
-.global-messages .ui-messages-warn {
-    background-color: #fff3cd;
-    color: yellow;
-    border: 1px solid #ffeeba;
-}
-.global-messages .ui-messages-error {
-    background-color: #f8d7da;
-    color: red;
-    border: 1px solid #f5c6cb;
-}
-.global-messages .ui-messages-fatal {
-    background-color: #f8d7da;
-    color: red;
-    border: 1px solid #f5c6cb;
+/* Doctor Status Styling */
+.data-table td:nth-child(3) { /* Target the Status column */
+	font-weight: 500;
+	text-align: center; /* Center the status text */
 }
 
+.data-table td:nth-child(3) h\:outputText[value="ACTIVE"] {
+	color: #28a745; /* Green for active */
+	font-weight: 600;
+}
 
-.not-found {
-	text-align: center;
-	font-weight: bold;
-	color: #0077b6;
-	margin-top: 20px;
-	font-size: 1.2em;
+.data-table td:nth-child(3) h\:outputText[value="INACTIVE"], .data-table td:nth-child(3) .unavailable-now
+	{
+	color: #6c757d; /* Muted grey for unavailable/inactive */
+	font-weight: 500;
+	font-style: italic; /* Italicize 'Unavailable Now' */
+	font-size: 14px; /* Slightly smaller for 'Unavailable Now' */
+}
+
+.unavailable-now { /* Specific class for "Unavailable Now" */
+	color: #6c757d; /* Muted grey */
+	font-weight: 500;
+	font-style: italic;
+	font-size: 14px;
+}
+
+/* Pagination Styles */
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end; /* Align to the right */
+	gap: 15px; /* Increased gap */
+	margin: 25px 0 0 0; /* More top margin */
 	width: 100%;
 }
 
+.pagination .btn {
+	padding: 8px 15px; /* Smaller pagination buttons */
+	font-size: 13px;
+	border-radius: 6px;
+	box-shadow: none; /* No shadow for pagination buttons */
+	background-color: #f0f4f8; /* Light background */
+	color: #4a90e2; /* Blue text */
+}
+
+.pagination .btn:hover {
+	background-color: #e0e7ed;
+	transform: none; /* No lift */
+	box-shadow: none;
+}
+
+.pagination .btn:active {
+	background-color: #d0d6dd;
+}
+
+.pagination .btn:disabled, .pagination .btn.disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	background-color: #f8f9fa;
+	color: #99aab5;
+}
+
+.pagination-info {
+	font-weight: 400; /* Normal weight */
+	color: #777;
+	font-size: 14px;
+	margin: 0 10px;
+}
+
+/* Sort Icons */
 .sort-icons-container {
 	display: flex;
 	flex-direction: column;
+	margin-left: 5px; /* Space from text */
 }
+
 .sort-icons {
 	display: block;
-	line-height: 2;
-	height: 8px; /* Ensure consistent height for arrows */
+	line-height: 1; /* Tighter spacing */
 }
 
-.sort-icons + .sort-icons {
-	margin-top: 2px; /* More space between up and down arrows */
+.sort-icons+.sort-icons {
+	margin-top: 4px; /* More space between arrows */
 }
 
-h\:inputText, h\:selectOneMenu {
-	width: 100%;
-	padding: 10px 12px;
+.sort-icons img {
+	filter: invert(50%) sepia(0%) saturate(10%) hue-rotate(0deg)
+		brightness(50%) contrast(100%);
+	/* Darken image for better contrast on light background */
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+}
+
+.sort-icons:hover img {
+	opacity: 1; /* Full opacity on hover */
+	filter: invert(30%) sepia(0%) saturate(10%) hue-rotate(0deg)
+		brightness(30%) contrast(100%); /* Even darker on hover */
+}
+
+/* Global Messages */
+.global-messages {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto 30px auto; /* More margin */
+	width: 90%;
+	text-align: center;
+}
+
+.global-messages li {
+	padding: 15px 20px; /* Larger messages */
+	margin-bottom: 12px;
+	border-radius: 10px; /* Softer corners */
 	font-size: 15px;
-	border-radius: 6px;
-	border: 1px solid #cce0eb;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
-	transition: border-color 0.2s, box-shadow 0.2s;
-	box-sizing: border-box;
-	/* Custom arrow for selectOneMenu */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23666" d="M7 10l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 18px;
-}
-
-h\:inputText:focus, h\:selectOneMenu:focus {
-	border-color: #007bff;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 3px
-		rgba(0, 123, 255, 0.25);
-	outline: none;
-}
-
-h\:outputLabel {
-	font-weight: bold;
+	font-weight: 500;
 	color: #333;
-	text-align: right;
-	white-space: nowrap;
+	border: 1px solid; /* Add border for definition */
 }
 
-.search-inputs-grid {
-	width: 60%; /* Adjusted for better appearance */
-	margin-top: 2px;
-	margin-bottom: 8px;
-	margin-right: 220px;
-	border-collapse: collapse;
+.global-messages .ui-messages-info {
+	background-color: #d4edda;
+	color: #155724;
+	border-color: #c3e6cb;
 }
 
-.search-inputs-grid tr td:first-child {
-	width: 35%;
-	padding-right: 10px;
-	vertical-align: middle;
-	text-align: right;
+.global-messages .ui-messages-warn {
+	background-color: #fff3cd;
+	color: #856404;
+	border-color: #ffeeba;
 }
 
-.search-inputs-grid tr td:last-child {
-	width: 65%;
-	vertical-align: middle;
-	padding-right: 10px;
+.global-messages .ui-messages-error, .global-messages .ui-messages-fatal
+	{
+	background-color: #f8d7da;
+	color: #721c24;
+	border-color: #f5c6cb;
 }
 
-.search-inputs-grid td {
-	padding-top: 6px;
-	padding-bottom: 8px;
+/* No results / Initial message */
+.not-found {
+	text-align: center;
+	font-weight: 500;
+	color: #555; /* Muted color */
+	margin-top: 30px;
+	font-size: 1.1em;
+	width: 100%;
+	padding: 20px;
+	background-color: #f0f4f8; /* Light background */
+	border-radius: 10px;
+	border: 1px solid #dcdfe6;
 }
 
-/* New CSS to hide elements */
+/* Utility Class */
 .hidden {
-    display: none;
+	display: none;
 }
-
 </style>
-<!--Toggle for turning on the Specialization DropDown -->
 <script type="text/javascript">
-    function toggleSearchInput() {
-        let by = document.getElementById('searchForm:searchBy').value;
-        document.getElementById('searchForm:searchValueInputDiv').classList.toggle('hidden', by === 'specialization');
-        document.getElementById('searchForm:specializationDropdownDiv').classList.toggle('hidden', by !== 'specialization');
-        let input = document.getElementById('searchForm:searchValueInput'), 
-        spec = document.getElementById('searchForm:specializationDropdown');
-        if (by === 'specialization' && input) input.value = '';
-        if (by !== 'specialization' && spec) spec.value = '';
-    }
-    window.onload = toggleSearchInput;
-</script>
+        function toggleSearchInput() {
+            let by = document.getElementById('searchForm:searchBy').value;
+            let isSpecialization = by === 'specialization';
+
+            // Toggle visibility of the containers
+            let searchValueDiv = document.getElementById('searchForm:searchValueInputDiv');
+            let specializationDiv = document.getElementById('searchForm:specializationDropdownDiv');
+
+            searchValueDiv.classList.toggle('hidden', isSpecialization);
+            specializationDiv.classList.toggle('hidden', !isSpecialization);
+
+            // Clear the value of the component that is being hidden
+            if (isSpecialization) {
+                let input = document.getElementById('searchForm:searchValueInput');
+                if (input) input.value = '';
+            } else {
+                let spec = document.getElementById('searchForm:specializationDropdown');
+                // Set to the first option (placeholder) if selecting another searchBy type
+                if (spec && spec.options.length > 0) {
+                    spec.value = spec.options[0].value;
+                }
+            }
+        }
+
+        /* Return to the table content rather from top of page */
+        function scrollToTable() {
+            const table = document.querySelector('.data-table');
+            if (table) {
+                // Smooth scroll to table with offset for better visibility
+                const offset = 80; // Adjust this value based on your navbar height
+                const tablePosition = table.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({
+                    top: tablePosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Modify the existing window.onload function
+        window.onload = function() {
+            // Ensure the correct input is shown/hidden on page load based on initial searchBy value
+            toggleSearchInput();
+
+            // Add click event listeners to pagination buttons
+            const paginationButtons = document.querySelectorAll('.pagination .btn');
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Small delay to ensure the table has updated
+                    setTimeout(scrollToTable, 100);
+                });
+            });
+
+            // Re-apply toggle on form submission for reset button immediate="true"
+            // This is a common workaround for immediate="true" not triggering onchange
+            const searchForm = document.getElementById('searchForm');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function() {
+                    // Give a small delay to allow JSF update to process, then re-toggle
+                    setTimeout(toggleSearchInput, 50);
+                });
+            }
+        }
+        </script>
 
 </head>
 <body>
 
 	<jsp:include page="/navbar/NavRecipient.jsp" />
 
-	<h2>Search Doctors</h2>
+	<h2>Search to Book Appointments</h2>
 
 	<h:form id="searchForm" styleClass="main-content-panel">
 		<%-- Global messages display --%>
 		<h:messages globalOnly="true" styleClass="global-messages" />
-		<%-- Message for specific input components --%>
-		<h:messages id="searchFieldMessages" for="searchFieldContainer" styleClass="global-messages" />
+		<%-- Message for specific input components (if used) --%>
+		<h:messages id="searchFieldMessages" for="searchFieldContainer"
+			styleClass="global-messages" />
 
 
 		<h:panelGrid columns="2" styleClass="search-inputs-grid">
 			<h:outputLabel for="searchBy" value="Search By:" />
 			<h:selectOneMenu id="searchBy"
-				value="#{doctorSearchController.searchBy}" onchange="toggleSearchInput()">
+				value="#{doctorSearchController.searchBy}"
+				onchange="toggleSearchInput()">
 				<f:selectItems value="#{doctorSearchController.searchOptions}" />
 			</h:selectOneMenu>
 
-			<h:outputLabel value="Search Value:" for="searchValueInputDiv" />
-			<h:panelGroup id="searchValueInputDiv" layout="block">
-				<h:inputText id="searchValueInput" value="#{doctorSearchController.searchValue}" />					
+			<h:outputLabel value="Search Criteria:" />
+
+			<h:panelGroup>
+				<h:panelGroup id="searchValueInputDiv" layout="block">
+					<h:inputText id="searchValueInput"
+						value="#{doctorSearchController.searchValue}" />
+				</h:panelGroup>
+
+				<h:panelGroup id="specializationDropdownDiv" layout="block"
+					styleClass="hidden select-wrapper">
+					<%-- Added select-wrapper for custom arrow --%>
+					<h:selectOneMenu id="specializationDropdown"
+						value="#{doctorSearchController.selectedSpecialization}">
+						<f:selectItems
+							value="#{doctorSearchController.specializationOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
 			</h:panelGroup>
-
-            <h:panelGroup id="specializationDropdownDiv" layout="block" styleClass="hidden">
-                <h:selectOneMenu id="specializationDropdown"
-                    value="#{doctorSearchController.selectedSpecialization}">
-                    <f:selectItems value="#{doctorSearchController.specializationOptions}" />
-                </h:selectOneMenu>
-            </h:panelGroup>
 		</h:panelGrid>
-
 		<div class="search-buttons">
-			<h:commandButton value="Search"
+			<h:commandButton value="Search Doctor"
 				action="#{doctorSearchController.executeSearch}"
 				styleClass="btn btn-primary" />
 
-			<h:commandButton value="Reset"
+			<h:commandButton value="Clear Search"
 				action="#{doctorSearchController.resetSearch}"
 				styleClass="btn btn-secondary" immediate="true" />
 		</div>
 
-
+		<!--  Count of data in a page/total data 
+	     e.g (Showing 4 of 6 results (Page 1 of 2))-->
 		<h:panelGroup
+			rendered="#{not empty doctorSearchController.paginatedDoctors}"
+			layout="block"
+			style="width: 100%; text-align: right; margin-top: 10px; margin-bottom: 5px; font-size: 14px; color: #666; font-weight: 500;">
+			<h:outputText value="#{doctorSearchController.paginationSummary}" />
+		</h:panelGroup>
+
+
+		<h:dataTable value="#{doctorSearchController.paginatedDoctors}"
+			var="doc" styleClass="data-table"
 			rendered="#{not empty doctorSearchController.paginatedDoctors}">
-			<h:dataTable value="#{doctorSearchController.paginatedDoctors}"
-				var="doc" styleClass="data-table">
 
-				<h:column>
-					<f:facet name="header">
-						<h:panelGroup styleClass="h-panelgroup">
-							<h:outputText value="Doctor Name" />
-							<h:panelGroup layout="block" styleClass="sort-icons-container">
-								<h:commandLink
-									action="#{doctorSearchController.sortByAsc('doctorName')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png"
-										width="9" height="9" title="Sort-Ascending" />
-								</h:commandLink>
+			<h:column>
+				<f:facet name="header">
+					<h:panelGroup styleClass="h-panelgroup">
+						<h:outputText value="Doctor Name" />
+						<h:panelGroup layout="block" styleClass="sort-icons-container">
+							<h:commandLink
+								action="#{doctorSearchController.sortByAsc('doctorName')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/up-arrow.png"
+									width="9" height="9" title="Sort Ascending" />
+							</h:commandLink>
 
-								<h:commandLink
-									action="#{doctorSearchController.sortByDesc('doctorName')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/down-arrow.png"
-										width="10" height="10" title="Sort-Descending" />
-								</h:commandLink>
-							</h:panelGroup>
+							<h:commandLink
+								action="#{doctorSearchController.sortByDesc('doctorName')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/down-arrow.png"
+									width="10" height="10" title="Sort Descending" />
+							</h:commandLink>
 						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{doc.doctorName}" />
-				</h:column>
-
-
-				<h:column>
-					<f:facet name="header">
-						<h:panelGroup styleClass="h-panelgroup">
-							<h:outputText value="Specialization" />
-							<h:panelGroup layout="block" styleClass="sort-icons-container">
-								<h:commandLink
-									action="#{doctorSearchController.sortByAsc('specialization')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png"
-										width="9" height="9" title="Sort-Ascending" />
-								</h:commandLink>
-
-								<h:commandLink
-									action="#{doctorSearchController.sortByDesc('specialization')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/down-arrow.png"
-										width="10" height="10" title="Sort-Descending" />
-								</h:commandLink>
-							</h:panelGroup>
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{doc.specialization}" />
-				</h:column>
-
-
-				<h:column>
-					<f:facet name="header">
-						<h:panelGroup styleClass="h-panelgroup">
-							<h:outputText value="Status" />
-							<h:panelGroup layout="block" styleClass="sort-icons-container">
-								<h:commandLink
-									action="#{doctorSearchController.sortByAsc('status')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png"
-										width="9" height="9" title="Sort-Ascending" />
-								</h:commandLink>
-								<h:commandLink
-									action="#{doctorSearchController.sortByDesc('status')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/down-arrow.png"
-										width="10" height="10" title="Sort-Descending" />
-								</h:commandLink>
-							</h:panelGroup>
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{doc.status}" />
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<h:panelGroup styleClass="h-panelgroup">
-							<h:outputText value="Address" />
-							<h:panelGroup layout="block" styleClass="sort-icons-container">
-								<h:commandLink
-									action="#{doctorSearchController.sortByAsc('address')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png"
-										width="9" height="9" title="Sort-Ascending" />
-								</h:commandLink>
-								<h:commandLink
-									action="#{doctorSearchController.sortByDesc('address')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/down-arrow.png"
-										width="10" height="10" title="Sort-Descending" />
-								</h:commandLink>
-							</h:panelGroup>
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{doc.address}" />
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<h:panelGroup styleClass="h-panelgroup">
-							<h:outputText value="Type" />
-							<h:panelGroup layout="block" styleClass="sort-icons-container">
-								<h:commandLink
-									action="#{doctorSearchController.sortByAsc('type')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png"
-										width="9" height="9" title="Sort-Ascending" />
-								</h:commandLink>
-								<h:commandLink
-									action="#{doctorSearchController.sortByDesc('type')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/down-arrow.png"
-										width="10" height="10" title="Sort-Descending" />
-								</h:commandLink>
-							</h:panelGroup>
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{doc.type}" />
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<h:panelGroup styleClass="h-panelgroup">
-							<h:outputText value="Email" />
-							<h:panelGroup layout="block" styleClass="sort-icons-container">
-								<h:commandLink
-									action="#{doctorSearchController.sortByAsc('email')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png"
-										width="9" height="9" title="Sort-Ascending" />
-								</h:commandLink>
-
-								<h:commandLink
-									action="#{doctorSearchController.sortByDesc('email')}"
-									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/down-arrow.png"
-										width="10" height="10" title="Sort-Descending" />
-								</h:commandLink>
-							</h:panelGroup>
-
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{doc.email}" />
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Book Appointment" />
-					</f:facet>
-					<h:panelGroup rendered="#{doc.status eq 'ACTIVE'}">
-						<h:commandButton value="Book"
-							action="#{doctorSearchController.bookDummy}"
-							styleClass="btn btn-success" />
 					</h:panelGroup>
-					<h:outputText rendered="#{doc.status ne 'ACTIVE'}"
-						value="Unavailable Now" />
-				</h:column>
+				</f:facet>
+				<h:outputText value="#{doc.doctorName}" />
+			</h:column>
 
-			</h:dataTable>
 
+			<h:column>
+				<f:facet name="header">
+					<h:panelGroup styleClass="h-panelgroup">
+						<h:outputText value="Specialization" />
+						<h:panelGroup layout="block" styleClass="sort-icons-container">
+							<h:commandLink
+								action="#{doctorSearchController.sortByAsc('specialization')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/up-arrow.png"
+									width="9" height="9" title="Sort Ascending" />
+							</h:commandLink>
+
+							<h:commandLink
+								action="#{doctorSearchController.sortByDesc('specialization')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/down-arrow.png"
+									width="10" height="10" title="Sort Descending" />
+							</h:commandLink>
+						</h:panelGroup>
+					</h:panelGroup>
+				</f:facet>
+				<h:outputText value="#{doc.specialization}" />
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header">
+					<h:panelGroup styleClass="h-panelgroup">
+						<h:outputText value="Status" />
+						<h:panelGroup layout="block" styleClass="sort-icons-container">
+							<h:commandLink
+								action="#{doctorSearchController.sortByAsc('status')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/up-arrow.png"
+									width="9" height="9" title="Sort Ascending" />
+							</h:commandLink>
+							<h:commandLink
+								action="#{doctorSearchController.sortByDesc('status')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/down-arrow.png"
+									width="10" height="10" title="Sort Descending" />
+							</h:commandLink>
+						</h:panelGroup>
+					</h:panelGroup>
+				</f:facet>
+				<h:outputText value="#{doc.status}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:panelGroup styleClass="h-panelgroup">
+						<h:outputText value="Address" />
+						<h:panelGroup layout="block" styleClass="sort-icons-container">
+							<h:commandLink
+								action="#{doctorSearchController.sortByAsc('address')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/up-arrow.png"
+									width="9" height="9" title="Sort Ascending" />
+							</h:commandLink>
+							<h:commandLink
+								action="#{doctorSearchController.sortByDesc('address')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/down-arrow.png"
+									width="10" height="10" title="Sort Descending" />
+							</h:commandLink>
+						</h:panelGroup>
+					</h:panelGroup>
+				</f:facet>
+				<h:outputText value="#{doc.address}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:panelGroup styleClass="h-panelgroup">
+						<h:outputText value="Type" />
+						<h:panelGroup layout="block" styleClass="sort-icons-container">
+							<h:commandLink
+								action="#{doctorSearchController.sortByAsc('type')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/up-arrow.png"
+									width="9" height="9" title="Sort Ascending" />
+							</h:commandLink>
+							<h:commandLink
+								action="#{doctorSearchController.sortByDesc('type')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/down-arrow.png"
+									width="10" height="10" title="Sort Descending" />
+							</h:commandLink>
+						</h:panelGroup>
+					</h:panelGroup>
+				</f:facet>
+				<h:outputText value="#{doc.type}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:panelGroup styleClass="h-panelgroup">
+						<h:outputText value="Email" />
+						<h:panelGroup layout="block" styleClass="sort-icons-container">
+							<h:commandLink
+								action="#{doctorSearchController.sortByAsc('email')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/up-arrow.png"
+									width="9" height="9" title="Sort Ascending" />
+							</h:commandLink>
+
+							<h:commandLink
+								action="#{doctorSearchController.sortByDesc('email')}"
+								styleClass="sort-icons">
+								<h:graphicImage value="/resources/media/images/down-arrow.png"
+									width="10" height="10" title="Sort Descending" />
+							</h:commandLink>
+						</h:panelGroup>
+
+					</h:panelGroup>
+				</f:facet>
+				<h:outputText value="#{doc.email}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:panelGroup rendered="#{doc.status eq 'ACTIVE'}">
+					<h:commandButton value="Book Now"
+						action="#{doctorSearchController.bookDummy}"
+						styleClass="btn btn-success" />
+				</h:panelGroup>
+				<h:outputText rendered="#{doc.status ne 'ACTIVE'}"
+					value="Unavailable Now" styleClass="unavailable-now" />
+			</h:column>
+		</h:dataTable>
+		<h:panelGroup
+			rendered="#{doctorSearchController.searchPerformed and (doctorSearchController.hasPrevPage or doctorSearchController.hasNextPage)}">
 			<div class="pagination">
 				<h:commandButton value="« Previous"
 					action="#{doctorSearchController.prevPage}"
-					rendered="#{doctorSearchController.hasPrevPage}"
-					styleClass="btn btn-primary" />
+					styleClass="btn btn-primary #{doctorSearchController.hasPrevPage ? '' : 'disabled'}"
+					onclick="setTimeout(scrollToTable, 100);"
+					disabled="#{not doctorSearchController.hasPrevPage}" />
 
 				<h:outputText styleClass="pagination-info"
 					value="Page #{doctorSearchController.currentPage} of #{doctorSearchController.totalPages}" />
 
 				<h:commandButton value="Next »"
 					action="#{doctorSearchController.nextPage}"
-					rendered="#{doctorSearchController.hasNextPage}"
-					styleClass="btn btn-primary" />
+					styleClass="btn btn-primary #{doctorSearchController.hasNextPage ? '' : 'disabled'}"
+					onclick="setTimeout(scrollToTable, 100);"
+					disabled="#{not doctorSearchController.hasNextPage}" />
 			</div>
 		</h:panelGroup>
 
 		<h:panelGroup
 			rendered="#{empty doctorSearchController.paginatedDoctors and not doctorSearchController.searchPerformed}">
-			<div class="not-found">Kindly Search to Book appointments</div>
+			<div class="not-found">Search for doctors by name or
+				specialization to find available appointments.</div>
 		</h:panelGroup>
+		<h:panelGroup
+			rendered="#{empty doctorSearchController.paginatedDoctors and doctorSearchController.searchPerformed}">
+			<div class="not-found">No doctors found matching your criteria.
+				Please try a different search.</div>
+		</h:panelGroup>
+
+		<!-- Scroll-to-table script after pagination -->
+		<!-- JSP-compatible scroll-to-table script -->
+		<h:panelGroup
+			rendered="#{not empty doctorSearchController.paginatedDoctors}">
+			<script type="text/javascript">
+        window.addEventListener('load', function () {
+            setTimeout(scrollToTable, 100);
+        });
+    </script>
+		</h:panelGroup>
+
+
 	</h:form>
 
 </body>

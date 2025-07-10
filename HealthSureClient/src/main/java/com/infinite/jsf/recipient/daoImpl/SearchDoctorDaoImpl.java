@@ -1,9 +1,10 @@
 package com.infinite.jsf.recipient.daoImpl;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -29,14 +30,28 @@ public class SearchDoctorDaoImpl implements SearchDoctorDao {
 		if ("doctorName".equalsIgnoreCase(searchBy)) {
 //        	Search anywhere within the string where the provided value exists
 			criteria.add(Restrictions.ilike("doctorName", value, MatchMode.ANYWHERE));
-		} else if ("specialization".equalsIgnoreCase(searchBy)) {
-			criteria.add(Restrictions.ilike("specialization", "%" + value + "%"));
-		} else if ("address".equalsIgnoreCase(searchBy)) {
+		}
+		else if ("specialization".equalsIgnoreCase(searchBy)) {
+		    criteria.add(Restrictions.eq("specialization", value));
+		}
+		else if ("address".equalsIgnoreCase(searchBy)) {
 			criteria.add(Restrictions.ilike("address", "%" + value + "%"));
 		}
 
 		List<Doctors> doctors = criteria.list();
 		session.close();
 		return doctors != null ? doctors : new ArrayList<>();
+	}
+
+	@Override
+	public List<String> fetchAllSpecialization() {
+		Session session = sessionFactory.openSession();
+		try {
+			Query query = session.getNamedQuery("fetchAllSpecializations");
+			List<String> specializations = query.list();
+			return specializations;
+		} finally {
+			session.close();
+		}
 	}
 }

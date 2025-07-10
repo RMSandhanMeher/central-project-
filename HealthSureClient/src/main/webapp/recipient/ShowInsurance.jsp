@@ -1,406 +1,474 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
+<%-- Removed JSTL fn taglib as it's no longer needed --%>
 
 <f:view>
 	<html>
 <head>
-<title>Insurance Details</title>
+<title>Show Insurance Details</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
 <style>
-/* Reset some default margins for consistency */
-html, body {
+/* Basic Reset & Body Styling */
+body {
+	font-family: 'Poppins', sans-serif; /* Modern font */
+	background-color: #eef2f7; /* Light, calming background */
 	margin: 0;
 	padding: 0;
-}
-
-body {
-	font-family: 'Segoe UI', sans-serif;
-	background-color: #f8fcff;
 	display: flex;
-	flex-direction: column; /* Stack children vertically */
-	align-items: center; /* Center children horizontally */
-	min-height: 100vh; /* Ensure body takes full viewport height */
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	color: #333;
 }
 
-/* Header (H2) Styling */
+/* Page Title */
 h2 {
-	color: #0077b6;
 	text-align: center;
-	margin-top: 100px; /* Space from top (and navbar) */
-	margin-bottom: 20px;
-	/* Space between heading and the main content box */
-	font-size: 28px;
-	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-	width: 100%; /* Ensure heading takes full width for centering */
+	color: #0056b3; /* Deeper blue for headings */
+	margin-top: 100px; /* Adjust for navbar */
+	margin-bottom: 25px; /* More space below title */
+	font-size: 32px; /* Larger title */
+	font-weight: 600; /* Slightly bolder */
+	letter-spacing: -0.5px;
 }
 
-/* Main Content Panel - The Shadowed Box */
+/* Main Content Panel */
 .main-content-panel {
-	width: 90%; /* Adjusted width for more content on this page */
-	max-width: 1200px; /* Add a max-width for very large screens */
-	margin-top: 0; /* Managed by body flex and h2 margin */
+	width: 85%; /* Cover more page width */
+	max-width: 1400px; /* Increased max-width */
 	margin-bottom: 30px;
 	background-color: #ffffff;
-	border-radius: 12px;
-	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); /* Stronger shadow */
-	padding: 30px; /* Internal padding for content */
-	box-sizing: border-box; /* Include padding in element's total width */
-	display: flex; /* Flex container for internal elements */
-	flex-direction: column; /* Stack internal elements vertically */
-	align-items: center; /* Center internal elements horizontally */
+	border-radius: 16px; /* More rounded corners */
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	/* Softer, larger shadow */
+	padding: 40px; /* Increased padding */
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-/* --- Input Grid (h:panelGrid) Styling for Recipient ID --- */
-.recipient-input-grid { /* Specific class for this page's grid */
+/* Recipient ID Input Grid */
+.recipient-input-grid {
 	width: 70%;
-	/* Control the width of the input section within the main panel */
-	margin: 0 auto 25px auto; /* Center the grid, add bottom margin */
-	border-collapse: collapse; /* Remove extra table spacing */
-}
-
-/* Styling for the cells (td) within the recipient-input-grid */
-.recipient-input-grid tr td {
-	padding: 8px 0;
-	/* Vertical padding for rows, horizontal padding handled by specific cell rules */
-	vertical-align: middle; /* Align content vertically in the middle */
+	margin: 15px auto 25px auto;
+	border-collapse: separate;
+	border-spacing: 0 15px;
 }
 
 .recipient-input-grid tr td:first-child {
-	/* Label column "Enter Recipient ID:" */
-	width: 40%; /* Allocate specific width for the label */
-	text-align: right; /* Right align the label */
-	padding-right: 15px; /* Space between label and input */
+	width: 30%;
+	padding-right: 20px;
+	vertical-align: middle;
+	text-align: right;
+	font-weight: 500;
+	color: #555;
+	font-size: 15px;
 }
 
-.recipient-input-grid tr td:nth-child(2) { /* Input field column */
-	width: 30%; /* Allocate width for the input */
-	padding-left: 0;
-	padding-right: 15px; /* Space between input and its buttons */
+.recipient-input-grid tr td:nth-child(2) {
+	width: 35%; /* Adjust input width */
+	vertical-align: middle;
 }
 
 .recipient-input-grid tr td:last-child {
-	/* Buttons column ("Show", "Reset") */
-	width: 30%; /* Allocate remaining width for buttons */
-	text-align: left; /* Left align buttons in their cell */
-	padding-left: 0;
+	width: 35%; /* Adjust buttons width */
+	vertical-align: middle;
 }
 
-/* Form fields aesthetics */
-h\:inputText, h\:selectOneMenu {
-	width: 100%; /* Fill the allocated cell width */
-	padding: 10px 12px;
-	font-size: 15px;
-	border-radius: 6px;
-	border: 1px solid #cce0eb;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
-	transition: border-color 0.2s, box-shadow 0.2s;
-	box-sizing: border-box; /* Include padding in width */
-}
 
-h\:inputText:focus, h\:selectOneMenu:focus {
-	border-color: #007bff;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 3px
-		rgba(0, 123, 255, 0.25);
+/* Input & Select Common Styles */
+.recipient-input-grid input[type="text"] {
+	width: 100%;
+	padding: 12px 18px;
+	font-size: 16px;
+	border: 1px solid #dcdfe6;
+	border-radius: 8px;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
 	outline: none;
+	background-color: #f9fbff;
 }
 
-/* Labels */
-h\:outputLabel {
-	font-weight: bold;
-	color: #333;
-	white-space: nowrap; /* Prevent label from wrapping */
+.recipient-input-grid input[type="text"]:focus {
+	border-color: #4a90e2;
+	box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
+	background-color: #ffffff;
 }
 
-/* --- NEW & IMPROVED BUTTON STYLES --- */
-
-/* Base Button Style */
+/* Button Styles - Adjusted for smaller size */
 .btn {
-	padding: 8px 20px;
+	padding: 10px 20px; /* Slightly smaller buttons */
 	border: none;
-	border-radius: 12px;
+	border-radius: 8px;
 	cursor: pointer;
-	font-size: 15px;
-	font-weight: 600;
+	font-size: 15px; /* Slightly smaller font */
+	font-weight: 500;
 	text-decoration: none;
 	display: inline-block;
-	transition: background-color 0.3s ease, transform 0.1s ease, box-shadow
-		0.3s ease;
+	transition: background-color 0.3s ease, transform 0.2s ease;
 	letter-spacing: 0.5px;
+	outline: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
-	transform: translateY(-0.8px);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
 	transform: translateY(0);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Primary Button (for Show, Filter, Next/Prev) */
 .btn-primary {
 	background-color: #007bff;
 	color: white;
-	box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 .btn-primary:hover {
 	background-color: #0069d9;
-	box-shadow: 0 6px 12px rgba(0, 123, 255, 0.35);
 }
 
-/* Secondary Button (for Reset) */
 .btn-secondary {
 	background-color: #6c757d;
 	color: white;
-	box-shadow: 0 4px 8px rgba(108, 117, 125, 0.25);
 }
 
 .btn-secondary:hover {
 	background-color: #5a6268;
-	box-shadow: 0 6px 12px rgba(108, 117, 125, 0.35);
 }
 
-/* Success Button (for View Members) - smaller for tables */
 .btn-success {
 	background-color: #28a745;
 	color: white;
-	padding: 8px 16px; /* Smaller padding */
-	font-size: 14px; /* Smaller font */
-	box-shadow: 0 4px 8px rgba(40, 167, 69, 0.25);
+	padding: 8px 18px; /* Even smaller for table buttons */
+	font-size: 13px;
 }
 
 .btn-success:hover {
 	background-color: #218838;
-	box-shadow: 0 6px 12px rgba(40, 167, 69, 0.35);
 }
 
-/* Container for Show/Reset buttons */
 .action-buttons-container {
-	/* New class to wrap "Show" and "Reset" buttons inside their TD */
 	display: flex;
-	gap: 10px; /* Space between Show and Reset buttons */
+	gap: 15px; /* Space between Show and Reset buttons */
 	justify-content: flex-start;
-	/* Align to the left in their table cell */
 	align-items: center;
 }
 
 .filter-buttons-bar {
-	text-align: center; /* Center filter buttons */
-	margin-top: 0px;
-	/* Space from input grid is now from grid's margin-bottom */
-	margin-bottom: 30px; /* Space below filter buttons before table */
-	width: 100%; /* Ensure it spans full width to apply text-align */
-	display: flex; /* Use flexbox for spacing */
-	justify-content: center; /* Center the filter buttons */
-	gap: 15px; /* Space between filter buttons */
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 15px; /* Reduced space between filter buttons */
+	margin-top: 15px;
+	margin-bottom: 25px; /* Space before table */
+	flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center;
 }
 
-/* Remove old h:commandButton general styling as .btn classes will take over */
-h\:commandButton {
-	/* These styles are now managed by .btn, .btn-primary, .btn-secondary */
-	/* Removed: padding, background-color, color, border, border-radius, cursor, font-size, font-weight, letter-spacing, transition, box-shadow */
-	
+.filter-buttons-bar .date-filter-group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
-/* Remove specific overrides that are now covered by .btn classes */
-h\:commandButton:hover {
-	/* Removed: background-color, transform, box-shadow */
-	
+input.date-input {
+	padding: 10px 15px;
+	font-size: 15px;
+	border: 1px solid #dcdfe6;
+	border-radius: 8px;
+	outline: none;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	background-color: #f9fbff;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
 
-h\:commandButton:active {
-	/* Removed: transform, box-shadow */
-	
+input.date-input:focus {
+	border-color: #4a90e2;
+	box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
+	background-color: #ffffff;
 }
 
-.filter-buttons-bar h\:commandButton:not(:first-child) {
-	margin-left: 0; /* Reset this, gap handles spacing now */
-}
-
-/* --- Table Styling --- */
+/* Data Table Styling */
 .data-table {
 	width: 100%;
-	/* Table fills the width of its parent (.main-content-panel) */
-	margin-top: 6px;
+	margin-top: 20px;
 	border-collapse: collapse;
 	background-color: #ffffff;
-	border-radius: 10px;
+	border-radius: 12px;
 	overflow: hidden;
-	box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
 }
 
 .data-table th, .data-table td {
-	border: 1px solid #bcd9ea;
-	padding: 10px;
-	text-align: center; /* Keep center for table data */
+	border: 1px solid #e9ecef;
+	padding: 15px 10px; /* Reduced horizontal padding for more columns */
+	text-align: center; /* Center align table data for consistency */
 	font-size: 14px;
 }
 
 .data-table th {
-	background-color: #d0f0f3;
+	background-color: #f8f9fa;
 	text-align: center;
-	font-weight: bold;
+	font-weight: 600;
+	color: #495057;
 	font-size: 15px;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.data-table th .h-panelgroup {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
 }
 
 .data-table tr:nth-child(even) {
-	background-color: #f1faff;
+	background-color: #fcfdff;
 }
 
 .data-table tr:hover {
-	background-color: #e0f7ff;
+	background-color: #eef7ff;
 }
 
-/* Table Header Sort Icons */
-.h-panelgroup {
-	display: flex;
-	align-items: center;
-	/* Vertically aligns the text and the arrow container */
-	justify-content: center; /* Horizontally centers the content */
-	gap: 5px; /* Adds a small space between text and arrows */
+/* Status Specific Styling - UPDATED TO MATCH UPPERCASE STATUS */
+.status-ACTIVE { /* Specific class for active status */
+    font-weight: 600;
+    color: #28a745; /* Green for active */
 }
 
+.status-EXPIRED { /* Specific class for expired status */
+    font-weight: 500;
+    color: #dc3545; /* Red for expired */
+}
+
+
+/* Sort Icons */
 .sort-icons-container {
 	display: flex;
-	flex-direction: column; /* Stack arrows vertically */
+	flex-direction: column;
+	margin-left: 5px;
 }
 
-.sort-icons { /* Applies to commandLink around graphicImage */
-	display: block; /* Make links block to stack arrows */
-	line-height: 1; /* Remove extra line height for tight stacking */
+.sort-icons {
+	display: block;
+	line-height: 1;
 }
 
 .sort-icons+.sort-icons {
-	margin-top: 2px; /* Small space between up and down arrows */
+	margin-top: 4px;
 }
 
-/* Pagination */
+.sort-icons img {
+	filter: invert(50%) sepia(0%) saturate(10%) hue-rotate(0deg)
+		brightness(50%) contrast(100%);
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+}
+
+.sort-icons:hover img {
+	opacity: 1;
+	filter: invert(30%) sepia(0%) saturate(10%) hue-rotate(0deg)
+		brightness(30%) contrast(100%);
+}
+
+
+/* Pagination Styles */
 .pagination {
-	display: flex; /* Use flexbox for pagination buttons */
+	display: flex;
 	align-items: center;
-	justify-content: center; /* Center the pagination block */
-	gap: 15px; /* Space between buttons and text */
-	margin: 30px 0 10px 0; /* Adjust margin */
+	justify-content: flex-end; /* Align to the right */
+	gap: 15px;
+	margin: 25px 0 0 0;
 	width: 100%;
 }
 
-.pagination .btn { /* Apply base button style to pagination buttons */
-	padding: 8px 18px; /* Slightly smaller for pagination */
-	font-size: 14px;
+.pagination .btn {
+	padding: 8px 15px;
+	font-size: 13px;
+	border-radius: 6px;
+	box-shadow: none;
+	background-color: #f0f4f8;
+	color: #4a90e2;
 }
 
-.pagination h\:commandButton+h\:commandButton {
-	/* Remove this, gap handles spacing now */
-	margin-left: 0;
+.pagination .btn:hover {
+	background-color: #e0e7ed;
+	transform: none;
+	box-shadow: none;
 }
 
-.pagination h\:outputText { /* Spacing around page number text */
-	margin: 0 0px; /* Adjust margin for flexbox */
-	font-weight: bold;
-	color: #333;
-	font-size: 16px;
+.pagination .btn:active {
+	background-color: #d0d6dd;
+}
+
+.pagination .btn:disabled { /* Use :disabled for JSF disabled attribute */
+	opacity: 0.6;
+	cursor: not-allowed;
+	background-color: #f8f9fa;
+	color: #99aab5;
 }
 
 .pagination-label {
-	/* Renamed from h:outputText to match the class in the provided pagination */
-	font-weight: bold;
-	color: #333;
-	font-size: 16px;
+	font-weight: 400;
+	color: #777;
+	font-size: 14px;
+	margin: 0 10px;
 }
 
-/* No Results Message */
+/* Global Messages */
+.global-messages {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto 30px auto;
+	width: 90%;
+	text-align: center;
+}
+
+.global-messages li {
+	padding: 15px 20px;
+	margin-bottom: 12px;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 500;
+	color: #333;
+	border: 1px solid;
+}
+
+.global-messages .ui-messages-info {
+	background-color: #d4edda;
+	color: #155724;
+	border-color: #c3e6cb;
+}
+
+.global-messages .ui-messages-warn {
+	background-color: #fff3cd;
+	color: #856404;
+	border-color: #ffeeba;
+}
+
+.global-messages .ui-messages-error, .global-messages .ui-messages-fatal
+	{
+	background-color: #f8d7da;
+	color: #721c24;
+	border-color: #f5c6cb;
+}
+
+/* No results / Initial message */
 .not-found {
 	text-align: center;
-	font-weight: bold;
-	color: #0077b6;
-	margin-top: 60px; /* Ample space if table is not rendered */
-	font-size: 1.2em;
-	text-shadow: 0.5px 0.5px #ccc;
-	width: 100%; /* Ensure it takes full width to center text */
-}
-
-input.date-input {
-	width: 150px;
-	padding: 8px;
-	font-size: 14px;
-}
-
-input.date-input::-webkit-calendar-picker-indicator {
-	display: block;
+	font-weight: 500;
+	color: #555;
+	margin-top: 30px;
+	font-size: 1.1em;
+	width: 100%;
+	padding: 20px;
+	background-color: #f0f4f8;
+	border-radius: 10px;
+	border: 1px solid #dcdfe6;
 }
 </style>
-<!-- Trick: render type="date" via JavaScript -->
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('input.date-input').forEach(input => {
-      input.setAttribute('type', 'date');
+<script type="text/javascript">
+    // Script to ensure type="date" for date inputs
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('input.date-input').forEach(input => {
+            input.setAttribute('type', 'date');
+        });
     });
-  });
+
+    // Function to scroll to the table (will only apply after full page load if needed)
+    function scrollToTable() {
+        const table = document.querySelector('.data-table');
+        if (table) {
+            const offset = 80; // Adjust for navbar height
+            const tablePosition = table.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({
+                top: tablePosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    // Call scroll to table on page load if the table is rendered
+    window.onload = function() {
+        const table = document.querySelector('.data-table');
+        if (table) {
+            scrollToTable();
+        }
+    };
 </script>
 
 </head>
-
 <body>
 
 	<jsp:include page="/navbar/NavRecipient.jsp" />
 
 	<h2>Show Insurance Details</h2>
 
-	<h:form styleClass="main-content-panel">
+	<h:form id="insuranceForm" styleClass="main-content-panel">
 
-		<h:messages globalOnly="true" style="color:red; margin-bottom: 20px;" />
+		<h:messages id="messages" globalOnly="true" styleClass="global-messages" />
 
 		<h:panelGrid columns="3" styleClass="recipient-input-grid">
 			<h:outputLabel for="recipientId" value="Enter Recipient ID:" />
-			<h:inputText id="recipientId" value="#{recipientController.hId}" />
+			<h:inputText id="recipientId" value="#{recipientController.hId}"
+				required="true" requiredMessage="Recipient ID is required." />
 			<h:panelGroup styleClass="action-buttons-container">
 				<h:commandButton value="Show"
 					action="#{recipientController.insuranceDetailscontroller}"
 					styleClass="btn btn-primary" />
 				<h:commandButton value="Reset"
 					action="#{recipientController.resetShow}"
-					styleClass="btn btn-secondary" />
+					styleClass="btn btn-secondary" immediate="true" />
 			</h:panelGroup>
 		</h:panelGrid>
 
-		<div class="filter-buttons-bar">
+		<%-- Filter Buttons (ALWAYS RENDERED NOW) --%>
+		<h:panelGroup layout="block" styleClass="filter-buttons-bar">
 			<h:commandButton value="Show Active Only"
 				action="#{recipientController.filterByCoverageStatus('ACTIVE')}"
 				styleClass="btn btn-primary" />
 			<h:commandButton value="Show Expired Only"
 				action="#{recipientController.filterByCoverageStatus('EXPIRED')}"
 				styleClass="btn btn-primary" />
-			<h:commandButton value="Reset Filter"
+
+			<h:panelGroup layout="block" styleClass="date-filter-group">
+				<h:outputLabel for="fromDate" value="From:" />
+				<h:inputText id="fromDate" value="#{recipientController.fromDate}"
+					styleClass="date-input">
+					<f:convertDateTime pattern="yyyy-MM-dd" />
+				</h:inputText>
+
+				<h:outputLabel for="toDate" value="To:" />
+				<h:inputText id="toDate" value="#{recipientController.toDate}"
+					styleClass="date-input">
+					<f:convertDateTime pattern="yyyy-MM-dd" />
+				</h:inputText>
+
+				<h:commandButton value="Filter by Date"
+					action="#{recipientController.filterByDateRange}"
+					styleClass="btn btn-primary" />
+			</h:panelGroup>
+
+			<h:commandButton value="Reset Filters"
 				action="#{recipientController.resetFilter}"
 				styleClass="btn btn-secondary" />
-		</div>
+		</h:panelGroup>
 
 
-		<div class="filter-buttons-bar">
-			<h:outputLabel for="fromDate" value="From:"
-				style="font-weight: bold;" />
-			<h:inputText id="fromDate" value="#{recipientController.fromDate}"
-				styleClass="date-input">
-				<f:convertDateTime pattern="yyyy-MM-dd" />
-			</h:inputText>
-
-			<h:outputLabel for="toDate" value="To:" style="font-weight: bold;" />
-			<h:inputText id="toDate" value="#{recipientController.toDate}"
-				styleClass="date-input">
-				<f:convertDateTime pattern="yyyy-MM-dd" />
-			</h:inputText>
-
-			<h:commandButton value="Filter by Date Range"
-				action="#{recipientController.filterByDateRange}"
-				styleClass="btn btn-primary" />
-		</div>
-
-
-
-		<h:dataTable value="#{recipientController.paginatedInsuranceList}"
-			var="insurance" styleClass="data-table"
-			rendered="#{not empty recipientController.paginatedInsuranceList}">
+		<h:dataTable id="insuranceTable"
+			value="#{recipientController.paginatedInsuranceList}" var="insurance"
+			styleClass="data-table"
+			rendered="#{not empty recipientController.patientInsuranceList}">
 
 			<h:column>
 				<f:facet name="header">
@@ -411,13 +479,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('patientName')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('patientName')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -434,13 +502,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('companyName')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('companyName')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -457,13 +525,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('planName')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('planName')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -480,13 +548,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('coverageStartDate')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('coverageStartDate')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -505,13 +573,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('coverageEndDate')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('coverageEndDate')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -530,13 +598,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('coverageType')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('coverageType')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -553,18 +621,20 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('coverageStatus')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('coverageStatus')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
 				</f:facet>
-				<h:outputText value="#{insurance.coverageStatus}" />
+				<%-- Conditional styling for status text - NOW DIRECTLY USES UPPERCASE STATUS --%>
+				<h:outputText value="#{insurance.coverageStatus}"
+					styleClass="status-#{insurance.coverageStatus}" />
 			</h:column>
 
 			<h:column>
@@ -576,13 +646,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('coverageLimit')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('coverageLimit')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -599,13 +669,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('remaining')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('remaining')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -622,13 +692,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('claimed')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('claimed')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -645,13 +715,13 @@ input.date-input::-webkit-calendar-picker-indicator {
 								action="#{recipientController.sortByAsc('lastClaimDate')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
-									width="10" height="10" title="Sort-Ascending" />
+									width="10" height="10" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{recipientController.sortByDesc('lastClaimDate')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
-									width="10" height="10" title="Sort-Descending" />
+									width="10" height="10" title="Sort Descending" />
 							</h:commandLink>
 						</h:panelGroup>
 					</h:panelGroup>
@@ -671,27 +741,47 @@ input.date-input::-webkit-calendar-picker-indicator {
 						styleClass="btn btn-success" />
 				</h:panelGroup>
 			</h:column>
-
 		</h:dataTable>
 
+		<%-- No results message / Initial prompt --%>
 		<h:panelGroup
-			rendered="#{empty recipientController.paginatedInsuranceList}">
-			<div class="not-found">Please enter a Recipient ID and click
-				'Show'.</div>
+			rendered="#{empty recipientController.patientInsuranceList and empty recipientController.hId}"
+			layout="block">
+			<div class="not-found">Please enter a Recipient ID to view
+				insurance details.</div>
+		</h:panelGroup>
+		<h:panelGroup
+			rendered="#{empty recipientController.patientInsuranceList and not empty recipientController.hId and facesContext.validationFailed}"
+			layout="block">
+			<%-- This panelGroup is now effectively a placeholder. If hId validation fails,
+                 h:messages will display the error, and this 'No details found' message wouldn't be appropriate. --%>
+		</h:panelGroup>
+		<h:panelGroup
+			rendered="#{empty recipientController.patientInsuranceList and not empty recipientController.hId and not facesContext.validationFailed}"
+			layout="block">
+			<div class="not-found">No insurance details found for this
+				Recipient ID.</div>
 		</h:panelGroup>
 
-		<div class="pagination">
+
+		<%-- Pagination (rendered only if insurance list is present) --%>
+		<h:panelGroup id="paginationPanel"
+			rendered="#{not empty recipientController.patientInsuranceList}"
+			layout="block" styleClass="pagination">
 			<h:commandButton value="« Previous"
 				action="#{recipientController.previousPage}"
-				rendered="#{recipientController.hasPreviousPage}"
+				disabled="#{not recipientController.hasPreviousPage}"
 				styleClass="btn btn-primary" />
+
 			<h:outputText styleClass="pagination-label"
 				value="Page #{recipientController.currentPage} of #{recipientController.totalPages}" />
+
 			<h:commandButton value="Next »"
 				action="#{recipientController.nextPage}"
-				rendered="#{recipientController.hasNextPage}"
+				disabled="#{not recipientController.hasNextPage}"
 				styleClass="btn btn-primary" />
-		</div>
+		</h:panelGroup>
+
 	</h:form>
 
 </body>

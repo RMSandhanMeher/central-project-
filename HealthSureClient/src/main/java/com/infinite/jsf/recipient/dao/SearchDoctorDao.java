@@ -7,4 +7,6 @@ public interface SearchDoctorDao {
 	
 	List<Doctors> searchDoctors(String searchBy, String value);
 	
+	List<String> fetchAllSpecialization();
+	
 }
