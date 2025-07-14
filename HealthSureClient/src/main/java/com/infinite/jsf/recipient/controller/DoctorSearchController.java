@@ -76,7 +76,8 @@ public class DoctorSearchController {
 					}
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOGGER.severe("Error fetching specializations: " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
 					FacesMessage.SEVERITY_ERROR, "Error loading specializations. Please try again.", null));
@@ -86,54 +87,11 @@ public class DoctorSearchController {
 	public void searchByChanged() {
 		LOGGER.info("Search type changed to: " + this.searchBy);
 	}
+	
+	
+	
 
-	public void executeSearch() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		searchPerformed = true;
-
-		String currentSearchValue = "specialization".equals(searchBy) ? selectedSpecialization : searchValue;
-
-		LOGGER.info("Searching: " + searchBy + " = " + currentSearchValue);
-
-		if (currentSearchValue == null || currentSearchValue.trim().isEmpty()) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Please provide search criteria.", null));
-			searchResults = new ArrayList<>();
-			return;
-		}
-
-		currentSearchValue = currentSearchValue.trim().replaceAll("\\s{2,}", " ");
-
-		// Validation
-		if ("doctorName".equals(searchBy)) {
-			if (!Pattern.matches("^[a-zA-Z. ]+$", currentSearchValue)) {
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Doctor Name can only contain letters, spaces, and dot (.)", null));
-				searchResults = new ArrayList<>();
-				return;
-			}
-		} else if ("specialization".equals(searchBy)) {
-			if ("• Select Specialization •".equals(currentSearchValue) || "".equals(currentSearchValue)) {
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Please select a valid specialization.", null));
-				searchResults = new ArrayList<>();
-				return;
-			}
-		}
-
-		// DAO call
-		searchResults = doctorDAO.searchDoctors(searchBy, currentSearchValue);
-		LOGGER.info("Results found: " + (searchResults != null ? searchResults.size() : 0));
-
-		if (searchResults == null || searchResults.isEmpty()) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"No doctors found matching your search.", null));
-			searchResults = new ArrayList<>();
-		}
-
-		sortResults();
-		currentPage = 0;
-	}
+    
 
 	
 	//Pagination Module
@@ -162,7 +120,7 @@ public class DoctorSearchController {
 	
 	//Count of data in a page/total page
 	//e.g (Showing 4 of 6 results (Page 1 of 2))
-	public String getPaginationSummary() {
+	public String getPaginationDocSummary() {
 		if (searchResults == null || searchResults.isEmpty()) {
 			return "";
 		}
@@ -174,9 +132,6 @@ public class DoctorSearchController {
 		return "Showing " + from + " of " + total + " results (Page " + page + " of " + totalPages + ")";
 	}
 
-	
-	
-	
 	
 	
 	//Sorting Module
@@ -247,37 +202,136 @@ public class DoctorSearchController {
 		this.ascending = true;
 		this.searchPerformed = false;
 
-		FacesContext.getCurrentInstance().getMessageList().clear();
+//		FacesContext.getCurrentInstance().getMessageList().clear();
 
 		LOGGER.info("Search reset.");
-		return null;
+		return "findDoctor"; // or same page's navigation outcome
+	}
+	
+	
+	
+	
+	
+	//Validations
+		public void executeSearch() {
+			FacesContext context = FacesContext.getCurrentInstance();
+			searchPerformed = true;
+
+			String currentSearchValue = "specialization".equals(searchBy) ? selectedSpecialization : searchValue;
+
+			LOGGER.info("Searching: " + searchBy + " = " + currentSearchValue);
+
+			if (currentSearchValue == null || currentSearchValue.trim().isEmpty()) {
+				context.addMessage("searchForm:searchValueInput", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Please provide search criteria.", null));
+				searchResults = new ArrayList<>();
+				return;
+			}
+
+			currentSearchValue = currentSearchValue.trim().replaceAll("\\s{2,}", " ");
+
+			// Validation
+			if ("doctorName".equals(searchBy)) {
+				if (!Pattern.matches("^[a-zA-Z. ]+$", currentSearchValue)) {
+					context.addMessage("searchForm:searchValueInput", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Doctor Name can only contain letters, spaces, and dot eg. (Dr.)", null));
+					searchResults = new ArrayList<>();
+					return;
+				}
+			} else if ("specialization".equals(searchBy)) {
+				if ("• Select Specialization •".equals(currentSearchValue) || "".equals(currentSearchValue)) {
+					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Please select a valid specialization.", null));
+					searchResults = new ArrayList<>();
+					return;
+				}
+			}
+
+			// DAO call
+			searchResults = doctorDAO.searchDoctors(searchBy, currentSearchValue);
+			LOGGER.info("Results found: " + (searchResults != null ? searchResults.size() : 0));
+
+			if (searchResults == null || searchResults.isEmpty()) {
+				context.addMessage("searchForm:searchValueInput", new FacesMessage(FacesMessage.SEVERITY_WARN,
+						"No doctors found matching your search.", null));
+				searchResults = new ArrayList<>();
+			}
+
+			sortResults();
+			currentPage = 0;
+		}
+	
+	
+	
+	
+	
+		
+		
+	
+
+	// Getters & Setters
+	public String getSearchBy() {
+		return searchBy;
 	}
 
-	// === Getters & Setters ===
-	public String getSearchBy() { return searchBy; }
-	public void setSearchBy(String searchBy) { this.searchBy = searchBy; }
+	public void setSearchBy(String searchBy) {
+		this.searchBy = searchBy;
+	}
 
-	public String getSearchValue() { return searchValue; }
-	public void setSearchValue(String searchValue) { this.searchValue = searchValue; }
+	public String getSearchValue() {
+		return searchValue;
+	}
 
-	public String getSelectedSpecialization() { return selectedSpecialization; }
-	public void setSelectedSpecialization(String selectedSpecialization) { this.selectedSpecialization = selectedSpecialization; }
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
 
-	public List<Doctors> getSearchResults() { return searchResults; }
-	public void setSearchResults(List<Doctors> searchResults) { this.searchResults = searchResults; }
+	public String getSelectedSpecialization() {
+		return selectedSpecialization;
+	}
 
-	public int getCurrentPage() { return currentPage + 1; } // 1-based for display
-	public boolean isHasNextPage() { return searchResults != null && (currentPage + 1) * pageSize < searchResults.size(); }
-	public boolean isHasPrevPage() { return currentPage > 0; }
+	public void setSelectedSpecialization(String selectedSpecialization) {
+		this.selectedSpecialization = selectedSpecialization;
+	}
+
+	public List<Doctors> getSearchResults() {
+		return searchResults;
+	}
+
+	public void setSearchResults(List<Doctors> searchResults) {
+		this.searchResults = searchResults;
+	}
+
+	public int getCurrentPage() {
+		return currentPage + 1;
+	} // 1-based for display
+
+	public boolean isHasNextPage() {
+		return searchResults != null && (currentPage + 1) * pageSize < searchResults.size();
+	}
+
+	public boolean isHasPrevPage() {
+		return currentPage > 0;
+	}
+
 	public int getTotalPages() {
-		if (searchResults == null || searchResults.isEmpty()) return 0;
+		if (searchResults == null || searchResults.isEmpty())
+			return 0;
 		return (searchResults.size() + pageSize - 1) / pageSize;
 	}
 
-	public String getSortField() { return sortField; }
-	public boolean isAscending() { return ascending; }
-	public boolean isSearchPerformed() { return searchPerformed; }
-	
+	public String getSortField() {
+		return sortField;
+	}
+
+	public boolean isAscending() {
+		return ascending;
+	}
+
+	public boolean isSearchPerformed() {
+		return searchPerformed;
+	}
+
 	public String getCurrentSortColumn() {
 		return currentSortColumn;
 	}

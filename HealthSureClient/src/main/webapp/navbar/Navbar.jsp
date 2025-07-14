@@ -31,7 +31,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="adminLogin.jsp">Admin</a></li>
                     <li><a href="providerLogin.jsp">Provider</a></li>
-                    <li><a href="recipientLogin.jsp">Recipient</a></li>
+                    <li><a href="/HealthSureClient/recipient/Login.jsf">Recipient</a></li>
                     <li><a href="pharmacyLogin.jsp">Pharmacy</a></li>
                     <li><a href="doctorLogin.jsp">Doctor</a></li>
                 </ul>

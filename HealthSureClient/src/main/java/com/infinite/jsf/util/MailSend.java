@@ -11,12 +11,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailSend {
-
 	public static String sendInfo(String toEmail, String subject, String data) {
         //String to = "prasanna.trainer@gmail.com";
 
         // Sender's email ID needs to be mentioned
-        String from = "prasanna.vsp80@gmail.com";
+        String from = "prasanna.trainer@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";

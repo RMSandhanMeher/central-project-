@@ -15,8 +15,13 @@ public class PatientInsuranceDetails {
 	private String planName;
 	private Date enrollmentDate;
 	private SubscriptionStatus substatus;
-	
-	
+	private Date coverageStartDate;
+	private Date coverageEndDate;
+	private SubscriptionStatus coverageStatus;
+	private PlanType coverageType;
+	private double coverageLimit;
+	private double remaining;
+	private double claimed;
 
 	public SubscriptionStatus getSubstatus() {
 		return substatus;
@@ -33,24 +38,6 @@ public class PatientInsuranceDetails {
 	public void setSubscribeId(String subscribeId) {
 		this.subscribeId = subscribeId;
 	}
-
-	@Override
-	public String toString() {
-		return "PatientInsuranceDetails [subscribeId=" + subscribeId + ", hId=" + hId + ", patientName=" + patientName
-				+ ", companyName=" + companyName + ", planName=" + planName + ", enrollmentDate=" + enrollmentDate
-				+ ", coverageStartDate=" + coverageStartDate + ", coverageEndDate=" + coverageEndDate
-				+ ", coverageStatus=" + coverageStatus + ", coverageType=" + coverageType + ", coverageLimit="
-				+ coverageLimit + ", remaining=" + remaining + ", claimed=" + claimed + ", lastClaimDate="
-				+ lastClaimDate + ", subscribedMembers=" + subscribedMembers + "]";
-	}
-
-	private Date coverageStartDate;
-	private Date coverageEndDate;
-	private SubscriptionStatus coverageStatus;
-	private PlanType coverageType;
-	private double coverageLimit;
-	private double remaining;
-	private double claimed;
 
 	public List<SubscribedMember> getSubscribedMembers() {
 		return subscribedMembers;
@@ -159,10 +146,23 @@ public class PatientInsuranceDetails {
 		this.lastClaimDate = lastClaimDate;
 	}
 
+	public double getCoverageLimit() {
+		return coverageLimit;
+	}
+
+	public void setCoverageLimit(double coverageLimit) {
+		this.coverageLimit = coverageLimit;
+	}
+
+	public PatientInsuranceDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public PatientInsuranceDetails(String subscribeId, String hId, String patientName, String companyName,
 			String planName, Date enrollmentDate, Date coverageStartDate, Date coverageEndDate,
-			SubscriptionStatus coverageStatus, PlanType coverageType, double limit, double remaining,
-			double claimed, Date lastClaimDate, List<SubscribedMember> subscribedMembers, double coverageLimit) {
+			SubscriptionStatus coverageStatus, PlanType coverageType, double limit, double remaining, double claimed,
+			Date lastClaimDate, List<SubscribedMember> subscribedMembers, double coverageLimit) {
 		super();
 		this.subscribeId = subscribeId;
 		this.hId = hId;
@@ -181,16 +181,14 @@ public class PatientInsuranceDetails {
 		this.subscribedMembers = subscribedMembers;
 	}
 
-	public double getCoverageLimit() {
-		return coverageLimit;
+	@Override
+	public String toString() {
+		return "PatientInsuranceDetails [subscribeId=" + subscribeId + ", hId=" + hId + ", patientName=" + patientName
+				+ ", companyName=" + companyName + ", planName=" + planName + ", enrollmentDate=" + enrollmentDate
+				+ ", coverageStartDate=" + coverageStartDate + ", coverageEndDate=" + coverageEndDate
+				+ ", coverageStatus=" + coverageStatus + ", coverageType=" + coverageType + ", coverageLimit="
+				+ coverageLimit + ", remaining=" + remaining + ", claimed=" + claimed + ", lastClaimDate="
+				+ lastClaimDate + ", subscribedMembers=" + subscribedMembers + "]";
 	}
 
-	public void setCoverageLimit(double coverageLimit) {
-		this.coverageLimit = coverageLimit;
-	}
-
-	public PatientInsuranceDetails() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 }

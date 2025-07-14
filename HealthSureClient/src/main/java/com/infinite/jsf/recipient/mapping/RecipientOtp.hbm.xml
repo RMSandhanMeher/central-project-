@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.infinite.jsf.recipient.model.RecipientOtp" table="Recipient_Otp">
+        <id name="otpId" type="int">
+            <column name="otp_id"/>
+            <generator class="increment"/>
+        </id>
+
+ 
+        <property name="userName" type="java.lang.String">
+            <column name="user_name"/>
+        </property>
+
+        <property name="otpCode" type="java.lang.Integer">
+            <column name="otp_code"/>
+        </property>
+
+
+        <property name="status">
+            <column name="status" />
+            <type name="org.hibernate.type.EnumType">
+            <param name="enumClass">com.infinite.jsf.recipient.model.OtpStatus</param>
+            <param name="type">12</param>
+            
+            </type>
+        </property>
+        
+        <property name="createdAt" type="timestamp">
+            <column name="created_at"/>
+        </property>
+
+        <property name="expiresAt" type="timestamp">
+            <column name="expires_at"/>
+        </property>
+        
+        <property name="email" type="java.lang.String">
+            <column name="email"/>
+        </property>
+        
+
+        <property name="purpose">
+            <column name="purpose" />
+            <type name="org.hibernate.type.EnumType">
+            <param name="enumClass">com.infinite.jsf.recipient.model.Purpose</param>
+            <param name="type">12</param>
+            
+            </type>
+        </property>
+        
+
+        
+    </class>
+</hibernate-mapping>

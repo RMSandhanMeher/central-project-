@@ -37,7 +37,7 @@ h2 {
 /* Main Content Panel */
 .main-content-panel {
 	width: 85%; /* Cover more page width */
-	max-width: 1400px; /* Increased max-width */
+	max-width: 1800px; /* Increased max-width */
 	margin-bottom: 30px;
 	background-color: #ffffff;
 	border-radius: 16px; /* More rounded corners */
@@ -52,16 +52,18 @@ h2 {
 
 /* Form Elements (Labels, Inputs, Selects) */
 .search-inputs-grid {
-	width: 70%; /* Wider input section for better readability */
+	width: 40%; /* Wider input section for better readability */
 	margin: 15px auto 25px auto; /* Centered with more vertical margin */
 	border-collapse: separate;
+	padding-left: 5px;
+	margin-left: 280px;
 	/* Allows border-radius on cells if needed */
 	border-spacing: 0 15px; /* Space between rows */
 }
 
 .search-inputs-grid tr td:first-child {
-	width: 30%; /* Adjust label width */
-	padding-right: 20px;
+	width: 40%; /* Adjust label width */
+	padding-right: 10px;
 	vertical-align: middle;
 	text-align: right;
 	font-weight: 500; /* Medium weight for labels */
@@ -169,7 +171,7 @@ h2 {
 
 .search-buttons {
 	text-align: center;
-	margin-top: 15px; /* Adjust spacing */
+	margin-top: -20px; /* Adjust spacing */
 	margin-bottom: 40px; /* More space before table */
 	width: 100%;
 	display: flex;
@@ -290,6 +292,17 @@ h2 {
 	margin: 0 10px;
 }
 
+/* Status Specific Styling - UPDATED TO MATCH UPPERCASE STATUS */
+.status-ACTIVE { /* Specific class for active status */
+	font-weight: 600;
+	color: #28a745; /* Green for active */
+}
+
+.status-EXPIRED { /* Specific class for expired status */
+	font-weight: 500;
+	color: #dc3545; /* Red for expired */
+}
+
 /* Sort Icons */
 .sort-icons-container {
 	display: flex;
@@ -362,10 +375,10 @@ h2 {
 .not-found {
 	text-align: center;
 	font-weight: 500;
-	color: #555; /* Muted color */
+	color: green; /* Muted color */
 	margin-top: 30px;
-	font-size: 1.1em;
-	width: 100%;
+	font-size: 1em;
+	width: 80%;
 	padding: 20px;
 	background-color: #f0f4f8; /* Light background */
 	border-radius: 10px;
@@ -426,7 +439,7 @@ h2 {
             paginationButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     // Small delay to ensure the table has updated
-                    setTimeout(scrollToTable, 100);
+                    setTimeout(scrollToTable, 200);
                 });
             });
 
@@ -447,13 +460,13 @@ h2 {
 
 	<jsp:include page="/navbar/NavRecipient.jsp" />
 
-	<h2>Search to Book Appointments</h2>
+	<h2>Find & Book a Doctor 🩺</h2>
 
 	<h:form id="searchForm" styleClass="main-content-panel">
 		<%-- Global messages display --%>
-		<h:messages globalOnly="true" styleClass="global-messages" />
+		<!--<h:messages globalOnly="true" styleClass="global-messages" />-->
 		<%-- Message for specific input components (if used) --%>
-		<h:messages id="searchFieldMessages" for="searchFieldContainer"
+		<h:message id="searchFieldMessages" for="searchFieldContainer"
 			styleClass="global-messages" />
 
 
@@ -482,8 +495,12 @@ h2 {
 							value="#{doctorSearchController.specializationOptions}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
+				<h:message for="searchValueInput" style="color:red" />
 			</h:panelGroup>
 		</h:panelGrid>
+
+
+		<!-- Buttons Div -->
 		<div class="search-buttons">
 			<h:commandButton value="Search Doctor"
 				action="#{doctorSearchController.executeSearch}"
@@ -491,8 +508,9 @@ h2 {
 
 			<h:commandButton value="Clear Search"
 				action="#{doctorSearchController.resetSearch}"
-				styleClass="btn btn-secondary" immediate="true" />
+				styleClass="btn btn-secondary" />
 		</div>
+
 
 		<!--  Count of data in a page/total data 
 	     e.g (Showing 4 of 6 results (Page 1 of 2))-->
@@ -500,8 +518,10 @@ h2 {
 			rendered="#{not empty doctorSearchController.paginatedDoctors}"
 			layout="block"
 			style="width: 100%; text-align: right; margin-top: 10px; margin-bottom: 5px; font-size: 14px; color: #666; font-weight: 500;">
-			<h:outputText value="#{doctorSearchController.paginationSummary}" />
+			<h:outputText value="#{doctorSearchController.paginationDocSummary}" />
 		</h:panelGroup>
+
+
 
 
 		<h:dataTable value="#{doctorSearchController.paginatedDoctors}"
@@ -687,24 +707,27 @@ h2 {
 
 		<h:panelGroup
 			rendered="#{empty doctorSearchController.paginatedDoctors and not doctorSearchController.searchPerformed}">
-			<div class="not-found">Search for doctors by name or
-				specialization to find available appointments.</div>
+			<div class="not-found">Search for doctors by name,
+				specialization or and address to find available appointments.</div>
 		</h:panelGroup>
 		<h:panelGroup
 			rendered="#{empty doctorSearchController.paginatedDoctors and doctorSearchController.searchPerformed}">
-			<div class="not-found">No doctors found matching your criteria.
-				Please try a different search.</div>
+			<div class="not-found">Kindly Search properly to Book
+				Appointment</div>
 		</h:panelGroup>
 
 		<!-- Scroll-to-table script after pagination -->
 		<!-- JSP-compatible scroll-to-table script -->
 		<h:panelGroup
 			rendered="#{not empty doctorSearchController.paginatedDoctors}">
+
+
 			<script type="text/javascript">
         window.addEventListener('load', function () {
-            setTimeout(scrollToTable, 100);
+            setTimeout(scrollToTable, 200);
         });
     </script>
+
 		</h:panelGroup>
 
 

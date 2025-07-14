@@ -9,7 +9,5 @@ public interface InsuranceDao {
     //  Return all insurances for a recipient
     public List<PatientInsuranceDetails> showInsuranceOfRecipient(String recipientId);
     
-    boolean isRecipientExist(String hId);
-
 
 }

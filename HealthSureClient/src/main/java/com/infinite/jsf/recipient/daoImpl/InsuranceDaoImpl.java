@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 
 import com.infinite.jsf.insurance.model.PlanType;
 import com.infinite.jsf.insurance.model.Subscribe;
@@ -18,24 +14,17 @@ import com.infinite.jsf.insurance.model.SubscribedMember;
 import com.infinite.jsf.insurance.model.SubscriptionStatus;
 import com.infinite.jsf.recipient.dao.InsuranceDao;
 import com.infinite.jsf.recipient.model.PatientInsuranceDetails;
-import com.infinite.jsf.recipient.model.Recipient;
 import com.infinite.jsf.util.SessionHelper;
 
-public class InsuranceDaoImpl implements InsuranceDao{
+public class InsuranceDaoImpl implements InsuranceDao {
 
 	static SessionFactory sessionFactory;
 	static {
-		sessionFactory = new Configuration().configure().buildSessionFactory();
+		sessionFactory = SessionHelper.getSessionFactory();
 	}
 
 	@Override
 	public List<PatientInsuranceDetails> showInsuranceOfRecipient(String recipientId) {
-		return fetchInsuranceByStatus(recipientId, null); // Show all (no filter)
-	}
-
-
-	// Shared logic method with status filter
-	private List<PatientInsuranceDetails> fetchInsuranceByStatus(String recipientId, Boolean activeOnly) {
 		Session session = sessionFactory.openSession();
 		session.clear();
 
@@ -43,10 +32,8 @@ public class InsuranceDaoImpl implements InsuranceDao{
 		query.setParameter("hId", recipientId);
 		List<Object[]> results = query.list();
 		List<PatientInsuranceDetails> detailsList = new ArrayList<>();
-		Date today = new Date();
 
 		for (Object[] row : results) {
-			Date coverageEndDate = (Date) row[7];
 
 			PatientInsuranceDetails details = new PatientInsuranceDetails();
 			details.setSubscribeId((String) row[0]);
@@ -56,8 +43,9 @@ public class InsuranceDaoImpl implements InsuranceDao{
 			details.setPlanName((String) row[4]);
 			details.setEnrollmentDate((Date) row[5]);
 			details.setCoverageStartDate((Date) row[6]);
-			details.setCoverageEndDate(coverageEndDate);
+			details.setCoverageEndDate((Date) row[7]);
 
+			// Convert string to Enum
 			SubscriptionStatus status = SubscriptionStatus.valueOf(((String) row[8]).toUpperCase());
 			PlanType type = PlanType.valueOf(((String) row[9]).toUpperCase());
 
@@ -68,6 +56,7 @@ public class InsuranceDaoImpl implements InsuranceDao{
 			details.setClaimed((Double) row[12]);
 			details.setLastClaimDate((Date) row[13]);
 
+			// If FAMILY plan, fetch members
 			if (type == PlanType.FAMILY) {
 				Query memberQuery = session.getNamedQuery("SubscribedMember.findBySubscribeId");
 				memberQuery.setParameter("subscribeId", details.getSubscribeId());
@@ -91,27 +80,5 @@ public class InsuranceDaoImpl implements InsuranceDao{
 
 		session.close();
 		return detailsList;
-		
 	}
-
-	@Override
-	public boolean isRecipientExist(String hId) {
-		 Session session = null;
-		    try {
-		        session = SessionHelper.getSessionFactory().openSession();
-		        Criteria criteria = session.createCriteria(Recipient.class);
-		        criteria.add(Restrictions.eq("hId", hId));
-		        criteria.setProjection(Projections.rowCount());
-		        Long count = (Long) criteria.uniqueResult();
-		        return count != null && count > 0;
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		        return false;
-		    } finally {
-		        if (session != null) {
-		            session.close();
-		        }
-		    }
-	}
-	
 }

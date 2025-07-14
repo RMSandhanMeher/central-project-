@@ -1,6 +1,6 @@
 package com.infinite.jsf.recipient.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,23 +13,20 @@ import com.infinite.jsf.provider.model.Claims;
 import com.infinite.jsf.provider.model.MedicalProcedure;
 import com.infinite.jsf.provider.model.Prescription;
 
-public class Recipient {
+public class Recipient implements Serializable{
 	private String hId; // Health ID
 	private String firstName;
 	private String lastName;
+	private String fullName;
 	private String mobile;
 	private String userName;
 	private Gender gender;
 	private Date dob;
 	private String address;
-	private Timestamp createdAt;
+	private Date createdAt;
 	private String password;
 	private String email;
 	private RecipientStatus status;
-	private Integer loginAttempts;
-	private Timestamp lockedUntil;
-	private Timestamp lastLogin;
-	private Timestamp passwordUpdatedAt;
 
 	// Relationships
 	private Set<Appointment> appointments;
@@ -58,8 +55,7 @@ public class Recipient {
 		this.password = password;
 		this.email = email;
 		this.status = RecipientStatus.ACTIVE;
-		this.loginAttempts = 0;
-		this.createdAt = new Timestamp(System.currentTimeMillis());
+		this.createdAt = new Date(System.currentTimeMillis());
 	}
 
 	// Getters and Setters
@@ -85,6 +81,14 @@ public class Recipient {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String firstName, String lastName) {
+		this.fullName = getFirstName() +" "+getLastName();
 	}
 
 	public String getMobile() {
@@ -127,11 +131,11 @@ public class Recipient {
 		this.address = address;
 	}
 
-	public Timestamp getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -159,37 +163,7 @@ public class Recipient {
 		this.status = status;
 	}
 
-	public Integer getLoginAttempts() {
-		return loginAttempts;
-	}
-
-	public void setLoginAttempts(Integer loginAttempts) {
-		this.loginAttempts = loginAttempts;
-	}
-
-	public Timestamp getLockedUntil() {
-		return lockedUntil;
-	}
-
-	public void setLockedUntil(Timestamp lockedUntil) {
-		this.lockedUntil = lockedUntil;
-	}
-
-	public Timestamp getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Timestamp lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
-	public Timestamp getPasswordUpdatedAt() {
-		return passwordUpdatedAt;
-	}
-
-	public void setPasswordUpdatedAt(Timestamp passwordUpdatedAt) {
-		this.passwordUpdatedAt = passwordUpdatedAt;
-	}
+	
 
 	// Relationship getters and setters
 	public Set<Appointment> getAppointments() {
