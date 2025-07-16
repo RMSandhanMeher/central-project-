@@ -1,4 +1,3 @@
-2025/07/14-09:43:33.906 54f0 Creating DB C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb since it was missing.
-2025/07/14-09:43:33.937 54f0 Reusing MANIFEST C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2025/07/14-09:43:33.939 54f0 Recovering log #3
-2025/07/14-09:43:33.942 54f0 Reusing old log C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/000003.log 
+2025/07/14-09:49:58.653 2204 Reusing MANIFEST C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2025/07/14-09:49:58.664 2204 Recovering log #3
+2025/07/14-09:49:58.669 2204 Reusing old log C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/000003.log 

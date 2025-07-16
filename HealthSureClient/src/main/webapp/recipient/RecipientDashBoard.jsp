@@ -37,7 +37,7 @@
  
             <h:form>
                 <h:commandLink action="#{recipientBean.viewPrescriptions}" styleClass="block bg-white p-5 rounded-xl shadow-md text-center hover:shadow-xl transition">
-                    <h3 class="text-md font-semibold text-purple-600 uppercase tracking-wide">Prescriptions</h3>
+                    <h3 class="text-md font-semibold text-purple-600 uppercase tracking-wide">Visit History</h3>
                     <p class="mt-2 text-4xl font-bold text-gray-800">
                         <h:outputText value="#{recipientBean.totalPrescriptions}" />
                     </p>
@@ -57,7 +57,7 @@
  
             <h:form>
                 <h:commandLink action="#{recipientBean.viewTestReports}" styleClass="block bg-white p-5 rounded-xl shadow-md text-center hover:shadow-xl transition">
-                    <h3 class="text-md font-semibold text-red-500 uppercase tracking-wide">Test Reports</h3>
+                    <h3 class="text-md font-semibold text-orange-500 uppercase tracking-wide">Claim History</h3>
                     <p class="mt-2 text-4xl font-bold text-gray-800">
                         <h:outputText value="#{recipientBean.recentTests}" />
                     </p>

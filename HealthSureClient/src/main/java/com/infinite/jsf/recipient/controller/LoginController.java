@@ -6,6 +6,7 @@ import java.time.ZoneId;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import com.infinite.jsf.recipient.dao.LoginDao;
 import com.infinite.jsf.recipient.daoImpl.LoginDaoImpl;
@@ -400,7 +401,7 @@ public class LoginController {
 			
 			if (recipient != null) {
 				recipient.setFullName(recipient.getFirstName(),recipient.getLastName());
-				System.out.println(recipient.getFullName());
+				System.out.println(recipient.getFullName()+" "+ "has logged-in...");
 		        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("loggedInRecipientId", recipient.gethId());
 		        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("fullName", recipient.getFullName());
 		        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("recipient", recipient); // optional
@@ -431,5 +432,6 @@ public class LoginController {
 
 		return null;
 	}
+	
 
 }

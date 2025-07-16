@@ -171,7 +171,7 @@ h2 {
 
 .search-buttons {
 	text-align: center;
-	margin-top: -20px; /* Adjust spacing */
+	margin-top: 15px; /* Adjust spacing */
 	margin-bottom: 40px; /* More space before table */
 	width: 100%;
 	display: flex;
@@ -253,7 +253,8 @@ h2 {
 .pagination {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end; /* Align to the right */
+	/* Changed to space-between to push the first child (summary) to the left and the second (buttons group) to the right */
+	justify-content: space-between; 
 	gap: 15px; /* Increased gap */
 	margin: 25px 0 0 0; /* More top margin */
 	width: 100%;
@@ -278,18 +279,24 @@ h2 {
 	background-color: #d0d6dd;
 }
 
-.pagination .btn:disabled, .pagination .btn.disabled {
+.pagination .btn:disabled { /* Used :disabled for JSF disabled attribute */
 	opacity: 0.6;
 	cursor: not-allowed;
 	background-color: #f8f9fa;
 	color: #99aab5;
 }
 
-.pagination-info {
+.pagination-label { /* New class for the summary text */
 	font-weight: 400; /* Normal weight */
 	color: #777;
 	font-size: 14px;
-	margin: 0 10px;
+}
+
+.pagination-info { /* Used for "Page X of Y" text */
+	font-weight: 400; /* Normal weight */
+	color: #777;
+	font-size: 14px;
+	margin: 0 10px; /* Adjust spacing around this label if needed */
 }
 
 /* Status Specific Styling - UPDATED TO MATCH UPPERCASE STATUS */
@@ -389,71 +396,88 @@ h2 {
 .hidden {
 	display: none;
 }
+
+.required-asterisk {
+  color: red;
+  margin-left: 0px;
+}
+
+/* Status Specific Styling - UPDATED TO MATCH UPPERCASE STATUS */
+.status-ACTIVE { /* Specific class for active status */
+	font-weight: 600;
+	color: #28a745; /* Green for active */
+}
+
+.status-INACTIVE { /* Specific class for expired status */
+	font-weight: 500;
+	color: #dc3545; /* Red for expired */
+}
+
 </style>
 <script type="text/javascript">
-        function toggleSearchInput() {
-            let by = document.getElementById('searchForm:searchBy').value;
-            let isSpecialization = by === 'specialization';
+        function toggleSearchInput() {
+            let by = document.getElementById('searchForm:searchBy').value;
+            let isSpecialization = by === 'specialization';
 
-            // Toggle visibility of the containers
-            let searchValueDiv = document.getElementById('searchForm:searchValueInputDiv');
-            let specializationDiv = document.getElementById('searchForm:specializationDropdownDiv');
+            // Toggle visibility of the containers
+            let searchValueDiv = document.getElementById('searchForm:searchValueInputDiv');
+            let specializationDiv = document.getElementById('searchForm:specializationDropdownDiv');
 
-            searchValueDiv.classList.toggle('hidden', isSpecialization);
-            specializationDiv.classList.toggle('hidden', !isSpecialization);
+            searchValueDiv.classList.toggle('hidden', isSpecialization);
+            specializationDiv.classList.toggle('hidden', !isSpecialization);
 
-            // Clear the value of the component that is being hidden
-            if (isSpecialization) {
-                let input = document.getElementById('searchForm:searchValueInput');
-                if (input) input.value = '';
-            } else {
-                let spec = document.getElementById('searchForm:specializationDropdown');
-                // Set to the first option (placeholder) if selecting another searchBy type
-                if (spec && spec.options.length > 0) {
-                    spec.value = spec.options[0].value;
-                }
-            }
-        }
+            // Clear the value of the component that is being hidden
+            if (isSpecialization) {
+                let input = document.getElementById('searchForm:searchValueInput');
+                if (input) input.value = '';
+            } else {
+                let spec = document.getElementById('searchForm:specializationDropdown');
+                // Set to the first option (placeholder) if selecting another searchBy type
+                if (spec && spec.options.length > 0) {
+                    spec.value = spec.options[0].value;
+                }
+            }
+        }
 
-        /* Return to the table content rather from top of page */
-        function scrollToTable() {
-            const table = document.querySelector('.data-table');
-            if (table) {
-                // Smooth scroll to table with offset for better visibility
-                const offset = 80; // Adjust this value based on your navbar height
-                const tablePosition = table.getBoundingClientRect().top + window.pageYOffset - offset;
-                window.scrollTo({
-                    top: tablePosition,
-                    behavior: 'smooth'
-                });
-            }
-        }
+        /* Return to the table content rather from top of page */
+        function scrollToTable() {
+            const table = document.querySelector('.data-table');
+            if (table) {
+                // Smooth scroll to table with offset for better visibility
+                const offset = 80; // Adjust this value based on your navbar height
+                const tablePosition = table.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({
+                    top: tablePosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
 
-        // Modify the existing window.onload function
-        window.onload = function() {
-            // Ensure the correct input is shown/hidden on page load based on initial searchBy value
-            toggleSearchInput();
+        // Modify the existing window.onload function
+        window.onload = function() {
+            // Ensure the correct input is shown/hidden on page load based on initial searchBy value
+            toggleSearchInput();
 
-            // Add click event listeners to pagination buttons
-            const paginationButtons = document.querySelectorAll('.pagination .btn');
-            paginationButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    // Small delay to ensure the table has updated
-                    setTimeout(scrollToTable, 200);
-                });
-            });
+            // Add click event listeners to pagination buttons
+            const paginationButtons = document.querySelectorAll('.pagination .btn');
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Small delay to ensure the table has updated
+                    setTimeout(scrollToTable, 200);
+                });
+            });
 
-            // Re-apply toggle on form submission for reset button immediate="true"
-            // This is a common workaround for immediate="true" not triggering onchange
-            const searchForm = document.getElementById('searchForm');
-            if (searchForm) {
-                searchForm.addEventListener('submit', function() {
-                    // Give a small delay to allow JSF update to process, then re-toggle
-                    setTimeout(toggleSearchInput, 50);
-                });
-            }
-        }
-        </script>
+            // Re-apply toggle on form submission for reset button immediate="true"
+            // This is a common workaround for immediate="true" not triggering onchange
+            const searchForm = document.getElementById('searchForm');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function() {
+                    // Give a small delay to allow JSF update to process, then re-toggle
+                    setTimeout(toggleSearchInput, 50);
+                });
+            }
+        }
+        </script>
 
 </head>
 <body>
@@ -464,7 +488,6 @@ h2 {
 
 	<h:form id="searchForm" styleClass="main-content-panel">
 		<%-- Global messages display --%>
-		<!--<h:messages globalOnly="true" styleClass="global-messages" />-->
 		<%-- Message for specific input components (if used) --%>
 		<h:message id="searchFieldMessages" for="searchFieldContainer"
 			styleClass="global-messages" />
@@ -478,13 +501,15 @@ h2 {
 				<f:selectItems value="#{doctorSearchController.searchOptions}" />
 			</h:selectOneMenu>
 
-			<h:outputLabel value="Search Criteria:" />
-
+			<h:outputLabel escape="false"
+				value="<span style='color:red'>*</span>Search Criteria:" />
 			<h:panelGroup>
 				<h:panelGroup id="searchValueInputDiv" layout="block">
 					<h:inputText id="searchValueInput"
 						value="#{doctorSearchController.searchValue}" />
 				</h:panelGroup>
+
+
 
 				<h:panelGroup id="specializationDropdownDiv" layout="block"
 					styleClass="hidden select-wrapper">
@@ -500,7 +525,6 @@ h2 {
 		</h:panelGrid>
 
 
-		<!-- Buttons Div -->
 		<div class="search-buttons">
 			<h:commandButton value="Search Doctor"
 				action="#{doctorSearchController.executeSearch}"
@@ -510,18 +534,6 @@ h2 {
 				action="#{doctorSearchController.resetSearch}"
 				styleClass="btn btn-secondary" />
 		</div>
-
-
-		<!--  Count of data in a page/total data 
-	     e.g (Showing 4 of 6 results (Page 1 of 2))-->
-		<h:panelGroup
-			rendered="#{not empty doctorSearchController.paginatedDoctors}"
-			layout="block"
-			style="width: 100%; text-align: right; margin-top: 10px; margin-bottom: 5px; font-size: 14px; color: #666; font-weight: 500;">
-			<h:outputText value="#{doctorSearchController.paginationDocSummary}" />
-		</h:panelGroup>
-
-
 
 
 		<h:dataTable value="#{doctorSearchController.paginatedDoctors}"
@@ -535,6 +547,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('doctorName')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('doctorName', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -542,6 +555,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('doctorName')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('doctorName', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -560,6 +574,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('specialization')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('specialization', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -567,6 +582,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('specialization')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('specialization', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -585,12 +601,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('status')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('status', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('status')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('status', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -598,7 +616,8 @@ h2 {
 						</h:panelGroup>
 					</h:panelGroup>
 				</f:facet>
-				<h:outputText value="#{doc.status}" />
+				<h:outputText value="#{doc.status}" 
+				styleClass="status-#{doc.status}"/>
 			</h:column>
 
 			<h:column>
@@ -608,12 +627,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('address')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('address', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('address')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('address', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -631,12 +652,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('type')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('type', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('type')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('type', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -644,7 +667,8 @@ h2 {
 						</h:panelGroup>
 					</h:panelGroup>
 				</f:facet>
-				<h:outputText value="#{doc.type}" />
+				<h:outputText value="#{doc.type}" 
+				/>
 			</h:column>
 
 			<h:column>
@@ -654,6 +678,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('email')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('email', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -661,6 +686,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('email')}"
+								rendered="#{doctorSearchController.renderSortButtonDoc('email', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -685,25 +711,33 @@ h2 {
 					value="Unavailable Now" styleClass="unavailable-now" />
 			</h:column>
 		</h:dataTable>
-		<h:panelGroup
-			rendered="#{doctorSearchController.searchPerformed and (doctorSearchController.hasPrevPage or doctorSearchController.hasNextPage)}">
-			<div class="pagination">
+
+		<h:panelGroup id="doctorPaginationPanel"
+			rendered="#{not empty doctorSearchController.paginatedDoctors}"
+			layout="block" styleClass="pagination">
+
+			<%-- This h:outputText will be aligned to the left --%>
+			<h:outputText value="#{doctorSearchController.paginationDocSummary}"
+				styleClass="pagination-label"
+				rendered="#{not empty doctorSearchController.paginatedDoctors}" />
+
+			<%-- This div will group the buttons and page numbers and be aligned to the right --%>
+			<div>
 				<h:commandButton value="« Previous"
 					action="#{doctorSearchController.prevPage}"
-					styleClass="btn btn-primary #{doctorSearchController.hasPrevPage ? '' : 'disabled'}"
-					onclick="setTimeout(scrollToTable, 100);"
-					disabled="#{not doctorSearchController.hasPrevPage}" />
+					disabled="#{not doctorSearchController.hasPrevPage}"
+					styleClass="btn" /> <%-- Changed styleClass to 'btn' --%>
 
 				<h:outputText styleClass="pagination-info"
 					value="Page #{doctorSearchController.currentPage} of #{doctorSearchController.totalPages}" />
 
 				<h:commandButton value="Next »"
 					action="#{doctorSearchController.nextPage}"
-					styleClass="btn btn-primary #{doctorSearchController.hasNextPage ? '' : 'disabled'}"
-					onclick="setTimeout(scrollToTable, 100);"
-					disabled="#{not doctorSearchController.hasNextPage}" />
+					disabled="#{not doctorSearchController.hasNextPage}"
+					styleClass="btn" /> <%-- Changed styleClass to 'btn' --%>
 			</div>
 		</h:panelGroup>
+
 
 		<h:panelGroup
 			rendered="#{empty doctorSearchController.paginatedDoctors and not doctorSearchController.searchPerformed}">
@@ -716,17 +750,15 @@ h2 {
 				Appointment</div>
 		</h:panelGroup>
 
-		<!-- Scroll-to-table script after pagination -->
-		<!-- JSP-compatible scroll-to-table script -->
 		<h:panelGroup
 			rendered="#{not empty doctorSearchController.paginatedDoctors}">
 
 
 			<script type="text/javascript">
-        window.addEventListener('load', function () {
-            setTimeout(scrollToTable, 200);
-        });
-    </script>
+        window.addEventListener('load', function () {
+            setTimeout(scrollToTable, 200);
+        });
+    </script>
 
 		</h:panelGroup>
 

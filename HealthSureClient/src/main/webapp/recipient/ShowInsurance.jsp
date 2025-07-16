@@ -282,7 +282,8 @@ input.date-input:focus {
 .pagination {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end; /* Align to the right */
+	/* Changed justify-content to space-between to push summary to left and buttons to right */
+	justify-content: space-between; 
 	gap: 15px;
 	margin: 25px 0 0 0;
 	width: 100%;
@@ -316,10 +317,10 @@ input.date-input:focus {
 }
 
 .pagination-label {
-	font-weight: 400;
-	color: #777;
-	font-size: 14px;
-	margin: 0 10px;
+	font-weight: 400; /* Regular weight */
+	color: #777; /* Grayish color */
+	font-size: 14px; /* Smaller font size */
+	/* Removed specific width, text-align, margin-top here as flex container controls positioning */
 }
 
 /* Highlight effect and cursor pointer for clickable FAMILY rows */
@@ -379,6 +380,8 @@ input.date-input:focus {
 	border-radius: 10px;
 	border: 1px solid #dcdfe6;
 }
+
+
 </style>
 
 <script type="text/javascript">
@@ -420,9 +423,7 @@ input.date-input:focus {
 
 	<h:form id="insuranceForm" styleClass="main-content-panel">
 		
-
-
-		<%-- Filter Buttons (ALWAYS RENDERED NOW) --%>
+		<%-- Filter Buttons --%>
 		<h:panelGroup layout="block" styleClass="filter-buttons-bar">
 			<h:commandButton value="Show Active Only"
 				action="#{showincController.filterByCoverageStatus('ACTIVE')}"
@@ -454,27 +455,16 @@ input.date-input:focus {
 				styleClass="btn btn-secondary" />
 		</h:panelGroup>
 
+        <h:messages globalOnly="true" style="color:red" id="messages"/> <%-- Added ID to messages --%>
 
+		<h:panelGroup id="insuranceTablePanel"> 
+			
 
-
-        
-		<h:panelGroup
-			rendered="#{empty showincController.insuranceData}"
-			style="margin-top: 15px; color: darkred; font-weight: bold;">
-			<h:outputText
-				value="No insurance records found. Please subscribe to a plan." />
-		</h:panelGroup>
-
-
-
-
-		<!-- Patient Name -->
 			<h:dataTable id="insuranceTable"
 				value="#{showincController.insuranceData}"
 				var="insurance" styleClass="data-table"
 				rendered="#{not empty showincController.insuranceData}">
 
-				<!-- 1. Patient Name -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -482,12 +472,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('patientName')}"
+									rendered="#{showincController.renderSortButton('patientName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('patientName')}"
+									rendered="#{showincController.renderSortButton('patientName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -507,7 +499,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 2. Company -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -515,12 +506,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('companyName')}"
+									rendered="#{showincController.renderSortButton('companyName', 'asc')}"
 									styleClass="sort-icons">
-									<h:graphicImage value="/resources/media/images/up-arrow.png" 
+									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('companyName')}"
+									rendered="#{showincController.renderSortButton('companyName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -540,7 +533,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 3. Plan -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -548,12 +540,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('planName')}"
+									rendered="#{showincController.renderSortButton('planName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('planName')}"
+									rendered="#{showincController.renderSortButton('planName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -573,7 +567,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 4. Coverage Start -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -581,12 +574,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageStartDate')}"
+									rendered="#{showincController.renderSortButton('coverageStartDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageStartDate')}"
+									rendered="#{showincController.renderSortButton('coverageStartDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -599,18 +594,17 @@ input.date-input:focus {
 							action="#{showincController.viewMembers(insurance)}"
 							style="display:block; text-decoration:none; color:inherit;">
 							<h:outputText value="#{insurance.coverageStartDate}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
+								<f:convertDateTime pattern="MM-dd-yyyy" />
 							</h:outputText>
 						</h:commandLink>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{insurance.coverageType ne 'FAMILY'}">
 						<h:outputText value="#{insurance.coverageStartDate}">
-							<f:convertDateTime pattern="yyyy-MM-dd" />
+							<f:convertDateTime pattern="MM-dd-yyyy" />
 						</h:outputText>
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 5. Coverage End -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -618,12 +612,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageEndDate')}"
+									rendered="#{showincController.renderSortButton('coverageEndDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageEndDate')}"
+									rendered="#{showincController.renderSortButton('coverageEndDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -636,18 +632,17 @@ input.date-input:focus {
 							action="#{showincController.viewMembers(insurance)}"
 							style="display:block; text-decoration:none; color:inherit;">
 							<h:outputText value="#{insurance.coverageEndDate}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
+								<f:convertDateTime pattern="MM-dd-yyyy" />
 							</h:outputText>
 						</h:commandLink>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{insurance.coverageType ne 'FAMILY'}">
 						<h:outputText value="#{insurance.coverageEndDate}">
-							<f:convertDateTime pattern="yyyy-MM-dd" />
+							<f:convertDateTime pattern="MM-dd-yyyy" />
 						</h:outputText>
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 6. Type -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -655,12 +650,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageType')}"
+									rendered="#{showincController.renderSortButton('coverageType', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageType')}"
+									rendered="#{showincController.renderSortButton('coverageType', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -680,7 +677,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 7. Status -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -688,12 +684,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageStatus')}"
+									rendered="#{showincController.renderSortButton('coverageStatus', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageStatus')}"
+									rendered="#{showincController.renderSortButton('coverageStatus', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -715,7 +713,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 8. Limit -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -723,12 +720,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageLimit')}"
+									rendered="#{showincController.renderSortButton('coverageLimit', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageLimit')}"
+									rendered="#{showincController.renderSortButton('coverageLimit', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -750,7 +749,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 9. Remaining -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -758,12 +756,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('remaining')}"
+									rendered="#{showincController.renderSortButton('remaining', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('remaining')}"
+									rendered="#{showincController.renderSortButton('remaining', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -783,7 +783,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 10. Claimed -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -791,12 +790,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('claimed')}"
+									rendered="#{showincController.renderSortButton('claimed', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('claimed')}"
+									rendered="#{showincController.renderSortButton('claimed', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -816,7 +817,6 @@ input.date-input:focus {
 					</h:panelGroup>
 				</h:column>
 
-				<!-- 11. Last Claim -->
 				<h:column>
 					<f:facet name="header">
 						<h:panelGroup styleClass="h-panelgroup">
@@ -824,12 +824,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('lastClaimDate')}"
+									rendered="#{showincController.renderSortButton('lastClaimDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('lastClaimDate')}"
+									rendered="#{showincController.renderSortButton('lastClaimDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -843,52 +845,45 @@ input.date-input:focus {
 							action="#{showincController.viewMembers(insurance)}"
 							style="display:block; text-decoration:none; color:inherit;">
 							<h:outputText value="#{insurance.lastClaimDate}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
+								<f:convertDateTime pattern="MM-dd-yyyy" />
 							</h:outputText>
 						</h:commandLink>
 					</h:panelGroup>
 					
 					<h:panelGroup rendered="#{insurance.coverageType ne 'FAMILY'}">
 						<h:outputText value="#{insurance.lastClaimDate}">
-							<f:convertDateTime pattern="yyyy-MM-dd" />
+							<f:convertDateTime pattern="MM-dd-yyyy" />
 						</h:outputText>
 					</h:panelGroup>
 				</h:column>
-
-
-
-
 			</h:dataTable>
-			<!-- Close the dataTable properly -->
+		</h:panelGroup> <%-- Closing panelGroup for insuranceTablePanel --%>
 
-			<!-- Move pagination OUTSIDE the dataTable -->
 		<h:panelGroup id="paginationPanel"
 			rendered="#{not empty showincController.insuranceData}"
 			layout="block" styleClass="pagination">
-			<h:commandButton value="« Previous"
-				action="#{showincController.previousPage}"
-				disabled="#{not showincController.hasPreviousPage}"
-				styleClass="btn btn-primary" />
+			
+			<h:outputText value="#{showincController.paginationIncSummary}" 
+				styleClass="pagination-label"
+				rendered="#{not empty showincController.insuranceData}"/>
+				
+			<div> <%-- This div groups the pagination buttons and current page label --%>
+				<h:commandButton value="« Previous"
+					action="#{showincController.previousPage}"
+					disabled="#{not showincController.hasPreviousPage}"
+					styleClass="btn" />
 
-			<h:outputText styleClass="pagination-label"
-				value="Page #{showincController.currentPage} of #{showincController.totalPages}" />
+				<h:outputText styleClass="pagination-label"
+					value="Page #{showincController.currentPage} of #{showincController.totalPages}" />
 
-			<h:commandButton value="Next »"
-				action="#{showincController.nextPage}"
-				disabled="#{not showincController.hasNextPage}"
-				styleClass="btn btn-primary" />
+				<h:commandButton value="Next »"
+					action="#{showincController.nextPage}"
+					disabled="#{not showincController.hasNextPage}"
+					styleClass="btn" />
+			</div>
 		</h:panelGroup>
-		
-		<h:panelGroup
-    rendered="#{not empty showincController.insuranceData}"
-    layout="block"
-    style="width: 100%; text-align: left; padding-bottom:2px; margin: 2px 0 0 0; font-size: 14px; color: #666; font-weight: 500;">
-    <h:outputText value="#{showincController.paginationIncSummary}" />
-</h:panelGroup>
-		
-	</h:form>
-	<!-- ✅ Properly closing form -->
 
+	</h:form>
 </body>
 	</html>
 </f:view>

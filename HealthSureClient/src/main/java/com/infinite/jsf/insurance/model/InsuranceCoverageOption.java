@@ -5,15 +5,16 @@ import java.io.Serializable;
 public class InsuranceCoverageOption implements Serializable {
 
 	public String coverageId;
-
 	public InsurancePlan insurancePlan; // FK (planId)
-
 	public double premiumAmount;
-
 	public double coverageAmount;
-
 	public String status = "ACTIVE";
 
+	
+	
+	
+	
+	
 	public String getCoverageId() {
 		return coverageId;
 	}
