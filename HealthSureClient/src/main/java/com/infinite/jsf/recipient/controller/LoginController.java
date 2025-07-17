@@ -1,5 +1,6 @@
 package com.infinite.jsf.recipient.controller;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -13,7 +14,7 @@ import com.infinite.jsf.recipient.model.OtpStatus;
 import com.infinite.jsf.recipient.model.Recipient;
 import com.infinite.jsf.recipient.model.RecipientOtp;
 
-public class LoginController {
+public class LoginController implements Serializable{
 
 	private Recipient recipient;
 	private String userName;

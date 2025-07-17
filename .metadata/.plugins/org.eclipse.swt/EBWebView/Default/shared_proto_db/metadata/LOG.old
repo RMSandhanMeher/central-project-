@@ -1,3 +1,2 @@
-2025/07/17-10:36:55.426 4180 Reusing MANIFEST C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
-2025/07/17-10:36:55.427 4180 Recovering log #3
-2025/07/17-10:36:55.427 4180 Reusing old log C:\HealthSure+\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/000003.log 
+2025/07/17-09:59:48.892 3138 Creating DB C:\HealthSureRevamped\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata since it was missing.
+2025/07/17-09:59:48.900 3138 Reusing MANIFEST C:\HealthSureRevamped\Central-Project-Repo-HMS-\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001

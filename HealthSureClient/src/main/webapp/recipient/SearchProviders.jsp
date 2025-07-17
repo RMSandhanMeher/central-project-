@@ -499,7 +499,7 @@ h2 {
 			</h:selectOneMenu>
 
 			<h:outputLabel escape="false"
-				value="<span style='color:red'>*</span>Search Criteria:" />
+				value="Search Criteria:<span style='color:red'>*</span>" />
 			<h:panelGroup>
 				<h:panelGroup id="searchValueInputDiv" layout="block">
 					<h:inputText id="searchValueInput"

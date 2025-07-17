@@ -49,7 +49,7 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
-    <managed-bean>
+   <managed-bean>
 	<managed-bean-name>authBean</managed-bean-name>
 	<managed-bean-class>com.infinite.jsf.recipient.controller.ShowInsuranceController</managed-bean-class>
 	<managed-bean-scope>request</managed-bean-scope>

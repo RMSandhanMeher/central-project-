@@ -10,14 +10,13 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped; // Add ViewScoped for better state management
 
 import com.infinite.jsf.provider.model.Doctors;
 import com.infinite.jsf.recipient.dao.SearchDoctorDao;
 import com.infinite.jsf.recipient.daoImpl.SearchDoctorDaoImpl;
 
-// Add @ViewScoped and implement Serializable for proper JSF managed bean behavior
-@ViewScoped
+
+
 public class DoctorSearchController implements Serializable {
 
     private static final long serialVersionUID = 1L; // Recommended for Serializable
@@ -60,6 +59,8 @@ public class DoctorSearchController implements Serializable {
         return searchOptions;
     }
 
+    
+    
     public List<SelectItem> getSpecializationOptions() {
         if (specializationOptions == null || specializationOptions.isEmpty()) {
             loadSpecializationOptions();
@@ -67,6 +68,8 @@ public class DoctorSearchController implements Serializable {
         return specializationOptions;
     }
 
+    
+    
     private void loadSpecializationOptions() {
         specializationOptions = new ArrayList<>();
         specializationOptions.add(new SelectItem("", "• Select Specialization •"));
@@ -87,11 +90,16 @@ public class DoctorSearchController implements Serializable {
                     FacesMessage.SEVERITY_ERROR, "Error loading specializations. Please try again.", null));
         }
     }
+    
+    
+    
 
     public void searchByChanged() {
         LOGGER.info("Search type changed to: " + this.searchBy);
     }
 
+    
+    
     // Pagination Module
     public List<Doctors> getPaginatedDoctors() {
         if (searchResults == null || searchResults.isEmpty()) return new ArrayList<>();
@@ -171,7 +179,10 @@ public class DoctorSearchController implements Serializable {
         return !this.currentSortOrder.equals(order);
     }
 
-
+    
+    
+    
+    											//Sorting
     private void sortResults() {
         if (searchResults == null || searchResults.isEmpty()) return;
 
@@ -205,6 +216,9 @@ public class DoctorSearchController implements Serializable {
         searchResults.sort(comparator);
     }
 
+    
+    
+    
     public String resetSearch() {
         this.searchBy = "doctorName";
         this.searchValue = null;
@@ -223,7 +237,12 @@ public class DoctorSearchController implements Serializable {
         return "findDoctor"; // or same page's navigation outcome
     }
 
-    // Validations
+    
+    
+    
+    
+    
+                                                   // Validations
     public void executeSearch() {
         FacesContext context = FacesContext.getCurrentInstance();
         searchPerformed = true;
@@ -241,7 +260,11 @@ public class DoctorSearchController implements Serializable {
 
         currentSearchValue = currentSearchValue.trim().replaceAll("\\s{2,}", " ");
 
-        // Validation
+        
+        
+        
+        
+                                                  // Validation
         if ("doctorName".equals(searchBy)) {
             if (!Pattern.matches("^[a-zA-Z. ]+$", currentSearchValue)) {
                 context.addMessage("searchForm:searchValueInput", new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -258,7 +281,9 @@ public class DoctorSearchController implements Serializable {
             }
         }
 
-        // DAO call
+        
+        
+                                                  // DAO call
         searchResults = doctorDAO.searchDoctors(searchBy, currentSearchValue);
         LOGGER.info("Results found: " + (searchResults != null ? searchResults.size() : 0));
 
@@ -272,7 +297,14 @@ public class DoctorSearchController implements Serializable {
         currentPage = 0;
     }
 
-    // Getters & Setters
+    
+    
+    
+    
+    
+    
+    
+                                            // Getters & Setters
     public String getSearchBy() {
         return searchBy;
     }

@@ -5,14 +5,14 @@
 <f:view>
 	<html>
 <head>
-<title>Show Insurance Details</title>
+<title>HealthSure Insurance</title>
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 	rel="stylesheet">
 
 <%-- Link to your external CSS file --%>
 <link rel="stylesheet" type="text/css"
-      href="${pageContext.request.contextPath}/resources/css/style2.css" />
+      href="${pageContext.request.contextPath}/resources/css/showInc.css" />
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/insuranceFilters.js"></script>
 
@@ -21,7 +21,7 @@
 
 	<jsp:include page="/navbar/NavRecipient.jsp" />
 
-	<h2>Show Insurance Details</h2>
+	<h2>Health Insurance Details</h2>
 
 	<h:form id="insuranceForm" styleClass="main-content-panel">
 		
@@ -61,6 +61,9 @@
 				onclick="resetActiveFilter();" />
 		</h:panelGroup>
 
+
+
+
         <h:messages globalOnly="true" style="color:red" id="messages"/> <%-- Added ID to messages --%>
 
 		<h:panelGroup id="insuranceTablePanel"> 
@@ -78,14 +81,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('patientName')}"
-									rendered="#{showincController.shouldRenderSortButton('patientName', 'asc')}"
+									rendered="#{showincController.renderSortButton('patientName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('patientName')}"
-									rendered="#{showincController.shouldRenderSortButton('patientName', 'desc')}"
+									rendered="#{showincController.renderSortButton('patientName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -112,14 +115,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('companyName')}"
-									rendered="#{showincController.shouldRenderSortButton('companyName', 'asc')}"
+									rendered="#{showincController.renderSortButton('companyName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('companyName')}"
-									rendered="#{showincController.shouldRenderSortButton('companyName', 'desc')}"
+									rendered="#{showincController.renderSortButton('companyName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -146,14 +149,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('planName')}"
-									rendered="#{showincController.shouldRenderSortButton('planName', 'asc')}"
+									rendered="#{showincController.renderSortButton('planName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('planName')}"
-									rendered="#{showincController.shouldRenderSortButton('planName', 'desc')}"
+									rendered="#{showincController.renderSortButton('planName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -180,14 +183,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageStartDate')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageStartDate', 'asc')}"
+									rendered="#{showincController.renderSortButton('coverageStartDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageStartDate')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageStartDate', 'desc')}"
+									rendered="#{showincController.renderSortButton('coverageStartDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -218,14 +221,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageEndDate')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageEndDate', 'asc')}"
+									rendered="#{showincController.renderSortButton('coverageEndDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageEndDate')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageEndDate', 'desc')}"
+									rendered="#{showincController.renderSortButton('coverageEndDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -256,14 +259,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageType')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageType', 'asc')}"
+									rendered="#{showincController.renderSortButton('coverageType', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageType')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageType', 'desc')}"
+									rendered="#{showincController.renderSortButton('coverageType', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -290,14 +293,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageStatus')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageStatus', 'asc')}"
+									rendered="#{showincController.renderSortButton('coverageStatus', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageStatus')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageStatus', 'desc')}"
+									rendered="#{showincController.renderSortButton('coverageStatus', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -326,14 +329,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageLimit')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageLimit', 'asc')}"
+									rendered="#{showincController.renderSortButton('coverageLimit', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageLimit')}"
-									rendered="#{showincController.shouldRenderSortButton('coverageLimit', 'desc')}"
+									rendered="#{showincController.renderSortButton('coverageLimit', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -362,14 +365,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('remaining')}"
-									rendered="#{showincController.shouldRenderSortButton('remaining', 'asc')}"
+									rendered="#{showincController.renderSortButton('remaining', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('remaining')}"
-									rendered="#{showincController.shouldRenderSortButton('remaining', 'desc')}"
+									rendered="#{showincController.renderSortButton('remaining', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -396,14 +399,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('claimed')}"
-									rendered="#{showincController.shouldRenderSortButton('claimed', 'asc')}"
+									rendered="#{showincController.renderSortButton('claimed', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('claimed')}"
-									rendered="#{showincController.shouldRenderSortButton('claimed', 'desc')}"
+									rendered="#{showincController.renderSortButton('claimed', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -430,14 +433,14 @@
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('lastClaimDate')}"
-									rendered="#{showincController.shouldRenderSortButton('lastClaimDate', 'asc')}"
+									rendered="#{showincController.renderSortButton('lastClaimDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('lastClaimDate')}"
-									rendered="#{showincController.shouldRenderSortButton('lastClaimDate', 'desc')}"
+									rendered="#{showincController.renderSortButton('lastClaimDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />

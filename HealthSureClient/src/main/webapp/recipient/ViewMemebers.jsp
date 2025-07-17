@@ -164,6 +164,26 @@ h2 {
 	outline: none;
 }
 
+.backbtn {
+	padding: 10px 15px; /* Smaller padding for back buttons */
+	font-size: 13px; /* Smaller font size */
+	border-radius: 6px; /* Slightly less rounded */
+	box-shadow: none; /* No shadow */
+	background-color: #f0f4f8; /* Light background */
+	color: #4a90e2; /* Blue text */
+	border: none;
+	cursor: pointer;
+	font-weight: 500;
+	text-decoration: none;
+	display: inline-block;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	letter-spacing: 0.5px;
+	outline: none;
+	padding-left: 12px;
+	margin-left: 100px;
+}
+
+
 .pagination .btn:hover {
 	background-color: #e0e7ed; /* Darker background on hover */
 	transform: none; /* No transform on hover for pagination buttons */
@@ -231,7 +251,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{showincController.sortByAscMem('memberId')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('memberId', 'asc')}"
+								rendered="#{showincController.renderSortButtonMem('memberId', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="10" height="10" />
@@ -239,7 +259,7 @@ h2 {
 
 							<h:commandLink
 								action="#{showincController.sortByDescMem('memberId')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('memberId', 'desc')}"
+								rendered="#{showincController.renderSortButtonMem('memberId', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" />
@@ -258,7 +278,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{showincController.sortByAscMem('fullName')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('fullName', 'asc')}"
+								rendered="#{showincController.renderSortButtonMem('fullName', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="10" height="10" />
@@ -266,7 +286,7 @@ h2 {
 
 							<h:commandLink
 								action="#{showincController.sortByDescMem('fullName')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('fullName', 'desc')}"
+								rendered="#{showincController.renderSortButtonMem('fullName', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" />
@@ -284,14 +304,14 @@ h2 {
 						<h:outputText value="Age" />
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink action="#{showincController.sortByAscMem('age')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('age', 'asc')}"
+								rendered="#{showincController.renderSortButtonMem('age', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="10" height="10" />
 							</h:commandLink>
 
 							<h:commandLink action="#{showincController.sortByDescMem('age')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('age', 'desc')}"
+								rendered="#{showincController.renderSortButtonMem('age', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" />
@@ -310,7 +330,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{showincController.sortByAscMem('gender')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('gender', 'asc')}"
+								rendered="#{showincController.renderSortButtonMem('gender', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="10" height="10" />
@@ -318,7 +338,7 @@ h2 {
 
 							<h:commandLink
 								action="#{showincController.sortByDescMem('gender')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('gender', 'desc')}"
+								rendered="#{showincController.renderSortButtonMem('gender', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" />
@@ -337,7 +357,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{showincController.sortByAscMem('relationWithProposer')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('relationWithProposer', 'asc')}"
+								rendered="#{showincController.renderSortButtonMem('relationWithProposer', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="10" height="10" />
@@ -345,7 +365,7 @@ h2 {
 
 							<h:commandLink
 								action="#{showincController.sortByDescMem('relationWithProposer')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('relationWithProposer', 'desc')}"
+								rendered="#{showincController.renderSortButtonMem('relationWithProposer', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" />
@@ -364,7 +384,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{showincController.sortByAscMem('aadharNo')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('aadharNo', 'asc')}"
+								rendered="#{showincController.renderSortButtonMem('aadharNo', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="10" height="10" />
@@ -372,7 +392,7 @@ h2 {
 
 							<h:commandLink
 								action="#{showincController.sortByDescMem('aadharNo')}"
-								rendered="#{showincController.shouldRenderSortButtonMem('aadharNo', 'desc')}"
+								rendered="#{showincController.renderSortButtonMem('aadharNo', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" />
@@ -392,6 +412,12 @@ h2 {
 			<h:outputText value="#{showincController.paginationMemSummary}"
 				styleClass="pagination-label"
 				rendered="#{not empty showincController.paginatedMemberList}" />
+
+
+			<h:commandButton value="«  Back"
+				action="#{showincController.goBackinc}"
+				styleClass="backbtn" />
+
 
 			<div> <%-- This div groups the pagination buttons together --%>
 				<h:commandButton value="« Previous"
