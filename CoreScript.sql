@@ -3,22 +3,6 @@ drop database healthsure;
 CREATE DATABASE IF NOT EXISTS healthsure;
 USE healthsure;
 
--- Drop old tables if needed (order matters due to foreign key dependencies)
-DROP TABLE IF EXISTS Claims;
-DROP TABLE IF EXISTS medical_procedure;
-DROP TABLE IF EXISTS Doctors;
-DROP TABLE IF EXISTS Providers;
-DROP TABLE IF EXISTS subscribed_members;
-DROP TABLE IF EXISTS subscribe;
-DROP TABLE IF EXISTS Insurance_coverage_option;
-DROP TABLE IF EXISTS Insurance_plan;
-DROP TABLE IF EXISTS Insurance_company;
-DROP TABLE IF EXISTS Recipient_Otp;
-DROP TABLE IF EXISTS recipient;
-
----
-## Table Creation
----
 
 -- Create Recipient table
 CREATE TABLE recipient (
@@ -180,7 +164,7 @@ CREATE TABLE Claims (
 ---
 
 INSERT INTO Insurance_company VALUES
-('IC001', 'LifeCure Inc.', 'https://logo.medicare.com', 'Pune', 'support@medicare.com', '020-12345678');
+('IC001', 'MediCare Ltd.', 'https://logo.medicare.com', 'Pune', 'support@medicare.com', '020-12345678');
 
 INSERT INTO Providers VALUES
 ('PROV001', 'Adani', 'HealthSure Medica Inc.', 'admin@citycare.com', 'Station Road', 'Pune', 'MH', '411001', 'APPROVED');

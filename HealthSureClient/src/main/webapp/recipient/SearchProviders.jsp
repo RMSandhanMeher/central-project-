@@ -397,10 +397,6 @@ h2 {
 	display: none;
 }
 
-.required-asterisk {
-  color: red;
-  margin-left: 0px;
-}
 
 /* Status Specific Styling - UPDATED TO MATCH UPPERCASE STATUS */
 .status-ACTIVE { /* Specific class for active status */
@@ -412,6 +408,7 @@ h2 {
 	font-weight: 500;
 	color: #dc3545; /* Red for expired */
 }
+
 
 </style>
 <script type="text/javascript">
@@ -509,8 +506,6 @@ h2 {
 						value="#{doctorSearchController.searchValue}" />
 				</h:panelGroup>
 
-
-
 				<h:panelGroup id="specializationDropdownDiv" layout="block"
 					styleClass="hidden select-wrapper">
 					<%-- Added select-wrapper for custom arrow --%>
@@ -547,7 +542,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('doctorName')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('doctorName', 'asc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('doctorName', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -555,7 +550,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('doctorName')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('doctorName', 'desc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('doctorName', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -574,7 +569,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('specialization')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('specialization', 'asc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('specialization', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -582,7 +577,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('specialization')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('specialization', 'desc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('specialization', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -601,14 +596,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('status')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('status', 'asc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('status', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('status')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('status', 'desc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('status', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -627,14 +622,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('address')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('address', 'asc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('address', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('address')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('address', 'desc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('address', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -652,14 +647,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('type')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('type', 'asc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('type', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('type')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('type', 'desc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('type', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -667,8 +662,7 @@ h2 {
 						</h:panelGroup>
 					</h:panelGroup>
 				</f:facet>
-				<h:outputText value="#{doc.type}" 
-				/>
+				<h:outputText value="#{doc.type}" />
 			</h:column>
 
 			<h:column>
@@ -678,7 +672,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('email')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('email', 'asc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('email', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -686,7 +680,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('email')}"
-								rendered="#{doctorSearchController.renderSortButtonDoc('email', 'desc')}"
+								rendered="#{doctorSearchController.shouldRenderSortButton('email', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />

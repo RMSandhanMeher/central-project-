@@ -82,9 +82,10 @@ public class ShowInsuranceController { // No annotations here as per request
 			// Apply default sort if needed (e.g., if no sort was previously applied)
 			if (currentInsuranceSortColumn == null || currentInsuranceSortColumn.isEmpty()) {
 				currentInsuranceSortColumn = "coverageStart"; // Example default
-				currentInsuranceSortDirection = "asc";
+				currentInsuranceSortDirection = "desc";
 			}
-			sortPatientInsuranceList();
+//			sortPatientInsuranceList();
+			applyDefaultInsuranceSort();
 			resetInsurancePage();
 		}
 
@@ -108,7 +109,7 @@ public class ShowInsuranceController { // No annotations here as per request
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("hId", insurance.gethId());
 
 			// Reset member table's sort state when viewing new members
-			this.currentMemberSortColumn = null; //Clear sort state for new list
+			this.currentMemberSortColumn = null; // Clear sort state for new list
 			this.currentMemberSortDirection = null;
 
 			resetMemberPage();
@@ -133,7 +134,7 @@ public class ShowInsuranceController { // No annotations here as per request
 	
 	
 
-	                                       //ACTIVE or EXPIRED FILTERS
+	                                                    //ACTIVE or EXPIRED FILTERS
 	// Filter by ACTIVE or EXPIRED (merged)
 	public void filterByCoverageStatus(String status) {
 		if (originalInsuranceList == null || status == null) {
@@ -141,7 +142,7 @@ public class ShowInsuranceController { // No annotations here as per request
 			return;
 		}
 
-		this.selectedStatus = status; // ✅ Store selected filter status
+		this.selectedStatus = status; //Store selected filter status
 
 		// Reset date range to avoid conflicting filters
 		this.fromDate = null;
@@ -152,8 +153,9 @@ public class ShowInsuranceController { // No annotations here as per request
 			             p.getCoverageStatus().name().equalsIgnoreCase(status))
 			.collect(Collectors.toList());
 
-		this.currentInsuranceSortColumn = null;
-		this.currentInsuranceSortDirection = null;
+//		this.currentInsuranceSortColumn = null;
+//		this.currentInsuranceSortDirection = null;
+		applyDefaultInsuranceSort(); //sort via Covarage Start date
 		resetInsurancePage();
 	}
 
@@ -210,8 +212,9 @@ public class ShowInsuranceController { // No annotations here as per request
 						"No insurance records fall within the selected date range.", null));
 			}
 
-			this.currentInsuranceSortColumn = null;
-			this.currentInsuranceSortDirection = null;
+//			this.currentInsuranceSortColumn = null;
+//			this.currentInsuranceSortDirection = null;
+			applyDefaultInsuranceSort(); //Ensure latest insurance appears first
 			resetInsurancePage();
 		}
 
@@ -266,7 +269,14 @@ public class ShowInsuranceController { // No annotations here as per request
 	
 	
 	
-	                                 // Full Sorting Methods
+	                                             // Full Sorting Methods
+	
+	private void applyDefaultInsuranceSort() {
+	    currentInsuranceSortColumn = "coverageStartDate";
+	    currentInsuranceSortDirection = "desc";
+	    sortPatientInsuranceList();
+	}
+
 
 	// Sorting Asc Insurance
 	public String sortByAsc(String fieldName) {
@@ -313,6 +323,7 @@ public class ShowInsuranceController { // No annotations here as per request
 		this.patientInsuranceList = insuranceDao.showInsuranceOfRecipient(hId);
 		this.currentInsuranceSortColumn = null;
 		this.currentInsuranceSortDirection = null;
+		applyDefaultInsuranceSort();
 		return null;
 	}
 
@@ -549,7 +560,7 @@ public class ShowInsuranceController { // No annotations here as per request
 	 * @param direction "asc" for ascending, "desc" for descending.
 	 * @return true if the button should be rendered, false otherwise.
 	 */
-	public boolean renderSortButton(String column, String direction) {
+	public boolean shouldRenderSortButton(String column, String direction) {
 		// If no sorting is active, or if this is a different column, render all buttons
 		if (currentInsuranceSortColumn == null || !currentInsuranceSortColumn.equals(column)) {
 			return true;
@@ -568,7 +579,7 @@ public class ShowInsuranceController { // No annotations here as per request
 	 * @param direction "asc" for ascending, "desc" for descending.
 	 * @return true if the button should be rendered, false otherwise.
 	 */
-	public boolean renderSortButtonMem(String column, String direction) {
+	public boolean shouldRenderSortButtonMem(String column, String direction) {
 		// If no sorting is active, or if this is a different column, render all buttons
 		if (currentMemberSortColumn == null || !currentMemberSortColumn.equals(column)) {
 			return true;
@@ -659,14 +670,22 @@ public class ShowInsuranceController { // No annotations here as per request
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
 	}
+	
+	
 
 	public String getSelectedStatus() {
 		return selectedStatus;
 	}
 
+
+
+
+
 	public void setSelectedStatus(String selectedStatus) {
 		this.selectedStatus = selectedStatus;
 	}
+
+
 
 
 
@@ -675,12 +694,9 @@ public class ShowInsuranceController { // No annotations here as per request
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		if (session != null) {
+			System.out.println(recipient.getFullName()+" "+"has logged-out....");
 			session.invalidate();
 		}
 		return "/home/Home.jsp?faces-redirect=true";
 	}
-	
-	
-	
-	
 }

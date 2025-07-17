@@ -23,9 +23,6 @@ public class PatientInsuranceDetails {
 	private double remaining;
 	private double claimed;
 
-	
-	
-	
 	public SubscriptionStatus getSubstatus() {
 		return substatus;
 	}

@@ -9,410 +9,12 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 	rel="stylesheet">
-<style>
-/* Basic Reset & Body Styling */
-body {
-	font-family: 'Poppins', sans-serif; /* Modern font */
-	background-color: #eef2f7; /* Light, calming background */
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	min-height: 100vh;
-	color: #333;
-}
 
-/* Page Title */
-h2 {
-	text-align: center;
-	color: #0056b3; /* Deeper blue for headings */
-	margin-top: 100px; /* Adjust for navbar */
-	margin-bottom: 25px; /* More space below title */
-	font-size: 32px; /* Larger title */
-	font-weight: 600; /* Slightly bolder */
-	letter-spacing: -0.5px;
-}
+<%-- Link to your external CSS file --%>
+<link rel="stylesheet" type="text/css"
+      href="${pageContext.request.contextPath}/resources/css/style2.css" />
 
-/* Main Content Panel */
-.main-content-panel {
-	width: 90%; /* Cover more page width */
-	max-width: 1800px; /* Increased max-width */
-	margin-bottom: 30px;
-	background-color: #ffffff;
-	border-radius: 16px; /* More rounded corners */
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-	/* Softer, larger shadow */
-	padding: 40px; /* Increased padding */
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-/* Recipient ID Input Grid */
-.recipient-input-grid {
-	width: 70%;
-	margin: 15px auto 25px auto;
-	border-collapse: separate;
-	border-spacing: 0 15px;
-}
-
-.recipient-input-grid tr td:first-child {
-	width: 30%;
-	padding-right: 20px;
-	vertical-align: middle;
-	text-align: right;
-	font-weight: 500;
-	color: #555;
-	font-size: 15px;
-}
-
-.recipient-input-grid tr td:nth-child(2) {
-	width: 35%; /* Adjust input width */
-	vertical-align: middle;
-}
-
-.recipient-input-grid tr td:last-child {
-	width: 35%; /* Adjust buttons width */
-	vertical-align: middle;
-}
-
-/* Input & Select Common Styles */
-.recipient-input-grid input[type="text"] {
-	width: 100%;
-	padding: 12px 18px;
-	font-size: 16px;
-	border: 1px solid #dcdfe6;
-	border-radius: 8px;
-	transition: border-color 0.3s ease, box-shadow 0.3s ease;
-	outline: none;
-	background-color: #f9fbff;
-}
-
-.recipient-input-grid input[type="text"]:focus {
-	border-color: #4a90e2;
-	box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
-	background-color: #ffffff;
-}
-
-/* Button Styles - Adjusted for smaller size */
-.btn {
-	padding: 10px 20px; /* Slightly smaller buttons */
-	border: none;
-	border-radius: 8px;
-	cursor: pointer;
-	font-size: 15px; /* Slightly smaller font */
-	font-weight: 500;
-	text-decoration: none;
-	display: inline-block;
-	transition: background-color 0.3s ease, transform 0.2s ease;
-	letter-spacing: 0.5px;
-	outline: none;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.btn:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn:active {
-	transform: translateY(0);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.btn-primary {
-	background-color: #007bff;
-	color: white;
-}
-
-.btn-primary:hover {
-	background-color: #0069d9;
-}
-
-.btn-secondary {
-	background-color: #6c757d;
-	color: white;
-}
-
-.btn-secondary:hover {
-	background-color: #5a6268;
-}
-
-.btn-success {
-	background-color: #28a745;
-	color: white;
-	padding: 8px 18px; /* Even smaller for table buttons */
-	font-size: 13px;
-}
-
-.btn-success:hover {
-	background-color: #218838;
-}
-
-.action-buttons-container {
-	display: flex;
-	gap: 15px; /* Space between Show and Reset buttons */
-	justify-content: flex-start;
-	align-items: center;
-}
-
-.filter-buttons-bar {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	gap: 15px; /* Reduced space between filter buttons */
-	margin-top: 15px;
-	margin-bottom: 25px; /* Space before table */
-	flex-wrap: wrap; /* Allow wrapping on smaller screens */
-	align-items: center;
-}
-
-.filter-buttons-bar .date-filter-group {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-input.date-input {
-	padding: 10px 15px;
-	font-size: 15px;
-	border: 1px solid #dcdfe6;
-	border-radius: 8px;
-	outline: none;
-	transition: border-color 0.3s ease, box-shadow 0.3s ease;
-	background-color: #f9fbff;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-
-input.date-input:focus {
-	border-color: #4a90e2;
-	box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
-	background-color: #ffffff;
-}
-
-/* Data Table Styling */
-.data-table {
-	width: 100%;
-	margin-top: 20px;
-	border-collapse: collapse;
-	background-color: #ffffff;
-	border-radius: 12px;
-	overflow: hidden;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
-}
-
-.data-table th, .data-table td {
-	border: 1px solid #e9ecef;
-	padding: 15px 10px; /* Reduced horizontal padding for more columns */
-	text-align: center; /* Center align table data for consistency */
-	font-size: 14px;
-}
-
-.data-table th {
-	background-color: #f8f9fa;
-	text-align: center;
-	font-weight: 600;
-	color: #495057;
-	font-size: 15px;
-	position: sticky;
-	top: 0;
-	z-index: 10;
-}
-
-.data-table th .h-panelgroup {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-}
-
-.data-table tr:nth-child(even) {
-	background-color: #fcfdff;
-}
-
-.data-table tr:hover {
-	background-color: #eef7ff;
-}
-
-/* Status Specific Styling - UPDATED TO MATCH UPPERCASE STATUS */
-.status-ACTIVE { /* Specific class for active status */
-	font-weight: 600;
-	color: #28a745; /* Green for active */
-}
-
-.status-EXPIRED { /* Specific class for expired status */
-	font-weight: 500;
-	color: #dc3545; /* Red for expired */
-}
-
-/* Sort Icons */
-.sort-icons-container {
-	display: flex;
-	flex-direction: column;
-	margin-left: 5px;
-}
-
-.sort-icons {
-	display: block;
-	line-height: 1;
-}
-
-.sort-icons+.sort-icons {
-	margin-top: 4px;
-}
-
-.sort-icons img {
-	filter: invert(50%) sepia(0%) saturate(10%) hue-rotate(0deg)
-		brightness(50%) contrast(100%);
-	opacity: 0.7;
-	transition: opacity 0.2s ease;
-}
-
-.sort-icons:hover img {
-	opacity: 1;
-	filter: invert(30%) sepia(0%) saturate(10%) hue-rotate(0deg)
-		brightness(30%) contrast(100%);
-}
-
-/* Pagination Styles */
-.pagination {
-	display: flex;
-	align-items: center;
-	/* Changed justify-content to space-between to push summary to left and buttons to right */
-	justify-content: space-between; 
-	gap: 15px;
-	margin: 25px 0 0 0;
-	width: 100%;
-}
-
-.pagination .btn {
-	padding: 8px 15px;
-	font-size: 13px;
-	border-radius: 6px;
-	box-shadow: none;
-	background-color: #f0f4f8;
-	color: #4a90e2;
-}
-
-.pagination .btn:hover {
-	background-color: #e0e7ed;
-	transform: none;
-	box-shadow: none;
-}
-
-.pagination .btn:active {
-	background-color: #d0d6dd;
-}
-
-.pagination .btn:disabled {
-	/* Use :disabled for JSF disabled attribute */
-	opacity: 0.6;
-	cursor: not-allowed;
-	background-color: #f8f9fa;
-	color: #99aab5;
-}
-
-.pagination-label {
-	font-weight: 400; /* Regular weight */
-	color: #777; /* Grayish color */
-	font-size: 14px; /* Smaller font size */
-	/* Removed specific width, text-align, margin-top here as flex container controls positioning */
-}
-
-/* Highlight effect and cursor pointer for clickable FAMILY rows */
-.data-table tr.family-row:hover {
-	cursor: pointer;
-	background-color: #d6eaff;
-}
-
-/* Global Messages */
-.global-messages {
-	list-style: none;
-	padding: 0;
-	margin: 0 auto 30px auto;
-	width: 90%;
-	text-align: center;
-}
-
-.global-messages li {
-	padding: 15px 20px;
-	margin-bottom: 12px;
-	border-radius: 10px;
-	font-size: 15px;
-	font-weight: 500;
-	color: #333;
-	border: 1px solid;
-}
-
-.global-messages .ui-messages-info {
-	background-color: #d4edda;
-	color: #155724;
-	border-color: #c3e6cb;
-}
-
-.global-messages .ui-messages-warn {
-	background-color: #fff3cd;
-	color: #856404;
-	border-color: #ffeeba;
-}
-
-.global-messages .ui-messages-error, .global-messages .ui-messages-fatal
-	{
-	background-color: #f8d7da;
-	color: #721c24;
-	border-color: #f5c6cb;
-}
-
-/* No results / Initial message */
-.not-found {
-	text-align: center;
-	font-weight: 500;
-	color: #555;
-	margin-top: 30px;
-	font-size: 1.1em;
-	width: 100%;
-	padding: 20px;
-	background-color: #f0f4f8;
-	border-radius: 10px;
-	border: 1px solid #dcdfe6;
-}
-
-
-</style>
-
-<script type="text/javascript">
-    // Script to ensure type="date" for date inputs
-    window.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('input.date-input').forEach(input => {
-            input.setAttribute('type', 'date');
-        });
-    });
-
-    // Function to scroll to the table (will only apply after full page load if needed)
-    function scrollToTable() {
-        const table = document.querySelector('.data-table');
-        if (table) {
-            const offset = 80; // Adjust for navbar height
-            const tablePosition = table.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({
-                top: tablePosition,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    // Call scroll to table on page load if the table is rendered
-    window.onload = function() {
-        const table = document.querySelector('.data-table');
-        if (table) {
-            scrollToTable();
-        }
-    };
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/insuranceFilters.js"></script>
 
 </head>
 <body>
@@ -425,12 +27,14 @@ input.date-input:focus {
 		
 		<%-- Filter Buttons --%>
 		<h:panelGroup layout="block" styleClass="filter-buttons-bar">
-			<h:commandButton value="Show Active Only"
+			<h:commandButton id="activeOnlyBtn" value="Show Active Only"
 				action="#{showincController.filterByCoverageStatus('ACTIVE')}"
-				styleClass="btn btn-primary" />
-			<h:commandButton value="Show Expired Only"
+				styleClass="btn btn-primary"
+				onclick="setActiveFilter('activeOnlyBtn');" />
+			<h:commandButton id="expiredOnlyBtn" value="Show Expired Only"
 				action="#{showincController.filterByCoverageStatus('EXPIRED')}"
-				styleClass="btn btn-primary" />
+				styleClass="btn btn-primary"
+				onclick="setActiveFilter('expiredOnlyBtn');" />
 
 			<h:panelGroup layout="block" styleClass="date-filter-group">
 				<h:outputLabel for="fromDate" value="From:" />
@@ -445,14 +49,16 @@ input.date-input:focus {
 					<f:convertDateTime pattern="yyyy-MM-dd" />
 				</h:inputText>
 
-				<h:commandButton value="Filter by Date"
+				<h:commandButton id="filterDateBtn" value="Filter by Date"
 					action="#{showincController.filterByDateRange}"
-					styleClass="btn btn-primary" />
+					styleClass="btn btn-primary"
+					onclick="setActiveFilter('filterDateBtn');" />
 			</h:panelGroup>
 
-			<h:commandButton value="Reset Filters"
+			<h:commandButton id="resetFilterBtn" value="Reset Filters"
 				action="#{showincController.resetFilter}"
-				styleClass="btn btn-secondary" />
+				styleClass="btn btn-secondary"
+				onclick="resetActiveFilter();" />
 		</h:panelGroup>
 
         <h:messages globalOnly="true" style="color:red" id="messages"/> <%-- Added ID to messages --%>
@@ -472,14 +78,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('patientName')}"
-									rendered="#{showincController.renderSortButton('patientName', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('patientName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('patientName')}"
-									rendered="#{showincController.renderSortButton('patientName', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('patientName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -506,14 +112,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('companyName')}"
-									rendered="#{showincController.renderSortButton('companyName', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('companyName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('companyName')}"
-									rendered="#{showincController.renderSortButton('companyName', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('companyName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -540,14 +146,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('planName')}"
-									rendered="#{showincController.renderSortButton('planName', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('planName', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('planName')}"
-									rendered="#{showincController.renderSortButton('planName', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('planName', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -574,14 +180,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageStartDate')}"
-									rendered="#{showincController.renderSortButton('coverageStartDate', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageStartDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageStartDate')}"
-									rendered="#{showincController.renderSortButton('coverageStartDate', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageStartDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -612,14 +218,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageEndDate')}"
-									rendered="#{showincController.renderSortButton('coverageEndDate', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageEndDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageEndDate')}"
-									rendered="#{showincController.renderSortButton('coverageEndDate', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageEndDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -650,14 +256,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageType')}"
-									rendered="#{showincController.renderSortButton('coverageType', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageType', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageType')}"
-									rendered="#{showincController.renderSortButton('coverageType', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageType', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -684,14 +290,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageStatus')}"
-									rendered="#{showincController.renderSortButton('coverageStatus', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageStatus', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageStatus')}"
-									rendered="#{showincController.renderSortButton('coverageStatus', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageStatus', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -720,14 +326,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('coverageLimit')}"
-									rendered="#{showincController.renderSortButton('coverageLimit', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageLimit', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('coverageLimit')}"
-									rendered="#{showincController.renderSortButton('coverageLimit', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('coverageLimit', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -756,14 +362,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('remaining')}"
-									rendered="#{showincController.renderSortButton('remaining', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('remaining', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('remaining')}"
-									rendered="#{showincController.renderSortButton('remaining', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('remaining', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -790,14 +396,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('claimed')}"
-									rendered="#{showincController.renderSortButton('claimed', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('claimed', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('claimed')}"
-									rendered="#{showincController.renderSortButton('claimed', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('claimed', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -824,14 +430,14 @@ input.date-input:focus {
 							<h:panelGroup layout="block" styleClass="sort-icons-container">
 								<h:commandLink
 									action="#{showincController.sortByAsc('lastClaimDate')}"
-									rendered="#{showincController.renderSortButton('lastClaimDate', 'asc')}"
+									rendered="#{showincController.shouldRenderSortButton('lastClaimDate', 'asc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/up-arrow.png"
 										width="10" height="10" />
 								</h:commandLink>
 								<h:commandLink
 									action="#{showincController.sortByDesc('lastClaimDate')}"
-									rendered="#{showincController.renderSortButton('lastClaimDate', 'desc')}"
+									rendered="#{showincController.shouldRenderSortButton('lastClaimDate', 'desc')}"
 									styleClass="sort-icons">
 									<h:graphicImage value="/resources/media/images/down-arrow.png"
 										width="10" height="10" />
@@ -846,8 +452,8 @@ input.date-input:focus {
 							style="display:block; text-decoration:none; color:inherit;">
 							<h:outputText value="#{insurance.lastClaimDate}">
 								<f:convertDateTime pattern="MM-dd-yyyy" />
-							</h:outputText>
-						</h:commandLink>
+								</h:outputText>
+							</h:commandLink>
 					</h:panelGroup>
 					
 					<h:panelGroup rendered="#{insurance.coverageType ne 'FAMILY'}">

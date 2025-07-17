@@ -17,11 +17,11 @@ public class Subscribe {
     private SubscriptionStatus status;
     private double totalPremium;
     private BigDecimal amountPaid;
+    
     // One-to-Many relationships
     private Set<SubscribedMember> members;
     private Set<Claims> claims;
 
-    
     // Constructors
     public Subscribe() {}
 

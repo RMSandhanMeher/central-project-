@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to HealthSure Medics Inc.</title>
+    <title>Welcome to HMS</title>
     <link rel="stylesheet" type="text/css" href="/HealthSureClient/resources/css/style.css" />
 </head>
 

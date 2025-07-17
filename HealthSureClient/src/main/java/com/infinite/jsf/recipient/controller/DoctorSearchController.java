@@ -160,7 +160,7 @@ public class DoctorSearchController implements Serializable {
      * order "asc" for ascending, "desc" for descending.
      * true if the button should be rendered, false otherwise.
      */
-    public boolean renderSortButtonDoc(String column, String order) {
+    public boolean shouldRenderSortButton(String column, String order) {
         // If this column is NOT the currently sorted column, always render both buttons
         if (!this.currentSortColumn.equals(column)) {
             return true;
