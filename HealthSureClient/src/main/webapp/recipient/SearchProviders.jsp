@@ -499,7 +499,7 @@ h2 {
 			</h:selectOneMenu>
 
 			<h:outputLabel escape="false"
-				value="Search Criteria:<span style='color:red'>*</span>" />
+				value=" <span style='color:red'>*</span>Search Criteria:" />
 			<h:panelGroup>
 				<h:panelGroup id="searchValueInputDiv" layout="block">
 					<h:inputText id="searchValueInput"
@@ -542,7 +542,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('doctorName')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('doctorName', 'asc')}"
+								rendered="#{doctorSearchController.renderSortButton('doctorName', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -550,7 +550,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('doctorName')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('doctorName', 'desc')}"
+								rendered="#{doctorSearchController.renderSortButton('doctorName', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -569,7 +569,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('specialization')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('specialization', 'asc')}"
+								rendered="#{doctorSearchController.renderSortButton('specialization', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -577,7 +577,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('specialization')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('specialization', 'desc')}"
+								rendered="#{doctorSearchController.renderSortButton('specialization', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -596,14 +596,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('status')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('status', 'asc')}"
+								rendered="#{doctorSearchController.renderSortButton('status', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('status')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('status', 'desc')}"
+								rendered="#{doctorSearchController.renderSortButton('status', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -622,14 +622,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('address')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('address', 'asc')}"
+								rendered="#{doctorSearchController.renderSortButton('address', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('address')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('address', 'desc')}"
+								rendered="#{doctorSearchController.renderSortButton('address', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -647,14 +647,14 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('type')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('type', 'asc')}"
+								rendered="#{doctorSearchController.renderSortButton('type', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
 							</h:commandLink>
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('type')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('type', 'desc')}"
+								rendered="#{doctorSearchController.renderSortButton('type', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />
@@ -672,7 +672,7 @@ h2 {
 						<h:panelGroup layout="block" styleClass="sort-icons-container">
 							<h:commandLink
 								action="#{doctorSearchController.sortByAsc('email')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('email', 'asc')}"
+								rendered="#{doctorSearchController.renderSortButton('email', 'asc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/up-arrow.png"
 									width="9" height="9" title="Sort Ascending" />
@@ -680,7 +680,7 @@ h2 {
 
 							<h:commandLink
 								action="#{doctorSearchController.sortByDesc('email')}"
-								rendered="#{doctorSearchController.shouldRenderSortButton('email', 'desc')}"
+								rendered="#{doctorSearchController.renderSortButton('email', 'desc')}"
 								styleClass="sort-icons">
 								<h:graphicImage value="/resources/media/images/down-arrow.png"
 									width="10" height="10" title="Sort Descending" />

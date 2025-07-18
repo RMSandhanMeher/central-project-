@@ -147,37 +147,4 @@
              ORDER BY s.subscribe_date DESC;
     ]]>
 </sql-query>
-
-
-<!-- SELECT 
-    s.subscribe_id AS subscribeId,
-    r.h_id AS hId,
-    CONCAT(r.first_name, ' ', r.last_name) AS patientName,
-    ic.name AS companyName,
-    ip.plan_name AS planName,
-    s.subscribe_date AS enrollmentDate,
-    s.subscribe_date AS coverageStartDate,
-    s.expiry_date AS coverageEndDate,
-    s.status AS coverageStatus,
-    s.`type` AS coverageType,
-    ico.coverage_amount AS coverageLimit,
-    (ico.coverage_amount - COALESCE(SUM(c.amount_approved), 0)) AS remaining,
-    COALESCE(SUM(c.amount_approved), 0) AS claimed,
-    MAX(c.claim_date) AS lastClaimDate
-FROM subscribe s
-JOIN insurance_coverage_option ico ON s.coverage_id = ico.coverage_id
-JOIN insurance_plan ip ON ico.plan_id = ip.plan_id
-JOIN insurance_company ic ON ip.company_id = ic.company_id
-JOIN recipient r ON s.h_id = r.h_id
-LEFT JOIN claims c ON c.subscribe_id = s.subscribe_id AND c.h_id = r.h_id
-WHERE r.h_id = :hId
-GROUP BY s.subscribe_id, r.h_id, r.first_name, r.last_name, ic.name, ip.plan_name,
-         s.subscribe_date, s.expiry_date, s.status, s.`type`, ico.coverage_amount
-ORDER BY s.subscribe_date DESC;
- -->
-
-
-
-
-
 </hibernate-mapping>

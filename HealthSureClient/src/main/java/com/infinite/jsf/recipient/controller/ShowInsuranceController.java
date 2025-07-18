@@ -133,7 +133,7 @@ public class ShowInsuranceController { // No annotations here as per request
 	
 	
 
-	                                                    //ACTIVE or EXPIRED FILTERS
+	                                          //ACTIVE or EXPIRED FILTERS
 	// Filter by ACTIVE or EXPIRED (merged)
 	public void filterByCoverageStatus(String status) {
 		if (originalInsuranceList == null || status == null) {
@@ -221,8 +221,8 @@ public class ShowInsuranceController { // No annotations here as per request
 	
 	
 	
-
-	// Member Pagination
+ 
+	                      // Member Pagination
 	public List<SubscribedMember> getPaginatedMemberList() {
 		if (subscribedMembers == null || subscribedMembers.isEmpty())
 			return Collections.emptyList();

@@ -58,191 +58,15 @@ public class DoctorSearchController implements Serializable {
         }
         return searchOptions;
     }
-
     
     
-    public List<SelectItem> getSpecializationOptions() {
-        if (specializationOptions == null || specializationOptions.isEmpty()) {
-            loadSpecializationOptions();
-        }
-        return specializationOptions;
-    }
-
-    
-    
-    private void loadSpecializationOptions() {
-        specializationOptions = new ArrayList<>();
-        specializationOptions.add(new SelectItem("", "• Select Specialization •"));
-
-        try {
-            List<String> specializations = doctorDAO.fetchAllSpecialization();
-            if (specializations != null && !specializations.isEmpty()) {
-                specializations.sort(String.CASE_INSENSITIVE_ORDER);
-                for (String spec : specializations) {
-                    if (spec != null && !spec.trim().isEmpty()) {
-                        specializationOptions.add(new SelectItem(spec, spec));
-                    }
-                }
-            }
-        } catch (Exception e) {
-            LOGGER.severe("Error fetching specializations: " + e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "Error loading specializations. Please try again.", null));
-        }
-    }
-    
-    
-    
-
     public void searchByChanged() {
         LOGGER.info("Search type changed to: " + this.searchBy);
     }
-
-    
-    
-    // Pagination Module
-    public List<Doctors> getPaginatedDoctors() {
-        if (searchResults == null || searchResults.isEmpty()) return new ArrayList<>();
-
-        int fromIndex = currentPage * pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, searchResults.size());
-
-        if (fromIndex > toIndex || fromIndex >= searchResults.size()) {
-            currentPage = 0;
-            fromIndex = 0;
-            toIndex = Math.min(pageSize, searchResults.size());
-        }
-
-        return searchResults.subList(fromIndex, toIndex);
-    }
-
-    public void nextPage() {
-        if ((currentPage + 1) * pageSize < searchResults.size()) currentPage++;
-    }
-
-    public void prevPage() {
-        if (currentPage > 0) currentPage--;
-    }
-
-    // Count of data in a page/total page
-    public String getPaginationDocSummary() {
-        if (searchResults == null || searchResults.isEmpty()) {
-            return "";
-        }
-        int from = Math.min((currentPage + 1) * pageSize, searchResults.size());
-        int total = searchResults.size();
-        int page = currentPage + 1;
-        int totalPages = getTotalPages();
-
-        return "Showing " + from + " of " + total +" "+"Results";
-    }
-
-    // Sorting Module
-    public void sortByAsc(String field) {
-        this.sortField = field;
-        this.ascending = true;
-
-        this.currentSortColumn = field; // Set the currently sorted column
-        this.currentSortOrder = "asc"; // Set the current sort order
-
-        sortResults();
-        currentPage = 0;
-    }
-
-    public void sortByDesc(String field) {
-        this.sortField = field;
-        this.ascending = false;
-
-        this.currentSortColumn = field; // Set the currently sorted column
-        this.currentSortOrder = "desc"; // Set the current sort order
-
-        sortResults();
-        currentPage = 0;
-    }
-
-    /**
-     * Determines if a sort button (up or down arrow) should be rendered.
-     * The button should disappear if it represents the currently active sort.
-     *
-     * column The name of the column (e.g., "doctorName", "specialization").
-     * order "asc" for ascending, "desc" for descending.
-     * true if the button should be rendered, false otherwise.
-     */
-    public boolean shouldRenderSortButton(String column, String order) {
-        // If this column is NOT the currently sorted column, always render both buttons
-        if (!this.currentSortColumn.equals(column)) {
-            return true;
-        }
-
-        // If this column IS the currently sorted column:
-        // Render the button only if its order is different from the current sort order
-        return !this.currentSortOrder.equals(order);
-    }
-
     
     
     
-    											//Sorting
-    private void sortResults() {
-        if (searchResults == null || searchResults.isEmpty()) return;
-
-        Comparator<Doctors> comparator;
-
-        switch (sortField) {
-            case "specialization":
-                comparator = Comparator.comparing(Doctors::getSpecialization, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
-                break;
-            case "address":
-                comparator = Comparator.comparing(Doctors::getAddress, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
-                break;
-            case "email":
-                comparator = Comparator.comparing(Doctors::getEmail, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
-                break;
-            case "status":
-                comparator = Comparator.comparing(d -> d.getStatus() != null ? d.getStatus().toString() : "", String.CASE_INSENSITIVE_ORDER);
-                break;
-            case "type":
-                comparator = Comparator.comparing(d -> d.getType() != null ? d.getType().toString() : "", String.CASE_INSENSITIVE_ORDER);
-                break;
-            case "doctorName":
-            default:
-                comparator = Comparator.comparing(Doctors::getDoctorName, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
-        }
-
-        if (!ascending) {
-            comparator = comparator.reversed();
-        }
-
-        searchResults.sort(comparator);
-    }
-
-    
-    
-    
-    public String resetSearch() {
-        this.searchBy = "doctorName";
-        this.searchValue = null;
-        this.selectedSpecialization = "";
-        this.searchResults = new ArrayList<>();
-        this.currentPage = 0;
-        this.sortField = "doctorName";
-        this.ascending = true;
-        this.searchPerformed = false;
-        
-        // Reset sort indicators to default, e.g., show both "doctorName" arrows
-        this.currentSortColumn = "doctorName";
-        this.currentSortOrder = "asc"; // Or you can set it to a neutral value if you want both arrows to show
-
-        LOGGER.info("Search reset.");
-        return "findDoctor"; // or same page's navigation outcome
-    }
-
-    
-    
-    
-    
-    
-                                                   // Validations
+    							   //Core method for executing the search
     public void executeSearch() {
         FacesContext context = FacesContext.getCurrentInstance();
         searchPerformed = true;
@@ -251,6 +75,7 @@ public class DoctorSearchController implements Serializable {
 
         LOGGER.info("Searching: " + searchBy + " = " + currentSearchValue);
 
+                                                   //Validation
         if (currentSearchValue == null || currentSearchValue.trim().isEmpty()) {
             context.addMessage("searchForm:searchValueInput", new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Please provide search criteria.", null));
@@ -260,9 +85,6 @@ public class DoctorSearchController implements Serializable {
 
         currentSearchValue = currentSearchValue.trim().replaceAll("\\s{2,}", " ");
 
-        
-        
-        
         
                                                   // Validation
         if ("doctorName".equals(searchBy)) {
@@ -296,8 +118,186 @@ public class DoctorSearchController implements Serializable {
         sortResults();
         currentPage = 0;
     }
+    
+    
+    
+    // Pagination Module
+    public List<Doctors> getPaginatedDoctors() {
+        if (searchResults == null || searchResults.isEmpty()) return new ArrayList<>();
+
+        int fromIndex = currentPage * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, searchResults.size());
+
+        if (fromIndex > toIndex || fromIndex >= searchResults.size()) {
+            currentPage = 0;
+            fromIndex = 0;
+            toIndex = Math.min(pageSize, searchResults.size());
+        }
+
+        return searchResults.subList(fromIndex, toIndex);
+    }
+
+    public void nextPage() {
+        if ((currentPage + 1) * pageSize < searchResults.size()) currentPage++;
+    }
+
+    public void prevPage() {
+        if (currentPage > 0) currentPage--;
+    }
+    
+    
+    
+    
+                                                   // Sorting Module
+    public void sortByAsc(String field) {
+        this.sortField = field;
+        this.ascending = true;
+
+        this.currentSortColumn = field; // Set the currently sorted column
+        this.currentSortOrder = "asc"; // Set the current sort order
+
+        sortResults();
+        currentPage = 0;
+    }
 
     
+    public void sortByDesc(String field) {
+        this.sortField = field;
+        this.ascending = false;
+
+        this.currentSortColumn = field; // Set the currently sorted column
+        this.currentSortOrder = "desc"; // Set the current sort order
+
+        sortResults();
+        currentPage = 0;
+    }
+    
+    
+    
+    
+    
+    private void sortResults() {
+        if (searchResults == null || searchResults.isEmpty()) return;
+
+        Comparator<Doctors> comparator;
+
+        switch (sortField) {
+            case "specialization":
+                comparator = Comparator.comparing(Doctors::getSpecialization, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
+                break;
+            case "address":
+                comparator = Comparator.comparing(Doctors::getAddress, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
+                break;
+            case "email":
+                comparator = Comparator.comparing(Doctors::getEmail, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
+                break;
+            case "status":
+                comparator = Comparator.comparing(d -> d.getStatus() != null ? d.getStatus().toString() : "", String.CASE_INSENSITIVE_ORDER);
+                break;
+            case "type":
+                comparator = Comparator.comparing(d -> d.getType() != null ? d.getType().toString() : "", String.CASE_INSENSITIVE_ORDER);
+                break;
+            case "doctorName":
+            default:
+                comparator = Comparator.comparing(Doctors::getDoctorName, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
+        }
+
+        if (!ascending) {
+            comparator = comparator.reversed();
+        }
+
+        searchResults.sort(comparator);
+    }
+    
+    
+    
+    //Count of data in a page/total page Summary
+    public String getPaginationDocSummary() {
+        if (searchResults == null || searchResults.isEmpty()) {
+            return "";
+        }
+        int from = Math.min((currentPage + 1) * pageSize, searchResults.size());
+        int total = searchResults.size();
+        int page = currentPage + 1;
+        int totalPages = getTotalPages();
+
+        return "Showing " + from + " of " + total +" "+"Results";
+    }
+
+    
+    
+    
+      /* Determines if a sort button (up or down arrow) should be rendered.
+       The button should disappear if it represents the currently active sort.
+       column The name of the column (e.g., "doctorName", "specialization").
+       order "asc" for ascending, "desc" for descending.
+       true if the button should be rendered, false otherwise. */
+    
+    public boolean renderSortButton(String column, String order) {
+        // If this column is NOT the currently sorted column, always render both buttons
+        if (!this.currentSortColumn.equals(column)) {
+            return true;
+        }
+
+        // If this column IS the currently sorted column:
+        // Render the button only if its order is different from the current sort order
+        return !this.currentSortOrder.equals(order);
+    }
+    
+    
+                                                     //Reset Button
+    public String resetSearch() {
+        this.searchBy = "doctorName";
+        this.searchValue = null;
+        this.selectedSpecialization = "";
+        this.searchResults = new ArrayList<>();
+        this.currentPage = 0;
+        this.sortField = "doctorName";
+        this.ascending = true;
+        this.searchPerformed = false;
+        
+        // Reset sort indicators to default, e.g., show both "doctorName" arrows
+        this.currentSortColumn = "doctorName";
+        this.currentSortOrder = "asc"; // Or you can set it to a neutral value if you want both arrows to show
+
+        LOGGER.info("Search reset.");
+        return "findDoctor"; // or same page's navigation outcome
+    }
+    
+    
+    
+    
+    
+                                            //Lazy Loaded the specializations
+    public List<SelectItem> getSpecializationOptions() {
+        if (specializationOptions == null || specializationOptions.isEmpty()) {
+            loadSpecializationOptions();
+        }
+        return specializationOptions;
+    }
+
+    
+    									   //Specialization fetching method
+    private void loadSpecializationOptions() {
+        specializationOptions = new ArrayList<>();
+        specializationOptions.add(new SelectItem("", "• Select Specialization •"));
+
+        try {
+            List<String> specializations = doctorDAO.fetchAllSpecialization();
+            if (specializations != null && !specializations.isEmpty()) {
+                specializations.sort(String.CASE_INSENSITIVE_ORDER);
+                for (String spec : specializations) {
+                    if (spec != null && !spec.trim().isEmpty()) {
+                        specializationOptions.add(new SelectItem(spec, spec));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.severe("Error fetching specializations: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Error loading specializations. Please try again.", null));
+        }
+    }
     
     
     

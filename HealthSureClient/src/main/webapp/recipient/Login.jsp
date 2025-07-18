@@ -99,6 +99,7 @@
         }
     </style>
 </head>
+
 <body>
 
 	<jsp:include page="/navbar/Navbar.jsp"/>
@@ -143,5 +144,6 @@
         </div>
     </h:form>
 </body>
+
 </html>
 </f:view>
