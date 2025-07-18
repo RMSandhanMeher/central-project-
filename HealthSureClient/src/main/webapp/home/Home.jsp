@@ -26,10 +26,7 @@
         <div class="appointment-button-container">
 		    <h:form>
 		        <div class="appointment-button-wrapper">
-		            <h:commandButton 
-		                value="Book Appointment"
-		                action="#{appointmentBean.book}"
-		                styleClass="appointment-button"/>
+		            <h:outputLink value="./../recipient/SearchProviders.jsf"  styleClass="appointment-button">Book Appointment</h:outputLink>
 		        </div>
 		    </h:form>
 		</div>

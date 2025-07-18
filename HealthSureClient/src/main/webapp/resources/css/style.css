@@ -15,7 +15,10 @@ html {
     scroll-behavior: smooth;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+body{
+	margin: 0px;
+	padding:0px;
+}
 /* ========== Animations ========== */
 @keyframes fadeInUp {
     0% { opacity: 0; transform: translateY(40px); }
