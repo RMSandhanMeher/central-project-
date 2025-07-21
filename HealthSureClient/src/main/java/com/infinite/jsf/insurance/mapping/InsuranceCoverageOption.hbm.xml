@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+      "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+      "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.infinite.jsf.insurance.model.InsuranceCoverageOption" table="insurance_coverage_option">
+
+        <id name="coverageId" column="coverage_id" type="string">
+            <generator class="assigned" />
+        </id>
+
+        <many-to-one name="insurancePlan" class="com.infinite.jsf.insurance.model.InsurancePlan" column="plan_id" lazy="false" fetch="join"  not-null="false"/>
+
+<!--  <many-to-one name="insurancePlan" class="InsurancePlan" fetch="join" column="plan_id"/> -->
+<!--<many-to-one name="insuranceCompany" class="InsuranceCompany" fetch="join" column="company_id"/>  -->
+
+
+        <property name="premiumAmount" column="premium_amount" />
+        <property name="coverageAmount" column="coverage_amount" />
+        <property name="status" column="status" type="string"/>
+
+    </class>
+</hibernate-mapping>
+
+
+<!--  <many-to-one name="insurancePlan" class="InsurancePlan" fetch="join" column="plan_id"/> -->
+<!--<many-to-one name="insuranceCompany" class="InsuranceCompany" fetch="join" column="company_id"/>  -->
